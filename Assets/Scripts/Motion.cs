@@ -6,6 +6,7 @@ public class Motion : MonoBehaviour {
 	public Vector3 	direction = Vector3.zero;
 	public float 	speed = 1.0f;
 	public bool		userControlled 	= false;
+	public bool 	shouldLock = true;
 	
 	public Vector3 rotation = Vector3.zero;
 
@@ -23,8 +24,10 @@ public class Motion : MonoBehaviour {
 
 
 	void handleMovement(){
-		
-		rigidbody.velocity = Vector3.zero;
+
+		if ( shouldLock ){
+			rigidbody.velocity = Vector3.zero;
+		}
 		
 		if ( userControlled ){
 

@@ -43,7 +43,12 @@ public class IntroSequence : MonoBehaviour {
 				if ( Time.time - startTime >= duration ){
 					startTime = Time.time;
 					state = "stay";
-					duration = 0.75f;
+					duration = 1.25f;
+				}
+
+				if (!playedSound ){
+					gameObject.GetComponent<AudioSource>().Play();
+					playedSound = true;
 				}
 
 			} else if ( state == "stay" ){
@@ -53,13 +58,9 @@ public class IntroSequence : MonoBehaviour {
 				if ( Time.time - startTime >= duration ){
 					startTime = Time.time;
 					state = "fade out";
-					duration = 0.75f;
+					duration = 1.0f;
 				}
 
-				if (!playedSound ){
-					gameObject.GetComponent<AudioSource>().Play();
-					playedSound = true;
-				}
 
 			} else if ( state == "fade out" ){
 
@@ -70,7 +71,7 @@ public class IntroSequence : MonoBehaviour {
 					play = false;
 					state = "done";
 					startTime = Time.time;
-					duration = 0.75f;
+					duration = 1.25f;
 				}
 
 			}
