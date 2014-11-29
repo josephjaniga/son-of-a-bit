@@ -3,6 +3,8 @@ using System.Collections;
 
 public class AI : MonoBehaviour {
 
+	public Bit bit;
+
 	public enum MovementType {
 		None,
 		Mindless,
@@ -21,9 +23,6 @@ public class AI : MonoBehaviour {
 	public float startTime = 0.0f;
 	private Vector3 targetDirection = Vector3.zero;
 
-	public Motion m;
-	public Health h;
-	public Bit b;
 	private float speed = 1.0f;
 
 	public float followDistance = 0.0f;
@@ -31,18 +30,17 @@ public class AI : MonoBehaviour {
 
 	public int collisionDamage = 11;
 
+	public int dropRate = 1;
+
 
 	// Use this for initialization
 	void Start () {
 	
-		m = gameObject.GetComponent<Motion>();
-		if( m != null){
-			speed = m.speed;
+		bit = gameObject.GetComponent<Bit>();
+
+		if( bit.motion != null){
+			speed = bit.motion.speed;
 		}
-
-		h = gameObject.GetComponent<Health>();
-
-		b = gameObject.GetComponent<Bit>();
 
 		startTime = Time.time;
 
@@ -50,9 +48,8 @@ public class AI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
 		// if the units not dead or doesnt have health
-		if ( !h.isDead || h == null ){
+		if ( !bit.health.isDead || bit.health == null ){
 
 			if ( movementAI == (int)MovementType.Mindless ) {
 				mindless ();
@@ -64,43 +61,24 @@ public class AI : MonoBehaviour {
 
 		}
 
-		// if the unit is dead
-		if ( h != null && h.isDead ){
-			// drop it to the ground
-			rigidbody.useGravity = true;
-
-			// set its dead color
-			if ( b != null){
-				b.setColor(b.deadColor);
-			}
-
-			// destroy its healthbar
-			if ( h.hpBar != null ){
-				Destroy(h.hpBar);
-			}
-
-			if ( h.hpBarBG != null ){
-				Destroy(h.hpBarBG);
-			}
-
-		}
-
 	}
 
 
 	void OnCollisionEnter(Collision c){	 
+		// check that it has a bit
+		if ( c.gameObject != null && c.gameObject.GetComponent<Bit>() != null ){
+			// dont damage
+			if ( c.gameObject.tag != "Enemy" ){
 
-		if ( c.gameObject.tag != "Enemy" ){
-
-			damageTarget(c.gameObject, collisionDamage);
-
+				if ( ( bit.health != null && !bit.health.isDead ) || bit.health == null ) {
+					damageTarget(c.gameObject, collisionDamage);
+				}
+			}
 		}
-
 	}
 
 	
 	public void mindless(){
-
 		if ( Time.time - startTime >= duration ){ // reset
 
 			//rigidbody.velocity = Vector3.zero;
@@ -123,7 +101,6 @@ public class AI : MonoBehaviour {
 			// repeat
 
 		}
-
 	}
 
 	public void following(){
@@ -162,14 +139,16 @@ public class AI : MonoBehaviour {
 	
 	}
 
-
-
 	public void damageTarget(GameObject target, int dmg){
 
-		Health h = target.GetComponent<Health>();
+		if ( target != null ) {
 
-		if ( h != null ){
-			h.applyDamage(dmg);
+			Health targetHealth = target.GetComponent<Bit>().health;
+
+			if ( targetHealth != null ){
+				targetHealth.applyDamage(dmg, gameObject);
+			}
+
 		}
 
 	}

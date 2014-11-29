@@ -17,17 +17,17 @@ public class Projectile : MonoBehaviour {
 	public Color	colorLow 	= new Color(0.6f,0.1f,0.0f,0.1f);
 	public Color	colorHigh	= new Color(1.0f,0.5f,0.0f,0.5f);
 
+	public GameObject owner = null;
+
+	public Bit bit;
+
 	// Use this for initialization
 	void Start () {
 
+		bit = gameObject.GetComponent<Bit>();
+
 		birthTime = Time.time;
 		rigidbody.velocity = targetDirection * speed;
-
-		Vector3 av;
-		av.x = Random.Range (-3f, 3f);
-		av.y = Random.Range (-3f, 3f);
-		av.z = Random.Range (-3f, 3f);
-		rigidbody.angularVelocity = av;
 
 	}
 	
@@ -45,7 +45,9 @@ public class Projectile : MonoBehaviour {
  
 	void OnCollisionEnter(Collision c){	 
 
-		damageTarget(c.gameObject, projectileDamage);
+		if ( c.gameObject != null && c.gameObject.GetComponent<Bit>() != null ){
+			damageTarget(c.gameObject, projectileDamage);
+		}
 
 		if ( destroyOnImpact ){
 			Destroy(gameObject);
@@ -86,13 +88,20 @@ public class Projectile : MonoBehaviour {
 	
 	public void damageTarget(GameObject target, int dmg){
 
-		Health h = target.GetComponent<Health>();
+		if ( target != null ){
 
-		if ( h != null ){
-			h.applyDamage(dmg);
+			Health h = target.GetComponent<Bit>().health;
+
+			if ( h != null && !h.isDead ){
+				h.applyDamage(dmg, gameObject);
+			}
+
 		}
 
 	}
 
+	public void setOwner(GameObject o){
+		owner = o;
+	}
 
 }

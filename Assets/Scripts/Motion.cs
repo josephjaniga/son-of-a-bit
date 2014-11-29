@@ -10,9 +10,13 @@ public class Motion : MonoBehaviour {
 	
 	public Vector3 rotation = Vector3.zero;
 
+	public Bit bit;
+
 	// Use this for initialization
 	void Start () {
 	
+		bit = gameObject.GetComponent<Bit>();
+
 	}
 
 	// Update is called once per frame

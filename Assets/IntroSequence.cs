@@ -3,25 +3,21 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class IntroSequence : MonoBehaviour {
-	
 	public GameObject fiya;
 	public float duration = 0.75f;
 	private float wait = 0.75f;
 	private float alpha = 0f;
-
 	private bool playedSound = false;
 	private bool play = false;
 	private float startTime = 0.0f;
 	private float runningTime = 0.0f;
-
 	public string state = "wait";
 
 	// Use this for initialization
 	void Start () {
-
 		Screen.SetResolution(1600, 900, true);
 		fiya.GetComponent<Image>().color = new Color( 1.0f, 1.0f, 1.0f, 0.0f);
-
+		fiya.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
 	}
 	
 	// Update is called once per frame
