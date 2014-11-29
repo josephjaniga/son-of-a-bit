@@ -21,6 +21,8 @@ public class Projectile : MonoBehaviour {
 
 	public Bit bit;
 
+	public string projectileName;
+
 	// Use this for initialization
 	void Start () {
 

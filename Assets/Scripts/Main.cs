@@ -10,7 +10,6 @@ public class Main : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
 		characterPanel = GameObject.Find("CharacterPanel");
 		p = GameObject.Find("Player");
 	}

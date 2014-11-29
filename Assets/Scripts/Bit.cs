@@ -12,6 +12,7 @@ public class Bit : MonoBehaviour {
 	public Motion 		motion;
 	public Projectile 	projectile;
 	public Weapon 		weapon;
+	
 
 	// Use this for initialization
 	void Start () {
