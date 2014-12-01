@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour {
 	public Bit bit;
 
 	public string projectileName;
-
+	
 	// Use this for initialization
 	void Start () {
 
@@ -30,6 +30,8 @@ public class Projectile : MonoBehaviour {
 
 		birthTime = Time.time;
 		rigidbody.velocity = targetDirection * speed;
+
+
 
 	}
 	
@@ -47,30 +49,49 @@ public class Projectile : MonoBehaviour {
  
 	void OnCollisionEnter(Collision c){	 
 
-		if ( c.gameObject != null && c.gameObject.GetComponent<Bit>() != null ){
-			damageTarget(c.gameObject, projectileDamage);
-		}
-
-		if ( destroyOnImpact ){
-			Destroy(gameObject);
-		} else {
-
-			if ( sparkOnCollision ){
-				// change color to sparks
-				gameObject.GetComponent<Bit>().setColor(sparks());
-
-				Vector3 dir;
-				dir.x = Random.Range (-3f, 3f);
-				dir.y = Random.Range (-3f, 3f);
-				dir.z = 0.0f;
-				rigidbody.velocity = dir;
-
+		// get the owners Faction & and the collided objects faction
+		Faction ownersFaction = null;
+			if ( owner.GetComponent<Bit>() != null ) {
+				ownersFaction	= owner.GetComponent<Bit>().faction;
 			}
 
-			// or destroy this object half a second after impact
-			birthTime = Time.time;
-			lifeSpan = 0.5f;
+		Faction collisionsFaction 	= null;
+			if ( c.gameObject.GetComponent<Bit>() != null ) {
+				collisionsFaction	= c.gameObject.GetComponent<Bit>().faction;
+			}
+
+		// if the shooter isnt allied with the target
+		if ( collisionsFaction == null || (!ownersFaction.isAllied(collisionsFaction.FactionName) && !ownersFaction.isMyFaction(collisionsFaction.FactionName)) ){
+
+			if ( c.gameObject != null && c.gameObject.GetComponent<Bit>() != null ){
+				damageTarget(c.gameObject, projectileDamage);
+			}
+			
+			if ( destroyOnImpact ){
+				Destroy(gameObject);
+			} else {
+				
+				if ( sparkOnCollision ){
+					// change color to sparks
+					gameObject.GetComponent<Bit>().setColor(sparks());
+					
+					Vector3 dir;
+					dir.x = Random.Range (-3f, 3f);
+					dir.y = Random.Range (-3f, 3f);
+					dir.z = 0.0f;
+					rigidbody.velocity = dir;
+					
+				}
+				
+				// or destroy this object half a second after impact
+				birthTime = Time.time;
+				lifeSpan = 0.5f;
+			}
+
+		} else {
+			Destroy(gameObject);
 		}
+
 
 	}
 

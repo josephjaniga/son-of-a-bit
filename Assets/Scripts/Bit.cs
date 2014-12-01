@@ -12,7 +12,7 @@ public class Bit : MonoBehaviour {
 	public Motion 		motion;
 	public Projectile 	projectile;
 	public Weapon 		weapon;
-	
+	public Faction		faction;
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +25,9 @@ public class Bit : MonoBehaviour {
 		motion				 	= gameObject.GetComponent<Motion>();
 		projectile			 	= gameObject.GetComponent<Projectile>();
 		weapon				 	= gameObject.GetComponent<Weapon>();
+
+		// get the parent faction
+		faction 				= gameObject.GetComponentInParent<Faction>();
 
 		Vector3 av;
 		av.x = Random.Range (-3f, 3f);
