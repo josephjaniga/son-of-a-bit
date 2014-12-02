@@ -27,10 +27,10 @@ public class Weapon : MonoBehaviour {
 			if ( bit.health != null ){
 				// and the unit is still alive
 				if ( !bit.health.isDead ){
-					fire();
+					fire(aim());
 				}
 			} else {
-				fire();
+				fire(aim());
 			}
 
 		}
@@ -51,17 +51,17 @@ public class Weapon : MonoBehaviour {
 	
 		Vector3 temp = Camera.main.ScreenToWorldPoint( Input.mousePosition );
 		temp.z = 0.0f;
-		return temp;
+		return temp - transform.position;
 
 	}
 
-	public void fire(){
+	public void fire(Vector3 target){
 
 		lastFired = Time.time;
 		
 		for ( var x = 0; x < bullet.GetComponent<Projectile>().numProjectiles; x++ ){
 			GameObject round = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
-			round.GetComponent<Projectile>().setDirection(aim() - transform.position);
+			round.GetComponent<Projectile>().setDirection(target);
 			round.transform.parent = GameObject.Find("Projectiles").transform;
 			round.GetComponent<Projectile>().setOwner(gameObject);
 		}

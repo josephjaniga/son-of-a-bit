@@ -13,7 +13,8 @@ public class AI : MonoBehaviour {
 	};
 
 	public enum AttackType {
-		None
+		None,
+		Shoot
 	};
 
 	public enum TargettingType {
@@ -60,6 +61,7 @@ public class AI : MonoBehaviour {
 		// if the units not dead or doesnt have health
 		if ( bit.health == null || !bit.health.isDead  ){
 
+
 			// MOTION TYPES
 			if ( movementAI == (int)MovementType.Mindless ) {
 				mindless();
@@ -73,6 +75,7 @@ public class AI : MonoBehaviour {
 				chase();
 			}
 
+
 			// TARGETING TYPES
 			if ( targetAI == (int)TargettingType.NearestUnit ){
 				nearestUnit();
@@ -80,6 +83,12 @@ public class AI : MonoBehaviour {
 
 			if ( targetAI == (int)TargettingType.NearestEnemy ){
 				nearestEnemy();
+			}
+
+
+			// ATTACK TYPES
+			if ( attackAI == (int)AttackType.Shoot ){
+				shoot();
 			}
 
 		}
@@ -249,7 +258,6 @@ public class AI : MonoBehaviour {
 
 			Faction parentFaction = unit.GetComponentInParent<Faction>();
 
-
 			if ( 
 				    unit != gameObject 											// ensure not targeting myself 
 				    && parentFaction != null									// target belongs to a faction
@@ -287,6 +295,15 @@ public class AI : MonoBehaviour {
 
 		}
 
+	}
+
+	public void shoot(){
+		if ( Time.time - bit.weapon.bullet.GetComponent<Projectile>().ROF >= bit.weapon.lastFired ){
+			if ( attackTarget != null ) {
+				bit.weapon.fire ( attackTarget.transform.position );
+				Debug.Log("fired");
+			}
+		}
 	}
 
 	
