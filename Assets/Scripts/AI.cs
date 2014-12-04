@@ -305,7 +305,7 @@ public class AI : MonoBehaviour {
 		if ( Time.time - bit.weapon.bullet.GetComponent<Projectile>().ROF >= bit.weapon.lastFired ){
 			if ( attackTarget != null ) {
 				bit.weapon.fire ( attackTarget.transform.position );
-				Debug.Log("fired");
+				//Debug.Log("fired");
 			}
 		}
 	}

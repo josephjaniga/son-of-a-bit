@@ -18,28 +18,10 @@ public class Bit : MonoBehaviour {
 		
 		setColor(c);
 		
-		artificialInteligence 	= gameObject.GetComponent<AI>();
-		health 					= gameObject.GetComponent<Health>();
-		inventory 				= gameObject.GetComponent<Inventory>();
-		motion				 	= gameObject.GetComponent<Motion>();
-		projectile			 	= gameObject.GetComponent<Projectile>();
-		weapon				 	= gameObject.GetComponent<Weapon>();
-		
-		// get the parent faction
-		faction 				= gameObject.GetComponentInParent<Faction>();
-		
-		Vector3 av;
-		av.x = Random.Range (-3f, 3f);
-		av.y = Random.Range (-3f, 3f);
-		av.z = Random.Range (-3f, 3f);
-		rigidbody.angularVelocity = av;
-		
 	}
 
 	// Use this for initialization
 	void Start () {
-
-		setColor(c);
 
 		artificialInteligence 	= gameObject.GetComponent<AI>();
 		health 					= gameObject.GetComponent<Health>();
