@@ -94,9 +94,8 @@ public class AI : MonoBehaviour {
 
 		}
 
-		if ( attackTarget != null ){
+		if ( attackTarget != null && !bit.health.isDead){
 			Debug.DrawLine(transform.position, attackTarget.transform.position, Color.red);
-
 		}
 
 	}

@@ -20,7 +20,7 @@ public class Health : MonoBehaviour {
 	//public AI ai;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 
 		bit = gameObject.GetComponent<Bit>();
 

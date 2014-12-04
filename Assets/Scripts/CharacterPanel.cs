@@ -22,7 +22,14 @@ public class CharacterPanel : MonoBehaviour {
 	public GameObject HUDCredits;
 
 	private Projectile unitsProjectile;
-	
+
+	void Awake(){
+		player = GameObject.Find("Player");
+		if ( player != null){
+			bit = player.GetComponent<Bit>();
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 
@@ -47,13 +54,13 @@ public class CharacterPanel : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 
 		if ( bit != null && bit.weapon.bullet != null ){
 			unitsProjectile = bit.weapon.bullet.GetComponent<Projectile>();
 		}
 
-		if ( player != null){
+		if ( player != null && bit != null  && bit.health != null){
 			// Character Pane
 			HealthValue.GetComponent<Text>().text 				= "" + bit.health.currentHP + " / " + bit.health.maxHP;
 			HealthRegenValue.GetComponent<Text>().text 			= "+0hp / 5seconds";
