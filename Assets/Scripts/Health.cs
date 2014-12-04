@@ -3,14 +3,16 @@ using System.Collections;
 
 public class Health : MonoBehaviour {
 
+	public Vector3 offset = new Vector3(0f,1.0f,0f);
 	public Vector3 scale = new Vector3(2f,0.1f,0.1f);
 	public int maxHP = 100;
 	public int currentHP;
-	public Vector3 offset = new Vector3(0f,1.0f,0f);
 
 	public GameObject hpBar;
 	public GameObject hpBarBG;
 	public bool isDead = false;
+
+	public bool isImmortal = false;
 
 	public Bit bit;
 
@@ -51,6 +53,9 @@ public class Health : MonoBehaviour {
 
 		// update health bars
 		updateBarSize();
+
+		if ( isImmortal )
+			currentHP = maxHP;
 
 		// if the unit is dead
 		if ( isDead ){
@@ -139,7 +144,7 @@ public class Health : MonoBehaviour {
 			currentHP = 0;
 			isDead = true;
 			// apply Damage killed the target
-			if ( isDead && bit.artificialInteligence != null ){
+			if ( isDead && bit != null && bit.artificialInteligence != null ){
 				// if source is a projectile
 				Projectile p = dmgSource.GetComponent<Bit>().projectile;
 				if ( p != null && p.owner != null ){

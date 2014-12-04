@@ -89,10 +89,15 @@ public class AI : MonoBehaviour {
 			// ATTACK TYPES
 			if ( attackAI == (int)AttackType.Shoot ){
 				shoot();
+
 			}
 
 		}
 
+		if ( attackTarget != null ){
+			Debug.DrawLine(transform.position, attackTarget.transform.position, Color.red);
+
+		}
 
 	}
 

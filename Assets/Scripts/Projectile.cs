@@ -60,38 +60,44 @@ public class Projectile : MonoBehaviour {
 				collisionsFaction	= c.gameObject.GetComponent<Bit>().faction;
 			}
 
-		// if the shooter isnt allied with the target
-		if ( collisionsFaction == null || (!ownersFaction.isAllied(collisionsFaction.FactionName) && !ownersFaction.isMyFaction(collisionsFaction.FactionName)) ){
+		// BULLETS DONT COLLIDE WITH THE OBJECT WHO FIRED THEM
+		if ( owner != c.gameObject ){
 
-			if ( c.gameObject != null && c.gameObject.GetComponent<Bit>() != null ){
-				damageTarget(c.gameObject, projectileDamage);
-			}
-			
-			if ( destroyOnImpact ){
-				Destroy(gameObject);
-			} else {
+			// if the shooter isnt allied with the target
+			if ( collisionsFaction == null || (!ownersFaction.isAllied(collisionsFaction.FactionName) && !ownersFaction.isMyFaction(collisionsFaction.FactionName)) ){
 				
-				if ( sparkOnCollision ){
-					// change color to sparks
-					gameObject.GetComponent<Bit>().setColor(sparks());
-					
-					Vector3 dir;
-					dir.x = Random.Range (-3f, 3f);
-					dir.y = Random.Range (-3f, 3f);
-					dir.z = 0.0f;
-					rigidbody.velocity = dir;
-					
+				if ( c.gameObject != null && c.gameObject.GetComponent<Bit>() != null ){
+					damageTarget(c.gameObject, projectileDamage);
 				}
 				
-				// or destroy this object half a second after impact
-				birthTime = Time.time;
-				lifeSpan = 0.5f;
+				if ( destroyOnImpact ){
+					Destroy(gameObject);
+				} else {
+					
+					if ( sparkOnCollision ){
+						// change color to sparks
+						gameObject.GetComponent<Bit>().setColor(sparks());
+						
+						Vector3 dir;
+						dir.x = Random.Range (-3f, 3f);
+						dir.y = Random.Range (-3f, 3f);
+						dir.z = 0.0f;
+						rigidbody.velocity = dir;
+						
+					}
+					
+					// or destroy this object half a second after impact
+					birthTime = Time.time;
+					lifeSpan = 0.5f;
+				}
+				
+			} else {
+				Destroy(gameObject);
 			}
 
-		} else {
-			Destroy(gameObject);
 		}
 
+	
 
 	}
 
