@@ -8,9 +8,11 @@ public class Bit : MonoBehaviour {
 
 	public AI 			artificialInteligence;
 	public Health 		health;
+	public Item 		item;
 	public Inventory 	inventory;
 	public Motion 		motion;
 	public Projectile 	projectile;
+	public StatManager	statManager;
 	public Weapon 		weapon;
 	public Faction		faction;
 
@@ -26,8 +28,10 @@ public class Bit : MonoBehaviour {
 		artificialInteligence 	= gameObject.GetComponent<AI>();
 		health 					= gameObject.GetComponent<Health>();
 		inventory 				= gameObject.GetComponent<Inventory>();
+		item 					= gameObject.GetComponent<Item>();
 		motion				 	= gameObject.GetComponent<Motion>();
 		projectile			 	= gameObject.GetComponent<Projectile>();
+		statManager				= gameObject.GetComponent<StatManager>();
 		weapon				 	= gameObject.GetComponent<Weapon>();
 
 		// get the parent faction

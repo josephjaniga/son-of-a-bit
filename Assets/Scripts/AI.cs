@@ -302,7 +302,15 @@ public class AI : MonoBehaviour {
 	}
 
 	public void shoot(){
-		if ( Time.time - bit.weapon.bullet.GetComponent<Projectile>().ROF >= bit.weapon.lastFired ){
+
+		// get the correct rate of fire / flat or calculated
+		float tempROF = bit.weapon.bullet.GetComponent<Projectile>().ROF;
+		
+		if ( bit.statManager != null ){
+			tempROF = bit.statManager.cRateOfFire;
+		}
+
+		if ( Time.time - tempROF >= bit.weapon.lastFired ){
 			if ( attackTarget != null ) {
 				bit.weapon.fire ( attackTarget.transform.position );
 				//Debug.Log("fired");

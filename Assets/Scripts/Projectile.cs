@@ -6,6 +6,9 @@ public class Projectile : MonoBehaviour {
 	public Vector3	targetDirection = Vector3.zero;
 	public float 	speed = 11.0f;
 	public bool 	destroyOnImpact = false;
+	public bool		useLifeSpan		= true;
+	public bool 	useGravity		= false;
+
 	public float	birthTime;
 	public float	lifeSpan = 3f;
 	public float	ROF = 0.5f;
@@ -28,10 +31,12 @@ public class Projectile : MonoBehaviour {
 
 		bit = gameObject.GetComponent<Bit>();
 
+		if ( useGravity ){
+			rigidbody.useGravity = useGravity;
+		}
+
 		birthTime = Time.time;
 		rigidbody.velocity = targetDirection * speed;
-
-
 
 	}
 	
@@ -41,13 +46,19 @@ public class Projectile : MonoBehaviour {
 		//rigidbody.velocity = targetDirection * speed;
 
 		// kill it after it expires
-		if ( Time.time - birthTime >= lifeSpan ){
+		if ( Time.time - birthTime >= lifeSpan && useLifeSpan ){
 			Destroy(gameObject);
 		}
 
 	}
  
 	void OnCollisionEnter(Collision c){	 
+
+		int tempProjectileDamage = projectileDamage;
+		
+		if ( owner.GetComponent<Bit>().statManager != null ){
+			tempProjectileDamage = owner.GetComponent<Bit>().statManager.cProjectileDamage;
+		}
 
 		// get the owners Faction & and the collided objects faction
 		Faction ownersFaction = null;
@@ -67,7 +78,7 @@ public class Projectile : MonoBehaviour {
 			if ( collisionsFaction == null || (!ownersFaction.isAllied(collisionsFaction.FactionName) && !ownersFaction.isMyFaction(collisionsFaction.FactionName)) ){
 				
 				if ( c.gameObject != null && c.gameObject.GetComponent<Bit>() != null ){
-					damageTarget(c.gameObject, projectileDamage);
+					damageTarget(c.gameObject, tempProjectileDamage);
 				}
 				
 				if ( destroyOnImpact ){
@@ -88,7 +99,8 @@ public class Projectile : MonoBehaviour {
 					
 					// or destroy this object half a second after impact
 					birthTime = Time.time;
-					lifeSpan = 0.5f;
+					if ( useLifeSpan )
+						lifeSpan = 0.5f;
 				}
 				
 			} else {

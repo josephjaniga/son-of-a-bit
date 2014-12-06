@@ -51,6 +51,7 @@ public class CharacterPanel : MonoBehaviour {
 		// HUD Panel
 		HUDWeaponNameValue 	= GameObject.Find("WeaponName");
 		HUDCredits		 	= GameObject.Find("CreditsValue");
+
 	}
 	
 	// Update is called once per frame
@@ -61,6 +62,7 @@ public class CharacterPanel : MonoBehaviour {
 		}
 
 		if ( player != null && bit != null  && bit.health != null){
+			// These are flat values
 			// Character Pane
 			HealthValue.GetComponent<Text>().text 				= "" + bit.health.currentHP + " / " + bit.health.maxHP;
 			HealthRegenValue.GetComponent<Text>().text 			= "+0hp / 5seconds";
@@ -72,7 +74,7 @@ public class CharacterPanel : MonoBehaviour {
 			DPSValue.GetComponent<Text>().text 					= "" + (unitsProjectile.numProjectiles*unitsProjectile.projectileDamage/unitsProjectile.ROF).ToString("f1");
 
 			// HUD Pane
-			HUDWeaponNameValue.GetComponent<Text>().text 	= "" + unitsProjectile.projectileName;;
+			HUDWeaponNameValue.GetComponent<Text>().text 	= "" + unitsProjectile.projectileName;
 			HUDCredits.GetComponent<Text>().text 		 	= "" + bit.inventory.credits + " credits";
 		}
 	}

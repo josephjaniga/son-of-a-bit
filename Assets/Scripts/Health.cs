@@ -8,6 +8,10 @@ public class Health : MonoBehaviour {
 	public int maxHP = 100;
 	public int currentHP;
 
+	public int regen = 1;
+	public float regenRate = 2.0f;
+	public float regenTimer = 2.0f;
+
 	public GameObject hpBar;
 	public GameObject hpBarBG;
 	public bool isDead = false;
@@ -47,6 +51,22 @@ public class Health : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+	
+
+		// health regen timer
+		if ( regenTimer > 0 )
+			regenTimer -= Time.deltaTime;
+
+		// if timers up reset it and apply regen either calculated if this unit has a stat manager or flat
+		if ( regenTimer <= 0 ){
+			if ( bit.statManager != null ){
+				applyHeal(bit.statManager.cRegen);
+			} else {
+				applyHeal(regen);
+			}
+			regenTimer = regenRate;
+		}
+
 
 		//currentHP--; 
 		setColor();
@@ -54,8 +74,13 @@ public class Health : MonoBehaviour {
 		// update health bars
 		updateBarSize();
 
-		if ( isImmortal )
-			currentHP = maxHP;
+		if ( isImmortal ){
+			if ( bit.statManager != null ){
+				currentHP = bit.statManager.cMaxHealth;
+			} else {
+				currentHP = maxHP;
+			}
+		}
 
 		// if the unit is dead
 		if ( isDead ){
@@ -105,16 +130,24 @@ public class Health : MonoBehaviour {
 	}
 
 	public void setColor(){
+
+		int tempMaxHP = maxHP;
+		
+		if ( bit.statManager != null ){
+			tempMaxHP = bit.statManager.cMaxHealth;
+		}
+
 		if ( hpBar != null && hpBarBG != null ){
 			// set the colors
-			if ( (float)currentHP / maxHP >= 0.7f ) { // green >= 70%
+			if ( (float)currentHP / tempMaxHP >= 0.7f ) { // green >= 70%
 				hpBar.renderer.material.color = new Color(0f,1f,0f,0.25f);
-			} else if ( (float)currentHP / maxHP >= 0.35f ) { // yellow >= 35%
+			} else if ( (float)currentHP / tempMaxHP >= 0.35f ) { // yellow >= 35%
 				hpBar.renderer.material.color = new Color(1f,1f,0f,0.25f);
 			} else { // red < 35%
 				hpBar.renderer.material.color = new Color(1f,0f,0f,0.25f);
 			}
 		}
+
 	}
 
 	public void updateBarSize(){
@@ -134,7 +167,13 @@ public class Health : MonoBehaviour {
 	}
 	
 	public float hpPercent(){
-		return (float)currentHP / maxHP;
+		int tempMaxHP = maxHP;
+		
+		if ( bit.statManager != null ){
+			tempMaxHP = bit.statManager.cMaxHealth;
+		}
+
+		return (float)currentHP / tempMaxHP;
 	}
 	
 	public void applyDamage(int dmg, GameObject dmgSource){
@@ -157,6 +196,23 @@ public class Health : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+
+	public void applyHeal(int heal){
+
+		int tempMaxHP = maxHP;
+		
+		if ( bit.statManager != null ){
+			tempMaxHP = bit.statManager.cMaxHealth;
+		}
+
+		if ( currentHP + heal > tempMaxHP ){
+			currentHP = tempMaxHP;
+		} else {
+			currentHP += heal;
+		}
+
 	}
 
 

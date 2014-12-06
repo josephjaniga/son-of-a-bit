@@ -17,12 +17,19 @@ public class Weapon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		// get the correct rate of fire / flat or calculated
+		float tempROF = bullet.GetComponent<Projectile>().ROF;
+		
+		if ( bit.statManager != null ){
+			tempROF = bit.statManager.cRateOfFire;
+		}
 	
 		// if weapon owner is user controlled
 		if ( bit.motion != null && bit.motion.userControlled ){
 			if 	(
 					Input.GetMouseButton(0)
-					&& Time.time - bullet.GetComponent<Projectile>().ROF >= lastFired ){
+					&& Time.time - tempROF >= lastFired ){
 				
 				//Debug.DrawRay(transform.position, aimAtMouse()- transform.position, Color.red);
 				//Debug.DrawRay(transform.position, aimAtMouse(), Color.blue);
@@ -51,7 +58,7 @@ public class Weapon : MonoBehaviour {
 		} else if ( 	// if the weapon is AI controlled
 		           		bit.artificialInteligence != null
 		           		&& bit.artificialInteligence.attackTarget != null
-		           		&& Time.time - bullet.GetComponent<Projectile>().ROF >= lastFired ) {
+		          		&& Time.time - tempROF >= lastFired ) {
 
 			// if the unit has health
 			if ( bit.health != null ){
@@ -96,6 +103,13 @@ public class Weapon : MonoBehaviour {
 
 	public void fire(Vector3 target){
 
+		// get the correct rate of fire / flat or calculated
+		int tempNumberOfProjectiles = bullet.GetComponent<Projectile>().numProjectiles;
+		
+		if ( bit.statManager != null ){
+			tempNumberOfProjectiles = bit.statManager.cNumberOfProjectiles;
+		}
+
 		lastFired = Time.time;
 
 		Vector3 offset = target.normalized;
@@ -103,7 +117,7 @@ public class Weapon : MonoBehaviour {
 		offset.y *= transform.localScale.y;
 		offset.z = 0.0f;
 
-		for ( var x = 0; x < bullet.GetComponent<Projectile>().numProjectiles; x++ ){
+		for ( var x = 0; x < tempNumberOfProjectiles; x++ ){
 			GameObject round = Instantiate(bullet, transform.position + offset, Quaternion.identity) as GameObject;
 			round.GetComponent<Projectile>().setDirection(target - offset);
 			round.transform.parent = GameObject.Find("Projectiles").transform;

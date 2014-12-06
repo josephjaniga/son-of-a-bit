@@ -26,8 +26,13 @@ public class Motion : MonoBehaviour {
 
 	}
 
-
 	void handleMovement(){
+
+		float tempSpeed = speed;
+		if ( bit.statManager != null ){
+			tempSpeed = bit.statManager.cMovementSpeed;
+		}
+
 
 		if ( shouldLock ){
 			rigidbody.velocity = Vector3.zero;
@@ -40,19 +45,19 @@ public class Motion : MonoBehaviour {
 
 			// up
 			if ( Input.GetKey("w") )
-				y = 1f * speed;
+				y = 1f * tempSpeed;
 
 			// left
 			if ( Input.GetKey("a") )
-				x = -1f * speed;
+				x = -1f * tempSpeed;
 			
 			// down		
 			if ( Input.GetKey("s") )
-				y = -1f * speed;
+				y = -1f * tempSpeed;
 
 			// right
 			if ( Input.GetKey("d") )
-				x = 1f * speed;
+				x = 1f * tempSpeed;
 
 			rigidbody.velocity = new Vector3(x, y, 0f);
 
