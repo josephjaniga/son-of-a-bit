@@ -128,7 +128,6 @@ public class Projectile : MonoBehaviour {
 	}
 	
 	public void damageTarget(GameObject target, int dmg){
-
 		if ( target != null ){
 
 			Health h = target.GetComponent<Bit>().health;
@@ -138,7 +137,6 @@ public class Projectile : MonoBehaviour {
 			}
 
 		}
-
 	}
 
 	public void setOwner(GameObject o){

@@ -42,23 +42,24 @@ public class InventoryPanel : MonoBehaviour {
 			GameObject.Destroy(ip.transform.GetChild(0));
 		}
 
-		for ( int i = 0; i < playerBit.inventory.equippedItems.Count; i++ ) {
-			// for every item in the equipment array thats not equipped move it to the inventory
-			if ( !playerBit.inventory.equippedItems[i].isEquipped ){
-				playerBit.inventory.itemInventory.Add(playerBit.inventory.equippedItems[i]);
-				playerBit.inventory.equippedItems.RemoveAt(i);
-				i = 0;
-			}
-		}
+//		for ( int i = 0; i < playerBit.inventory.equippedItems.Count; i++ ) {
+//			// for every item in the equipment array thats not equipped move it to the inventory
+//			if ( !playerBit.inventory.equippedItems[i].isEquipped ){
+//				playerBit.inventory.itemInventory.Add(playerBit.inventory.equippedItems[i]);
+//				playerBit.inventory.equippedItems.RemoveAt(i);
+//				i = 0;
+//			}
+//		}
+//
+//		for ( int i = 0; i < playerBit.inventory.itemInventory.Count; i++ ) {
+//			// for every item in the items inventory array thats equipped move it to the equipment
+//			if ( playerBit.inventory.itemInventory[i].isEquipped ){
+//				playerBit.inventory.equippedItems.Add(playerBit.inventory.itemInventory[i]);
+//				playerBit.inventory.itemInventory.RemoveAt(i);
+//				i = 0;
+//			}
+//		}	     
 
-		for ( int i = 0; i < playerBit.inventory.itemInventory.Count; i++ ) {
-			// for every item in the items inventory array thats equipped move it to the equipment
-			if ( playerBit.inventory.itemInventory[i].isEquipped ){
-				playerBit.inventory.equippedItems.Add(playerBit.inventory.itemInventory[i]);
-				playerBit.inventory.itemInventory.RemoveAt(i);
-				i = 0;
-			}
-		}	     
 
 
 		// populate the equipped items gui
@@ -75,7 +76,7 @@ public class InventoryPanel : MonoBehaviour {
 
 			temp.GetComponent<Button>().colors = cb;
 			temp.transform.SetParent(GameObject.Find("InventoryPanel").transform);
-			temp.GetComponent<Button>().onClick.AddListener(() => playerBit.inventory.toggleEquipped(temp.GetComponent<Item>()));
+			//temp.GetComponent<Button>().onClick.AddListener(() => playerBit.inventory.toggleEquipped(temp.GetComponent<Item>()));
 		}
 		
 		// populate the inventory gui
@@ -92,7 +93,7 @@ public class InventoryPanel : MonoBehaviour {
 			
 			temp.GetComponent<Button>().colors = cb;
 			temp.transform.SetParent(GameObject.Find("InventoryPanel").transform);
-			temp.GetComponent<Button>().onClick.AddListener(() => playerBit.inventory.toggleEquipped(temp.GetComponent<Item>()));
+			//temp.GetComponent<Button>().onClick.AddListener(() => playerBit.inventory.toggleEquipped(temp.GetComponent<Item>()));
 		}
 
 	}

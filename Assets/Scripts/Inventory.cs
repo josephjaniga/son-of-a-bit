@@ -46,9 +46,9 @@ public class Inventory : MonoBehaviour {
 
 		Debug.Log ("clicked - " + itemInstance.itemName);
 
-		itemInstance.isEquipped = !itemInstance.isEquipped;
+		//itemInstance.isEquipped = !itemInstance.isEquipped;
 
-		ip.redrawInventory();
+		//ip.redrawInventory();
 
 	}
 	
