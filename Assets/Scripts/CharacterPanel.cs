@@ -15,7 +15,10 @@ public class CharacterPanel : MonoBehaviour {
 	public GameObject ROFValue;
 	public GameObject NumberProjectilesValue;
 	public GameObject ProjectileDamageValue;
+	public GameObject CriticalChanceValue;
+	public GameObject CriticalDamageValue;
 	public GameObject DPSValue;
+
 
 	// hud panel
 	public GameObject HUDWeaponNameValue;
@@ -46,6 +49,8 @@ public class CharacterPanel : MonoBehaviour {
 		ROFValue 				= GameObject.Find("RateOfFireValue");
 		NumberProjectilesValue 	= GameObject.Find("NumberProjectilesValue");
 		ProjectileDamageValue 	= GameObject.Find("ProjectileDamageValue");
+		CriticalChanceValue 	= GameObject.Find("CriticalChanceValue");
+		CriticalDamageValue		= GameObject.Find("CriticalDamageValue");
 		DPSValue 				= GameObject.Find("DPSValue");
 
 		// HUD Panel
@@ -64,14 +69,18 @@ public class CharacterPanel : MonoBehaviour {
 		if ( player != null && bit != null  && bit.health != null){
 			// These are flat values
 			// Character Pane
-			HealthValue.GetComponent<Text>().text 				= "" + bit.health.currentHP + " / " + bit.health.maxHP;
-			HealthRegenValue.GetComponent<Text>().text 			= "+0hp / 5seconds";
-			SpeedValue.GetComponent<Text>().text 				= "" + bit.motion.speed;
+			StatManager sm = bit.statManager;
+
+			HealthValue.GetComponent<Text>().text 				= "" + bit.health.currentHP + " / " + sm.cMaxHealth;
+			HealthRegenValue.GetComponent<Text>().text 			= "+" + sm.cRegen + " hp / " + bit.health.regenRate + " seconds";
+			SpeedValue.GetComponent<Text>().text 				= "" + sm.cMovementSpeed;
 			WeaponNameValue.GetComponent<Text>().text 			= "" + unitsProjectile.projectileName;
-			ROFValue.GetComponent<Text>().text 					= "" + (1.0f/unitsProjectile.ROF).ToString("f1") + " rounds / second";
-			NumberProjectilesValue.GetComponent<Text>().text 	= "" + unitsProjectile.numProjectiles;
-			ProjectileDamageValue.GetComponent<Text>().text 	= "" + unitsProjectile.projectileDamage;
-			DPSValue.GetComponent<Text>().text 					= "" + (unitsProjectile.numProjectiles*unitsProjectile.projectileDamage/unitsProjectile.ROF).ToString("f1");
+			ROFValue.GetComponent<Text>().text 					= "" + sm.cRateOfFire;
+			NumberProjectilesValue.GetComponent<Text>().text 	= "" + sm.cNumberOfProjectiles;
+			ProjectileDamageValue.GetComponent<Text>().text 	= "" + sm.cProjectileDamage;
+			CriticalChanceValue.GetComponent<Text>().text 		= "" + sm.cCriticalChance * 100f + "%";
+			CriticalDamageValue.GetComponent<Text>().text 		= "" + sm.cCriticalDamage * 100f + "%";;
+			DPSValue.GetComponent<Text>().text 					= "" + (sm.cNumberOfProjectiles*sm.cProjectileDamage/sm.cRateOfFire).ToString("f1");
 
 			// HUD Pane
 			HUDWeaponNameValue.GetComponent<Text>().text 	= "" + unitsProjectile.projectileName;

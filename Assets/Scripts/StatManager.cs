@@ -12,6 +12,8 @@ public class StatManager : MonoBehaviour {
 	public float cRateOfFire;
 	public int cNumberOfProjectiles;
 	public int cProjectileDamage;
+	public float cCriticalChance;
+	public float cCriticalDamage;
 
 	public Projectile unitsProjectile;
 
@@ -32,8 +34,6 @@ public class StatManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-
-
 	}
 	
 	// Update is called once per frame
@@ -53,8 +53,9 @@ public class StatManager : MonoBehaviour {
 		cMovementSpeed 			= bit.motion.speed + calculateMovementSpeedBoost();
 		cRateOfFire				= unitsProjectile.ROF / ( 1.0f + calculateRateOfFireScale() );
 		cNumberOfProjectiles 	= unitsProjectile.numProjectiles + calculateNumberOfProjectilesBoost();
+		cCriticalChance			= bit.weapon.critChance + calculateCriticalChanceBoost();
+		cCriticalDamage			= bit.weapon.critDamage + calculateCriticalDamageBoost();
 		cProjectileDamage		= Mathf.RoundToInt( ( unitsProjectile.projectileDamage + calculateProjectileDamageBoost() ) * ( 1.0f + calculateProjectileDamageScale() ) );
-
 	}
 
 
@@ -123,6 +124,26 @@ public class StatManager : MonoBehaviour {
 		
 		for ( int i = 0; i < bit.inventory.equippedItems.Count; i++ ){
 			tempBoost += bit.inventory.equippedItems[i].projectileDamageScale;
+		}
+		
+		return tempBoost;
+	}
+
+	public float calculateCriticalChanceBoost(){
+		float tempBoost = 0;
+		
+		for ( int i = 0; i < bit.inventory.equippedItems.Count; i++ ){
+			tempBoost += bit.inventory.equippedItems[i].critChanceBoost;
+		}
+		
+		return tempBoost;
+	}
+
+	public float calculateCriticalDamageBoost(){
+		float tempBoost = 0;
+		
+		for ( int i = 0; i < bit.inventory.equippedItems.Count; i++ ){
+			tempBoost += bit.inventory.equippedItems[i].critDamageBoost;
 		}
 		
 		return tempBoost;

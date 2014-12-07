@@ -7,6 +7,8 @@ public class Weapon : MonoBehaviour {
 	public GameObject bullet = null;
 	public float lastFired = 0.0f;
 
+	public float critChance = 0.0f;
+	public float critDamage = 0.5f;
 
 	// Use this for initialization
 	void Start () {

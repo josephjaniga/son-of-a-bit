@@ -100,7 +100,7 @@ public class Projectile : MonoBehaviour {
 					// or destroy this object half a second after impact
 					birthTime = Time.time;
 					if ( useLifeSpan )
-						lifeSpan = 0.5f;
+						lifeSpan = 0.5f;  
 				}
 				
 			} else {

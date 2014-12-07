@@ -6,7 +6,7 @@ public class Health : MonoBehaviour {
 	public Vector3 offset = new Vector3(0f,1.0f,0f);
 	public Vector3 scale = new Vector3(2f,0.1f,0.1f);
 	public int maxHP = 100;
-	public int currentHP;
+	public int currentHP = 1;
 
 	public int regen = 1;
 	public float regenRate = 2.0f;
@@ -75,7 +75,7 @@ public class Health : MonoBehaviour {
 		updateBarSize();
 
 		if ( isImmortal ){
-			if ( bit.statManager != null ){
+			if ( bit.statManager != null && bit.statManager.cMaxHealth != 0 ){
 				currentHP = bit.statManager.cMaxHealth;
 			} else {
 				currentHP = maxHP;
@@ -169,7 +169,7 @@ public class Health : MonoBehaviour {
 	public float hpPercent(){
 		int tempMaxHP = maxHP;
 		
-		if ( bit.statManager != null ){
+		if ( bit.statManager != null && bit.statManager.cMaxHealth != 0 ){
 			tempMaxHP = bit.statManager.cMaxHealth;
 		}
 
@@ -177,15 +177,33 @@ public class Health : MonoBehaviour {
 	}
 	
 	public void applyDamage(int dmg, GameObject dmgSource){
-		if ( currentHP - dmg > 0 ){
-			currentHP -= dmg;
+
+
+		int tempDmg = dmg;
+
+		Projectile p = dmgSource.GetComponent<Bit>().projectile;
+
+		if ( p != null ){
+			StatManager sm = p.owner.GetComponent<StatManager>();
+			if ( sm != null ){
+				float r = Random.Range(0.0f, 1.0f);
+				//Debug.Log("Crit Chance: " + sm.cCriticalChance + " // Crit Roll: " + r );
+				if ( sm.cCriticalChance > r ){
+					tempDmg += Mathf.RoundToInt(tempDmg * sm.cCriticalDamage);
+					//Debug.Log ("CRITICAL HIT " + tempDmg);
+				}
+			}
+		}
+
+		if ( currentHP - tempDmg > 0 ){
+			currentHP -= tempDmg;
 		} else {
 			currentHP = 0;
 			isDead = true;
 			// apply Damage killed the target
 			if ( isDead && bit != null && bit.artificialInteligence != null ){
 				// if source is a projectile
-				Projectile p = dmgSource.GetComponent<Bit>().projectile;
+				p = dmgSource.GetComponent<Bit>().projectile;
 				if ( p != null && p.owner != null ){
 					// if the owner has an inventory
 					Inventory i = p.owner.GetComponent<Bit>().inventory;;

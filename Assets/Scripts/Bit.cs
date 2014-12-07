@@ -19,7 +19,19 @@ public class Bit : MonoBehaviour {
 	void Awake () {
 		
 		setColor(c);
+
+		artificialInteligence 	= gameObject.GetComponent<AI>();
+		health 					= gameObject.GetComponent<Health>();
+		inventory 				= gameObject.GetComponent<Inventory>();
+		item 					= gameObject.GetComponent<Item>();
+		motion				 	= gameObject.GetComponent<Motion>();
+		projectile			 	= gameObject.GetComponent<Projectile>();
+		statManager				= gameObject.GetComponent<StatManager>();
+		weapon				 	= gameObject.GetComponent<Weapon>();
 		
+		// get the parent faction
+		faction 				= gameObject.GetComponentInParent<Faction>();
+
 	}
 
 	// Use this for initialization
