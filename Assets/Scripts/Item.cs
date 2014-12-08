@@ -8,11 +8,17 @@ public class Item : MonoBehaviour {
 	public int value = 1;
 	public bool isEquipped = false;
 
-	public enum ItemType {
+	public enum ItemRarity{
 		Junk
 	};
 	
-	public int type = (int)ItemType.Junk;
+	public enum ItemType {
+		Thing
+	};
+
+	public int rarity = (int)ItemRarity.Junk;
+
+	public int type = (int)ItemType.Thing;
 
 	// Stats
 	public int maxHealthBoost 				= 0;

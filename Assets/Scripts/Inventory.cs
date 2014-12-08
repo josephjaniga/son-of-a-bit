@@ -10,23 +10,17 @@ public class Inventory : MonoBehaviour {
 	public int idCount = 0;
 	
 	public List<Item> itemInventory = new List<Item>();
-	public List<Item> equippedItems = new List<Item>();
 	
-
 	// Use this for initialization
 	void Start () {
 
 		bit = gameObject.GetComponent<Bit>();
 
-		for ( int i = 0; i < itemInventory.Count; i++ ) {
+		int itemCounter = GameObject.Find("Items").transform.childCount;
+
+		for ( int i = 0; i < itemCounter; i++ ) {
 			idCount++;
 			itemInventory[i].itemId = idCount;
-		}
-
-		for ( int i = 0; i < equippedItems.Count; i++ ) {
-			idCount++;
-			equippedItems[i].itemId = idCount;
-			equippedItems[i].isEquipped = true;
 		}
 
 		ip = GameObject.Find("FatherBit").GetComponent<InventoryPanel>();
@@ -45,10 +39,7 @@ public class Inventory : MonoBehaviour {
 	public void toggleEquipped(Item itemInstance){
 
 		Debug.Log ("clicked - " + itemInstance.itemName);
-
-		//itemInstance.isEquipped = !itemInstance.isEquipped;
-
-		//ip.redrawInventory();
+		itemInstance.isEquipped = !itemInstance.isEquipped;
 
 	}
 	

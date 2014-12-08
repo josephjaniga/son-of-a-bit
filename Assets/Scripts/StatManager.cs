@@ -61,49 +61,46 @@ public class StatManager : MonoBehaviour {
 
 	public int calculateMaxHealthBoost(){
 		int tempBoost = 0;
-
-		for ( int i = 0; i < bit.inventory.equippedItems.Count; i++ ){
-			tempBoost += bit.inventory.equippedItems[i].maxHealthBoost;
+		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
+			if ( bit.inventory.itemInventory[i].isEquipped )
+				tempBoost += bit.inventory.itemInventory[i].maxHealthBoost;
 		}
-
 		return tempBoost;
 	}
 
 	public float calculateMaxHealthScale(){
 		float tempBoost = 0f;
-
-		for ( int i = 0; i < bit.inventory.equippedItems.Count; i++ ){
-			tempBoost += bit.inventory.equippedItems[i].maxHealthScale;
+		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
+			if ( bit.inventory.itemInventory[i].isEquipped )
+				tempBoost += bit.inventory.itemInventory[i].maxHealthScale;
 		}
-		
 		return tempBoost;
 	}
 
 	public float calculateMovementSpeedBoost(){
 		float tempBoost = 0;
-
-		for ( int i = 0; i < bit.inventory.equippedItems.Count; i++ ){
-			tempBoost += bit.inventory.equippedItems[i].movementSpeedBoost;
+		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
+			if ( bit.inventory.itemInventory[i].isEquipped )
+				tempBoost += bit.inventory.itemInventory[i].movementSpeedBoost;
 		}
-		
 		return tempBoost;
 	}
 
 	public float calculateRateOfFireScale(){
 		float tempBoost = 0f;
-		
-		for ( int i = 0; i < bit.inventory.equippedItems.Count; i++ ){
-			tempBoost += bit.inventory.equippedItems[i].rateOfFireScale;
+		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
+			if ( bit.inventory.itemInventory[i].isEquipped )
+				tempBoost += bit.inventory.itemInventory[i].rateOfFireScale;
 		}
-		
 		return tempBoost;
 	}
 
 	public int calculateNumberOfProjectilesBoost(){
 		int tempBoost = 0;
 		
-		for ( int i = 0; i < bit.inventory.equippedItems.Count; i++ ){
-			tempBoost += bit.inventory.equippedItems[i].numberOfProjectilesBoost;
+		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
+			if ( bit.inventory.itemInventory[i].isEquipped )
+				tempBoost += bit.inventory.itemInventory[i].numberOfProjectilesBoost;
 		}
 		
 		return tempBoost;
@@ -111,41 +108,37 @@ public class StatManager : MonoBehaviour {
 
 	public int calculateProjectileDamageBoost(){
 		int tempBoost = 0;
-		
-		for ( int i = 0; i < bit.inventory.equippedItems.Count; i++ ){
-			tempBoost += bit.inventory.equippedItems[i].projectileDamageBoost;
+		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
+			if ( bit.inventory.itemInventory[i].isEquipped )
+				tempBoost += bit.inventory.itemInventory[i].projectileDamageBoost;
 		}
-		
 		return tempBoost;
 	}
 
 	public float calculateProjectileDamageScale(){
 		float tempBoost = 0;
-		
-		for ( int i = 0; i < bit.inventory.equippedItems.Count; i++ ){
-			tempBoost += bit.inventory.equippedItems[i].projectileDamageScale;
+		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
+			if ( bit.inventory.itemInventory[i].isEquipped )
+				tempBoost += bit.inventory.itemInventory[i].projectileDamageScale;
 		}
-		
 		return tempBoost;
 	}
 
 	public float calculateCriticalChanceBoost(){
 		float tempBoost = 0;
-		
-		for ( int i = 0; i < bit.inventory.equippedItems.Count; i++ ){
-			tempBoost += bit.inventory.equippedItems[i].critChanceBoost;
+		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
+			if ( bit.inventory.itemInventory[i].isEquipped )
+				tempBoost += bit.inventory.itemInventory[i].critChanceBoost;
 		}
-		
 		return tempBoost;
 	}
 
 	public float calculateCriticalDamageBoost(){
 		float tempBoost = 0;
-		
-		for ( int i = 0; i < bit.inventory.equippedItems.Count; i++ ){
-			tempBoost += bit.inventory.equippedItems[i].critDamageBoost;
+		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
+			if ( bit.inventory.itemInventory[i].isEquipped )
+				tempBoost += bit.inventory.itemInventory[i].critDamageBoost;
 		}
-		
 		return tempBoost;
 	}
 
