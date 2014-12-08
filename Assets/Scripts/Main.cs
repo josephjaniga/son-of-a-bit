@@ -31,7 +31,7 @@ public class Main : MonoBehaviour {
 			displayCharacter = !displayCharacter;
 		}
 
-		// keypress c - toggle Character Panel
+		// keypress i - toggle Inventory Panel
 		if ( Input.GetKeyDown("i") ){
 			displayInventory = !displayInventory;
 		}
@@ -51,6 +51,21 @@ public class Main : MonoBehaviour {
 				inventoryPanel.SetActive(false);
 			}
 		}
+
+		// DEVTOOLS
+
+		devTools();
+	}
+
+
+	private void devTools(){
+
+		// keypress j - spawn an item
+		if ( Input.GetKeyDown("j") ){
+			GameObject go = p.GetComponent<Inventory>().createRandomItem();
+			p.GetComponent<Inventory>().addItemToInventory(go.GetComponent<Item>());
+		}
+
 
 	}
 }
