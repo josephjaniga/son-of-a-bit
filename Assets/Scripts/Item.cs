@@ -8,6 +8,8 @@ public class Item : MonoBehaviour {
 	public int value = 1;
 	public bool isEquipped = false;
 
+	public string statText;
+
 	public enum ItemRarity{
 		Junk
 	};
@@ -33,12 +35,16 @@ public class Item : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+
+		updateItemStatText();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		
+		updateItemStatText();
+
 	}
 
 	public void cloneItem(Item clone){
@@ -86,6 +92,47 @@ public class Item : MonoBehaviour {
 
 	}
 
+
+	public void updateItemStatText(){
+		statText = "";
+		
+		if ( maxHealthBoost != 0 ){
+			statText += "+" + maxHealthBoost + " Maximum Health \r\n";
+		}
+		
+		if ( maxHealthScale != 0 ){
+			statText += "+" + maxHealthScale * 100f + "% Maximum Health \r\n";
+		}
+		
+		if ( movementSpeedBoost != 0 ){
+			statText += "+" + movementSpeedBoost * 100f + "% Movement Speed \r\n";
+		}
+		
+		if ( rateOfFireScale != 0 ){
+			statText += "+" + rateOfFireScale * 100f + "% Rate Of Fire \r\n";
+		}
+		
+		if ( numberOfProjectilesBoost != 0 ){
+			statText += "+" + numberOfProjectilesBoost + " Number Of Projectiles \r\n";
+		}
+		
+		if ( projectileDamageBoost != 0 ){
+			statText += "+" + projectileDamageBoost + " Projectile Damage \r\n";
+		}
+		
+		if ( projectileDamageScale != 0 ){
+			statText += "+" + projectileDamageScale * 100f + "% Projectile Damage \r\n";
+		}
+		
+		if ( critChanceBoost != 0 ){
+			statText += "+" + critChanceBoost * 100f + "% Critical Hit Chance \r\n";
+		}
+		
+		if ( critDamageBoost != 0 ){
+			statText += "+" + critDamageBoost * 100f + "% Critical Hit Damage \r\n";
+		}
+
+	}
 
 
 
