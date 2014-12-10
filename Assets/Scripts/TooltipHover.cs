@@ -8,6 +8,7 @@ public class TooltipHover :  UIBehaviour, IPointerEnterHandler, IPointerExitHand
 
 	public Container container;
 	public GameObject TT;
+	public CanvasGroup CG;
 	public GameObject TTStats;
 	public GameObject TTName;
 	public GameObject TTValue;
@@ -17,6 +18,7 @@ public class TooltipHover :  UIBehaviour, IPointerEnterHandler, IPointerExitHand
 
 		container = gameObject.GetComponent<Container>();
 		TT = GameObject.Find ("TooltipPanel");
+		CG = TT.GetComponent<CanvasGroup>();
 		TTStats = GameObject.Find ("TTStats");
 		TTName = GameObject.Find ("TTName");
 		TTValue = GameObject.Find ("TTValue");
@@ -24,21 +26,23 @@ public class TooltipHover :  UIBehaviour, IPointerEnterHandler, IPointerExitHand
 
 	}
 
-	void Update(){
-		TT = GameObject.Find("TooltipPanel");
-	}
-	
 	// Use this for initialization
 	void Start () {
+
+		TT = GameObject.Find ("TooltipPanel");
+		CG = TT.GetComponent<CanvasGroup>();
+		CG.alpha = 0f;
+
+	}
+
 	
-		TT.SetActive(false);
+	void Update(){
 
 	}
 
 	public virtual void OnPointerEnter(PointerEventData eventData){
 
-		TT.SetActive(true);
-		
+		showToolTip ();
 		TTName.GetComponent<Text>().text 	= container.item.itemName;
 		TTValue.GetComponent<Text>().text 	= ""+container.item.value;
 		
@@ -55,8 +59,16 @@ public class TooltipHover :  UIBehaviour, IPointerEnterHandler, IPointerExitHand
 
 	public virtual void OnPointerExit(PointerEventData eventData){
 
-		TT.SetActive(false);
+		hideToolTip();
 
+	}
+
+	public void hideToolTip(){
+		CG.alpha = 0f;
+	}
+
+	public void showToolTip(){
+		CG.alpha = 1f;
 	}
 
 }
