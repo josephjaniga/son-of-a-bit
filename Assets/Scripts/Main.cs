@@ -15,6 +15,7 @@ public class Main : MonoBehaviour {
 		inventoryPanel = GameObject.Find("InventoryPanel");
 		characterPanel = GameObject.Find("CharacterPanel");
 		p = GameObject.Find("Player");
+
 	}
 	
 	// Update is called once per frame
@@ -53,8 +54,7 @@ public class Main : MonoBehaviour {
 		}
 
 		// DEVTOOLS
-
-		devTools();
+		// devTools();
 	}
 
 

@@ -101,7 +101,6 @@ public class InventoryPanel : MonoBehaviour {
 
 	public void recreateInventoryGui(){
 
-		Debug.Log (ip.name);
 		foreach(Transform child in ip.transform) {
 			Destroy(child.gameObject);
 		}

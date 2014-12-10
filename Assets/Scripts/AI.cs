@@ -14,7 +14,8 @@ public class AI : MonoBehaviour {
 
 	public enum AttackType {
 		None,
-		Shoot
+		Shoot,
+		Spawn
 	};
 
 	public enum TargettingType {
@@ -41,11 +42,19 @@ public class AI : MonoBehaviour {
 	public int collisionDamage = 11;
 
 	public int dropRate = 1;
-
+	public float dropChance = 0f;
+	public int dropRarity = 0;
+	
+	public float spawnTimer = 5f;
+	public float spawnRate = 10f;
+	public int numberToSpawn = 2;
+	public GameObject mobInstance;
 
 	// Use this for initialization
 	void Start () {
 	
+		spawnTimer += Random.Range(-3, 3);
+
 		bit = gameObject.GetComponent<Bit>();
 
 		if( bit.motion != null){
@@ -89,9 +98,10 @@ public class AI : MonoBehaviour {
 			// ATTACK TYPES
 			if ( attackAI == (int)AttackType.Shoot ){
 				shoot();
-
 			}
-
+			if ( attackAI == (int)AttackType.Spawn ){
+				spawn();
+			}
 		}
 
 		if ( attackTarget != null && !bit.health.isDead){
@@ -319,4 +329,24 @@ public class AI : MonoBehaviour {
 	}
 
 	
+	public void spawn(){
+
+		// mob spawn timer
+		if ( spawnTimer > 0 )
+			spawnTimer -= Time.deltaTime;
+		
+		// if timers up reset it and apply regen either calculated if this unit has a stat manager or flat
+		if ( spawnTimer <= 0 ){
+
+			for ( int i=0; i<numberToSpawn; i++){
+				GameObject go = Instantiate(mobInstance, transform.position, Quaternion.identity) as GameObject;
+				go.transform.SetParent(transform.parent);
+				go.renderer.material.color = transform.parent.GetComponent<Faction>().factionColor;
+			}
+
+			spawnTimer = spawnRate;
+
+		}
+
+	}
 }

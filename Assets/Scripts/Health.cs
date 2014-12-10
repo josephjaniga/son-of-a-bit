@@ -178,7 +178,6 @@ public class Health : MonoBehaviour {
 	
 	public void applyDamage(int dmg, GameObject dmgSource){
 
-
 		int tempDmg = dmg;
 
 		Projectile p = dmgSource.GetComponent<Bit>().projectile;
@@ -210,6 +209,12 @@ public class Health : MonoBehaviour {
 					if ( i != null ){
 						// call owner inventory grant reward
 						i.addCredits(bit.artificialInteligence.dropRate);
+
+						// do a drop roll
+						if ( p.owner.GetComponent<Inventory>() != null && true ) {
+							GameObject go = p.owner.GetComponent<Inventory>().createRandomItem();
+							p.owner.GetComponent<Inventory>().addItemToInventory(go.GetComponent<Item>());
+						}
 					}
 				}
 			}
