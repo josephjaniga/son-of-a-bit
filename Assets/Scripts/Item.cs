@@ -42,14 +42,17 @@ public class Item : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+
 		updateItemStatText();
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-		updateItemStatText();
+
+		if ( statText == "" ){
+			updateItemStatText();
+		}
 
 	}
 
@@ -227,7 +230,7 @@ public class Item : MonoBehaviour {
 			word = word.Replace("q", "qu").Substring(0, requestedLength); // We may generate a string longer than requested length, but it doesn't matter if cut off the excess.
 		}
 		
-		return word;
+		return char.ToUpper(word[0]) + word.Substring(1);
 	}
 	
 	private static string GetRandomLetter(UnityEngine.Random rnd, string[] letters)

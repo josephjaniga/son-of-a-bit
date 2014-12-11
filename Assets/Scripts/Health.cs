@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Health : MonoBehaviour {
@@ -20,6 +21,8 @@ public class Health : MonoBehaviour {
 
 	public Bit bit;
 
+	public GameObject sct;
+
 	//public Motion m;
 	//public AI ai;
 
@@ -27,6 +30,8 @@ public class Health : MonoBehaviour {
 	void Awake () {
 
 		bit = gameObject.GetComponent<Bit>();
+
+		sct = GameObject.Find("SCT");
 
 		//ai = gameObject.GetComponent<AI>();
 		//m = gameObject.GetComponent<Motion>();
@@ -190,6 +195,12 @@ public class Health : MonoBehaviour {
 				if ( sm.cCriticalChance > r ){
 					tempDmg += Mathf.RoundToInt(tempDmg * sm.cCriticalDamage);
 					//Debug.Log ("CRITICAL HIT " + tempDmg);
+
+					GameObject combatText = Instantiate(sct, Camera.main.WorldToScreenPoint(transform.position), Quaternion.identity) as GameObject;
+					combatText.GetComponent<Text>().text = tempDmg+"!";
+					combatText.transform.SetParent(GameObject.Find("Canvas").transform);
+					combatText.GetComponent<SCT>().enabled = true;
+
 				}
 			}
 		}
@@ -211,10 +222,18 @@ public class Health : MonoBehaviour {
 						i.addCredits(bit.artificialInteligence.dropRate);
 
 						// do a drop roll
-						if ( p.owner.GetComponent<Inventory>() != null && true ) {
+						if ( p.owner.GetComponent<Inventory>() != null && bit.artificialInteligence.calculateLootDrops() ) {
+
 							GameObject go = p.owner.GetComponent<Inventory>().createRandomItem();
 							p.owner.GetComponent<Inventory>().addItemToInventory(go.GetComponent<Item>());
+
+							GameObject alert = Instantiate(sct, Camera.main.WorldToScreenPoint(new Vector3(0f,3f,0f)), Quaternion.identity) as GameObject;
+							alert.GetComponent<Text>().text = "You have picked up: [<color=red>"+ go.GetComponent<Item>().itemName +"</color>]!";
+							alert.transform.SetParent(GameObject.Find("Canvas").transform);
+							alert.GetComponent<SCT>().enabled = true;
+							alert.GetComponent<Text>().fontSize = 12;
 						}
+
 					}
 				}
 			}

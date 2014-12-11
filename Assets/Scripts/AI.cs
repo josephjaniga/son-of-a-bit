@@ -40,10 +40,11 @@ public class AI : MonoBehaviour {
 	public GameObject attackTarget;
 
 	public int collisionDamage = 11;
-
-	public int dropRate = 1;
+	
 	public float dropChance = 0f;
 	public int dropRarity = 0;
+
+	public int dropRate = 0;
 	
 	public float spawnTimer = 5f;
 	public float spawnRate = 10f;
@@ -349,4 +350,21 @@ public class AI : MonoBehaviour {
 		}
 
 	}
+
+	public bool calculateLootDrops(){
+
+		float r = Random.Range(0,100) / 100f;
+
+		Debug.Log(dropChance + " vs " + r);
+
+		if ( dropChance > r ){
+
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+
 }
