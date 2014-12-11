@@ -222,7 +222,9 @@ public class Health : MonoBehaviour {
 						i.addCredits(bit.artificialInteligence.dropRate);
 
 						// do a drop roll
-						if ( p.owner.GetComponent<Inventory>() != null && bit.artificialInteligence.calculateLootDrops() ) {
+						if ( p.owner.GetComponent<Inventory>() != null 
+						    && bit.artificialInteligence.calculateLootDrops()
+						    ) {
 
 							GameObject go = p.owner.GetComponent<Inventory>().createRandomItem();
 							p.owner.GetComponent<Inventory>().addItemToInventory(go.GetComponent<Item>());
@@ -232,6 +234,8 @@ public class Health : MonoBehaviour {
 							alert.transform.SetParent(GameObject.Find("Canvas").transform);
 							alert.GetComponent<SCT>().enabled = true;
 							alert.GetComponent<Text>().fontSize = 12;
+							alert.GetComponent<SCT>().Timer = 5;
+							alert.GetComponent<SCT>().Timeout = 5;
 						}
 
 					}
