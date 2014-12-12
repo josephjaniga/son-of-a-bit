@@ -34,9 +34,10 @@ public class Item : MonoBehaviour {
 	public float projectileDamageScale 		= 0.0f;
 	public float critChanceBoost			= 0.0f;
 	public float critDamageBoost			= 0.0f;
+	public int healthRegenBoost				= 0;
 
 
-	public int statCount = 9;
+	public int statCount = 10;
 	public UnityEngine.Random r;
 	
 	// Use this for initialization
@@ -71,25 +72,10 @@ public class Item : MonoBehaviour {
 		projectileDamageScale		= clone.projectileDamageScale;
 		critChanceBoost				= clone.critChanceBoost;
 		critDamageBoost				= clone.critDamageBoost;
+		healthRegenBoost			= clone.healthRegenBoost;
 	}
 
 	public void randomize(int Rarity = 3){
-//
-//		itemName 					= WordFinder2(Mathf.RoundToInt(Random.Range(7,21)));
-//		value		 				= Mathf.RoundToInt(Random.Range(0,4));
-//		isEquipped					= false;
-//		type						= (int)ItemType.Thing;
-//		maxHealthBoost				= Mathf.RoundToInt(Random.Range(0,4));;
-//		maxHealthScale				= Random.Range(0,3);
-//		movementSpeedBoost			= Random.Range(0,3);
-//		rateOfFireScale				= Random.Range(0,3);
-//		numberOfProjectilesBoost	= Mathf.RoundToInt(Random.Range(0,4));
-//		projectileDamageBoost		= Mathf.RoundToInt(Random.Range(0,4));
-//		projectileDamageScale		= Random.Range(0,3);
-//		critChanceBoost				= Random.Range(0,3);
-//		critDamageBoost				= Random.Range(0,3);
-
-
 
 		rarity = Rarity;
 		
@@ -137,6 +123,9 @@ public class Item : MonoBehaviour {
 				break;
 			case (int)9:
 				critDamageBoost += statPercent;
+				break;
+			case (int)10:
+				healthRegenBoost += statValue;
 				break;
 			default:
 				break;
@@ -199,6 +188,10 @@ public class Item : MonoBehaviour {
 		
 		if ( critDamageBoost != 0f ){
 			statText += "+" + critDamageBoost * 100f + "% Critical Hit Damage \r\n";
+		}
+
+		if ( healthRegenBoost != 0 ){
+			statText += "+" + healthRegenBoost + " health / 2 seconds \r\n";
 		}
 
 	}

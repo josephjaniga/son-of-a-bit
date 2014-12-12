@@ -49,7 +49,7 @@ public class StatManager : MonoBehaviour {
 
 		// calculated stats
 		cMaxHealth 				= Mathf.RoundToInt( ( bit.health.maxHP + calculateMaxHealthBoost() ) * ( 1.0f + calculateMaxHealthScale() ) );
-		cRegen	 				= bit.health.regen;
+		cRegen	 				= bit.health.regen + calculateHealthRegenBoost();
 		cMovementSpeed 			= bit.motion.speed + calculateMovementSpeedBoost();
 		cRateOfFire				= unitsProjectile.ROF / ( 1.0f + calculateRateOfFireScale() );
 		cNumberOfProjectiles 	= unitsProjectile.numProjectiles + calculateNumberOfProjectilesBoost();
@@ -142,5 +142,13 @@ public class StatManager : MonoBehaviour {
 		return tempBoost;
 	}
 
+	public int calculateHealthRegenBoost(){
+		int tempBoost = 0;
+		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
+			if ( bit.inventory.itemInventory[i].isEquipped )
+				tempBoost += bit.inventory.itemInventory[i].healthRegenBoost;
+		}
+		return tempBoost;
+	}
 
 }

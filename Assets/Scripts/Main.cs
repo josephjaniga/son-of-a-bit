@@ -54,7 +54,7 @@ public class Main : MonoBehaviour {
 		}
 
 		// DEVTOOLS
-		// devTools();
+		 devTools();
 	}
 
 
