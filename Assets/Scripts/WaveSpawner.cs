@@ -57,6 +57,9 @@ public class WaveSpawner : MonoBehaviour {
 				GameObject go = Instantiate(mobInstance, transform.position + t, Quaternion.identity) as GameObject;
 				go.transform.SetParent(faction.transform);
 				go.renderer.material.color = faction.GetComponent<Faction>().factionColor;
+				// why do i have to do this
+				go.GetComponent<AI>().enabled = false;
+				go.GetComponent<AI>().enabled = true;
 			}
 
 		}

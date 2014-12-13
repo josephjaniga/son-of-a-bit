@@ -109,6 +109,8 @@ public class Weapon : MonoBehaviour {
 
 	public void fire(Vector3 target){
 
+		Debug.Log (target);
+
 		// get the correct rate of fire / flat or calculated
 		int tempNumberOfProjectiles = bullet.GetComponent<Projectile>().numProjectiles;
 		
