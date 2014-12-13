@@ -355,10 +355,9 @@ public class AI : MonoBehaviour {
 
 		float r = Random.Range(0,100) / 100f;
 
-		Debug.Log(dropChance + " vs " + r);
+		//Debug.Log(dropChance + " vs " + r);
 
 		if ( dropChance > r ){
-
 			return true;
 		} else {
 			return false;

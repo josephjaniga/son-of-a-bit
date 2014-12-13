@@ -95,7 +95,8 @@ public class Item : MonoBehaviour {
 			isEquipped					= false;
 			type						= (int)ItemType.Thing;
 
-			Debug.Log ("i:" + i + " // rolled:" + statRoll);
+			//Debug.Log ("i:" + i + " // rolled:" + statRoll);
+
 			switch(statRoll){
 			case (int)1:
 				maxHealthBoost += statValue;

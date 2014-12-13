@@ -23,6 +23,7 @@ public class TooltipHover :  UIBehaviour, IPointerEnterHandler, IPointerExitHand
 		TTName = GameObject.Find ("TTName");
 		TTValue = GameObject.Find ("TTValue");
 		TTType = GameObject.Find ("TTType");
+		hideToolTip();
 
 	}
 
@@ -31,7 +32,7 @@ public class TooltipHover :  UIBehaviour, IPointerEnterHandler, IPointerExitHand
 
 		TT = GameObject.Find ("TooltipPanel");
 		CG = TT.GetComponent<CanvasGroup>();
-		CG.alpha = 0f;
+		hideToolTip();
 
 	}
 
@@ -58,9 +59,7 @@ public class TooltipHover :  UIBehaviour, IPointerEnterHandler, IPointerExitHand
 	}
 
 	public virtual void OnPointerExit(PointerEventData eventData){
-
 		hideToolTip();
-
 	}
 
 	public void hideToolTip(){

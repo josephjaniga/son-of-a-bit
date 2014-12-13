@@ -31,7 +31,9 @@ public class Health : MonoBehaviour {
 
 		bit = gameObject.GetComponent<Bit>();
 
-		sct = GameObject.Find("SCT");
+		//sct = GameObject.Find("SCT");
+		sct = Resources.Load("UI/SCT") as GameObject;
+		sct.GetComponent<SCT>().isEnabled = false;
 
 		//ai = gameObject.GetComponent<AI>();
 		//m = gameObject.GetComponent<Motion>();
@@ -59,11 +61,11 @@ public class Health : MonoBehaviour {
 	
 
 		// health regen timer
-		if ( regenTimer > 0 )
+		if ( regenTimer > 0 && regenRate != 0 )
 			regenTimer -= Time.deltaTime;
 
 		// if timers up reset it and apply regen either calculated if this unit has a stat manager or flat
-		if ( regenTimer <= 0 ){
+		if ( regenTimer <= 0 && regenRate != 0 ){
 			if ( bit.statManager != null ){
 				applyHeal(bit.statManager.cRegen);
 			} else {
@@ -185,59 +187,70 @@ public class Health : MonoBehaviour {
 
 		int tempDmg = dmg;
 
-		Projectile p = dmgSource.GetComponent<Bit>().projectile;
+		if ( dmg > 0 && dmgSource != null ){
+			
+			Projectile p = dmgSource.GetComponent<Bit>().projectile;
+			
+			if ( p != null && p.owner != null ){
+				StatManager sm = p.owner.GetComponent<StatManager>();
+				if ( sm != null ){
 
-		if ( p != null ){
-			StatManager sm = p.owner.GetComponent<StatManager>();
-			if ( sm != null ){
-				float r = Random.Range(0.0f, 1.0f);
-				//Debug.Log("Crit Chance: " + sm.cCriticalChance + " // Crit Roll: " + r );
-				if ( sm.cCriticalChance > r ){
-					tempDmg += Mathf.RoundToInt(tempDmg * sm.cCriticalDamage);
-					//Debug.Log ("CRITICAL HIT " + tempDmg);
-
-					GameObject combatText = Instantiate(sct, Camera.main.WorldToScreenPoint(transform.position), Quaternion.identity) as GameObject;
-					combatText.GetComponent<Text>().text = tempDmg+"!";
-					combatText.transform.SetParent(GameObject.Find("Canvas").transform);
-					combatText.GetComponent<SCT>().enabled = true;
-
+					float r = Random.Range(0.0f, 1.0f);
+					//Debug.Log("Crit Chance: " + sm.cCriticalChance + " // Crit Roll: " + r );
+					if ( sm.cCriticalChance > r ){
+						tempDmg += Mathf.RoundToInt(tempDmg * sm.cCriticalDamage);
+						//Debug.Log ("CRITICAL HIT " + tempDmg);
+						
+						GameObject combatText = Instantiate(sct, Camera.main.WorldToScreenPoint(transform.position), Quaternion.identity) as GameObject;
+						combatText.GetComponent<Text>().text = tempDmg+"!";
+						combatText.transform.SetParent(GameObject.Find("Canvas").transform);
+						combatText.GetComponent<SCT>().enabled = true;
+						
+					}
 				}
 			}
-		}
+			
+			if ( currentHP - tempDmg > 0 ){
+				currentHP -= tempDmg;
+			} else {
+				currentHP = 0;
+				isDead = true;
+				// apply Damage killed the target
+				if ( isDead && bit != null && bit.artificialInteligence != null ){
+					// if source is a projectile
+					p = dmgSource.GetComponent<Bit>().projectile;
+					if ( p != null && p.owner != null ){
+						// if the owner has an inventory
+						Inventory i = p.owner.GetComponent<Bit>().inventory;;
+						if ( i != null ){
+							// call owner inventory grant reward
+							i.addCredits(bit.artificialInteligence.dropRate);
+							
+							// do a drop roll
+							if ( p.owner.GetComponent<Inventory>() != null 
+							    && bit.artificialInteligence.calculateLootDrops()
+							    ) {
 
-		if ( currentHP - tempDmg > 0 ){
-			currentHP -= tempDmg;
-		} else {
-			currentHP = 0;
-			isDead = true;
-			// apply Damage killed the target
-			if ( isDead && bit != null && bit.artificialInteligence != null ){
-				// if source is a projectile
-				p = dmgSource.GetComponent<Bit>().projectile;
-				if ( p != null && p.owner != null ){
-					// if the owner has an inventory
-					Inventory i = p.owner.GetComponent<Bit>().inventory;;
-					if ( i != null ){
-						// call owner inventory grant reward
-						i.addCredits(bit.artificialInteligence.dropRate);
+								// clear all the alerts
+								foreach (Transform child in GameObject.Find("Alerts").transform) {
+									GameObject.Destroy(child.gameObject);
+								}
 
-						// do a drop roll
-						if ( p.owner.GetComponent<Inventory>() != null 
-						    && bit.artificialInteligence.calculateLootDrops()
-						    ) {
+								GameObject go = p.owner.GetComponent<Inventory>().createRandomItem();
+								p.owner.GetComponent<Inventory>().addItemToInventory(go.GetComponent<Item>());
+								
+								GameObject alert = Instantiate(sct, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
+								alert.GetComponent<Text>().text = "You have picked up: [<color=red>"+ go.GetComponent<Item>().itemName +"</color>]!";
+								alert.transform.SetParent(GameObject.Find("Alerts").transform);
+								alert.transform.localPosition = new Vector3(0f, -80f, 0f);
+								alert.GetComponent<Text>().fontSize = 12;
+								alert.GetComponent<SCT>().Timer = 5;
+								alert.GetComponent<SCT>().Timeout = 5;
 
-							GameObject go = p.owner.GetComponent<Inventory>().createRandomItem();
-							p.owner.GetComponent<Inventory>().addItemToInventory(go.GetComponent<Item>());
 
-							GameObject alert = Instantiate(sct, Camera.main.WorldToScreenPoint(new Vector3(0f,3f,0f)), Quaternion.identity) as GameObject;
-							alert.GetComponent<Text>().text = "You have picked up: [<color=red>"+ go.GetComponent<Item>().itemName +"</color>]!";
-							alert.transform.SetParent(GameObject.Find("Canvas").transform);
-							alert.GetComponent<SCT>().enabled = true;
-							alert.GetComponent<Text>().fontSize = 12;
-							alert.GetComponent<SCT>().Timer = 5;
-							alert.GetComponent<SCT>().Timeout = 5;
+
+							}
 						}
-
 					}
 				}
 			}
