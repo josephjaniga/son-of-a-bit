@@ -86,10 +86,13 @@ public class Weapon : MonoBehaviour {
 
 	Vector3 aimAI(){
 
+		Debug.Log("aimed AI");
+
 		Vector3 temp = Vector3.zero;
+
 		if ( bit.artificialInteligence != null && bit.artificialInteligence.attackTarget != null ){
 
-			Vector3 offset = bit.artificialInteligence.attackTarget.transform.position.normalized;
+			Vector3 offset = bit.artificialInteligence.attackTarget.transform.position;
 			offset.x *= transform.localScale.x;
 			offset.y *= transform.localScale.y;
 			offset.z = 0.0f;
@@ -98,6 +101,7 @@ public class Weapon : MonoBehaviour {
 			temp.z = 0.0f;
 			temp = temp - transform.position;
 		}
+
 
 		return temp;
 		

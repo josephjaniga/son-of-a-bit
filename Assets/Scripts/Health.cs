@@ -16,6 +16,7 @@ public class Health : MonoBehaviour {
 	public GameObject hpBar;
 	public GameObject hpBarBG;
 	public bool isDead = false;
+	public bool isTerrain = false;
 
 	public bool isImmortal = false;
 
@@ -75,11 +76,25 @@ public class Health : MonoBehaviour {
 		}
 
 
-		//currentHP--; 
-		setColor();
+		if ( !isTerrain ){
 
-		// update health bars
-		updateBarSize();
+			//currentHP--; 
+			setColor();
+
+			// update health bars
+			updateBarSize();
+
+		} else {
+
+			if ( hpBar != null ){
+				Destroy(hpBar);
+			}
+			
+			if ( hpBarBG != null ){
+				Destroy(hpBarBG);
+			}
+
+		}
 
 		if ( isImmortal ){
 			if ( bit.statManager != null && bit.statManager.cMaxHealth != 0 ){

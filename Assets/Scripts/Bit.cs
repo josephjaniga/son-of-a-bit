@@ -15,6 +15,7 @@ public class Bit : MonoBehaviour {
 	public StatManager	statManager;
 	public Weapon 		weapon;
 	public Faction		faction;
+	public WaveSpawner  waveSpawner;
 
 	void Awake () {
 		
@@ -32,6 +33,8 @@ public class Bit : MonoBehaviour {
 		// get the parent faction
 		faction 				= gameObject.GetComponentInParent<Faction>();
 
+		// wave spawner???
+		waveSpawner				= gameObject.GetComponentInParent<WaveSpawner>();
 	}
 
 	// Use this for initialization
@@ -49,6 +52,10 @@ public class Bit : MonoBehaviour {
 		// get the parent faction
 		faction 				= gameObject.GetComponentInParent<Faction>();
 
+		// wave spawner???
+		waveSpawner				= gameObject.GetComponentInParent<WaveSpawner>();
+
+		// set a random spin
 		Vector3 av;
 		av.x = Random.Range (-3f, 3f);
 		av.y = Random.Range (-3f, 3f);

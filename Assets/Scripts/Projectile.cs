@@ -54,62 +54,66 @@ public class Projectile : MonoBehaviour {
  
 	void OnCollisionEnter(Collision c){	 
 
-		int tempProjectileDamage = projectileDamage;
-		
-		if ( owner.GetComponent<Bit>().statManager != null ){
-			tempProjectileDamage = owner.GetComponent<Bit>().statManager.cProjectileDamage;
-		}
-
-		// get the owners Faction & and the collided objects faction
-		Faction ownersFaction = null;
+		if ( owner != null ){
+			
+			int tempProjectileDamage = projectileDamage;
+			
+			if ( owner.GetComponent<Bit>().statManager != null ){
+				tempProjectileDamage = owner.GetComponent<Bit>().statManager.cProjectileDamage;
+			}
+			
+			// get the owners Faction & and the collided objects faction
+			Faction ownersFaction = null;
 			if ( owner.GetComponent<Bit>() != null ) {
 				ownersFaction	= owner.GetComponent<Bit>().faction;
 			}
-
-		Faction collisionsFaction 	= null;
+			
+			Faction collisionsFaction 	= null;
 			if ( c.gameObject.GetComponent<Bit>() != null ) {
 				collisionsFaction	= c.gameObject.GetComponent<Bit>().faction;
 			}
-
-		// BULLETS DONT COLLIDE WITH THE OBJECT WHO FIRED THEM
-		if ( owner != c.gameObject ){
-
-			// if the shooter isnt allied with the target
-			if ( collisionsFaction == null || (!ownersFaction.isAllied(collisionsFaction.FactionName) && !ownersFaction.isMyFaction(collisionsFaction.FactionName)) ){
+			
+			// BULLETS DONT COLLIDE WITH THE OBJECT WHO FIRED THEM
+			if ( owner != c.gameObject ){
 				
-				if ( c.gameObject != null && c.gameObject.GetComponent<Bit>() != null ){
-					damageTarget(c.gameObject, tempProjectileDamage);
-				}
-				
-				if ( destroyOnImpact ){
-					Destroy(gameObject);
-				} else {
+				// if the shooter isnt allied with the target
+				if ( collisionsFaction == null || (!ownersFaction.isAllied(collisionsFaction.FactionName) && !ownersFaction.isMyFaction(collisionsFaction.FactionName)) ){
 					
-					if ( sparkOnCollision ){
-						// change color to sparks
-						gameObject.GetComponent<Bit>().setColor(sparks());
-						
-						Vector3 dir;
-						dir.x = Random.Range (-3f, 3f);
-						dir.y = Random.Range (-3f, 3f);
-						dir.z = 0.0f;
-						rigidbody.velocity = dir;
-						
+					if ( c.gameObject != null && c.gameObject.GetComponent<Bit>() != null ){
+						damageTarget(c.gameObject, tempProjectileDamage);
 					}
 					
-					// or destroy this object half a second after impact
-					birthTime = Time.time;
-					if ( useLifeSpan )
-						lifeSpan = 0.5f;  
+					if ( destroyOnImpact ){
+						
+						Destroy(gameObject);
+						
+					} else {
+						
+						if ( sparkOnCollision ){
+							// change color to sparks
+							gameObject.GetComponent<Bit>().setColor(sparks());
+							
+							Vector3 dir;
+							dir.x = Random.Range (-3f, 3f);
+							dir.y = Random.Range (-3f, 3f);
+							dir.z = 0.0f;
+							rigidbody.velocity = dir;
+							
+						}
+						
+						// or destroy this object half a second after impact
+						birthTime = Time.time;
+						if ( useLifeSpan )
+							lifeSpan = 0.5f;  
+					}
+					
+				} else {
+					Destroy(gameObject);
 				}
 				
-			} else {
-				Destroy(gameObject);
 			}
 
 		}
-
-	
 
 	}
 
