@@ -9,8 +9,7 @@ public class Weapon : MonoBehaviour {
 
 	public float critChance = 0.0f;
 	public float critDamage = 0.5f;
-
-
+	
 	public Joystick rightJoystick;
 
 	// Use this for initialization
@@ -42,16 +41,21 @@ public class Weapon : MonoBehaviour {
 				
 				//Debug.DrawRay(transform.position, aimAtMouse()- transform.position, Color.red);
 				//Debug.DrawRay(transform.position, aimAtMouse(), Color.blue);
-				
-				// if the unit has health
-				if ( bit.health != null ){
-					// and the unit is still alive
-					if ( !bit.health.isDead ){
+
+				if ( ( rightJoystick != null && rightJoystick.position.x != 0.0f && rightJoystick.position.y != 0.0f ) || rightJoystick == null ){
+
+					// if the unit has health
+					if ( bit.health != null ){
+						// and the unit is still alive
+						if ( !bit.health.isDead ){
+							fire(aimAtMouse());
+						}
+					} else {
 						fire(aimAtMouse());
 					}
-				} else {
-					fire(aimAtMouse());
+
 				}
+
 				
 			}	
 
@@ -91,8 +95,10 @@ public class Weapon : MonoBehaviour {
 
 		if ( rightJoystick != null ){
 			temp = new Vector3(rightJoystick.position.x, rightJoystick.position.y, 0f);
-			temp = temp + transform.position;
+			temp = temp;
 		}
+
+		Debug.Log(temp);
 
 		return temp;
 
