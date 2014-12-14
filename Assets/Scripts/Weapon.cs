@@ -10,10 +10,17 @@ public class Weapon : MonoBehaviour {
 	public float critChance = 0.0f;
 	public float critDamage = 0.5f;
 
+
+	public Joystick rightJoystick;
+
 	// Use this for initialization
 	void Start () {
 	
 		bit = gameObject.GetComponent<Bit>();
+
+		if ( GameObject.Find("RightJoystick") != null ){
+			rightJoystick = GameObject.Find("RightJoystick").GetComponent<Joystick>();
+		}
 
 	}
 	
@@ -77,10 +84,17 @@ public class Weapon : MonoBehaviour {
 	}
 
 	Vector3 aimAtMouse(){
-	
+		
 		Vector3 temp = Camera.main.ScreenToWorldPoint( Input.mousePosition );
 		temp.z = 0.0f;
-		return temp - transform.position;
+		temp = temp - transform.position;
+
+		if ( rightJoystick != null ){
+			temp = new Vector3(rightJoystick.position.x, rightJoystick.position.y, 0f);
+			temp = temp + transform.position;
+		}
+
+		return temp;
 
 	}
 

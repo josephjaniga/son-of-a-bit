@@ -24,6 +24,10 @@ public class Health : MonoBehaviour {
 
 	public GameObject sct;
 
+	private float deathClock = 0f;
+	private float deathFadeTime = 5f;
+
+
 	//public Motion m;
 	//public AI ai;
 
@@ -106,6 +110,12 @@ public class Health : MonoBehaviour {
 
 		// if the unit is dead
 		if ( isDead ){
+	
+			deathClock += Time.deltaTime;
+			if ( deathClock >= deathFadeTime ){
+				gameObject.SetActive(false);
+			}
+
 			bit.motion.userControlled = false;
 			bit.motion.shouldLock = false;
 			// drop it to the ground
@@ -122,6 +132,7 @@ public class Health : MonoBehaviour {
 			}
 			
 			if ( hpBarBG != null ){
+
 				Destroy(hpBarBG);
 			}
 		}

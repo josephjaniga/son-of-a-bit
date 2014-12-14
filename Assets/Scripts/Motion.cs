@@ -12,10 +12,16 @@ public class Motion : MonoBehaviour {
 
 	public Bit bit;
 
+	public Joystick leftJoystick;
+
 	// Use this for initialization
 	void Start () {
 	
 		bit = gameObject.GetComponent<Bit>();
+
+		if ( GameObject.Find("LeftJoystick") != null ){
+			leftJoystick = GameObject.Find("LeftJoystick").GetComponent<Joystick>();
+		}
 
 	}
 
@@ -33,11 +39,12 @@ public class Motion : MonoBehaviour {
 			tempSpeed = bit.statManager.cMovementSpeed;
 		}
 
-
 		if ( shouldLock ){
 			rigidbody.velocity = Vector3.zero;
 		}
-		
+
+
+
 		if ( userControlled ){
 
 			float x = 0.0f;
@@ -58,6 +65,12 @@ public class Motion : MonoBehaviour {
 			// right
 			if ( Input.GetKey("d") )
 				x = 1f * tempSpeed;
+
+			// joystick
+			if ( leftJoystick != null ){
+				x = leftJoystick.position.x * tempSpeed;
+				y = leftJoystick.position.y * tempSpeed;
+			}
 
 			rigidbody.velocity = new Vector3(x, y, 0f);
 
