@@ -25,9 +25,13 @@ public class Projectile : MonoBehaviour {
 	public Bit bit;
 
 	public string projectileName;
+
+	public Pool pool;
 	
 	// Use this for initialization
 	void Start () {
+
+		pool = GameObject.Find("Pool").GetComponent<Pool>();
 
 		bit = gameObject.GetComponent<Bit>();
 
@@ -84,8 +88,12 @@ public class Projectile : MonoBehaviour {
 					}
 					
 					if ( destroyOnImpact ){
-						
-						Destroy(gameObject);
+
+						if ( pool != null && projectileName == pool.slowBullet.GetComponent<Projectile>().projectileName ){
+							pool.pushToStack(gameObject);
+						} else {
+							Destroy(gameObject);
+						}
 						
 					} else {
 						
@@ -108,7 +116,13 @@ public class Projectile : MonoBehaviour {
 					}
 					
 				} else {
-					Destroy(gameObject);
+
+					if ( pool != null && projectileName == pool.slowBullet.GetComponent<Projectile>().projectileName ){
+						pool.pushToStack(gameObject);
+					} else {
+						Destroy(gameObject);
+					}
+
 				}
 				
 			}

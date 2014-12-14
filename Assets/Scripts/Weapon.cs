@@ -86,7 +86,7 @@ public class Weapon : MonoBehaviour {
 
 	Vector3 aimAI(){
 
-		Debug.Log("aimed AI");
+		//Debug.Log("aimed AI");
 
 		Vector3 temp = Vector3.zero;
 
@@ -109,7 +109,7 @@ public class Weapon : MonoBehaviour {
 
 	public void fire(Vector3 target){
 
-		Debug.Log (target);
+		//Debug.Log (target);
 
 		// get the correct rate of fire / flat or calculated
 		int tempNumberOfProjectiles = bullet.GetComponent<Projectile>().numProjectiles;
@@ -125,11 +125,28 @@ public class Weapon : MonoBehaviour {
 		offset.y *= transform.localScale.y;
 		offset.z = 0.0f;
 
-		for ( var x = 0; x < tempNumberOfProjectiles; x++ ){
-			GameObject round = Instantiate(bullet, transform.position + offset, Quaternion.identity) as GameObject;
-			round.GetComponent<Projectile>().setDirection(target - offset);
-			round.transform.parent = GameObject.Find("Projectiles").transform;
-			round.GetComponent<Projectile>().setOwner(gameObject);
+		Pool pool = GameObject.Find("Pool").GetComponent<Pool>();
+
+		if ( pool != null && bullet.GetComponent<Projectile>().projectileName == pool.slowBullet.GetComponent<Projectile>().projectileName ){
+			
+			for ( var x = 0; x < tempNumberOfProjectiles; x++ ){
+				GameObject round = pool.popFromStack();
+				round.transform.position = transform.position + offset;
+				round.SetActive(true);
+				round.GetComponent<Projectile>().setDirection(target - offset);
+				round.transform.parent = GameObject.Find("Projectiles").transform;
+				round.GetComponent<Projectile>().setOwner(gameObject);
+			}
+
+		} else {
+			
+			for ( var x = 0; x < tempNumberOfProjectiles; x++ ){
+				GameObject round = Instantiate(bullet, transform.position + offset, Quaternion.identity) as GameObject;
+				round.GetComponent<Projectile>().setDirection(target - offset);
+				round.transform.parent = GameObject.Find("Projectiles").transform;
+				round.GetComponent<Projectile>().setOwner(gameObject);
+			}
+
 		}
 
 		Debug.DrawRay(transform.position + offset, target - offset, Color.yellow);
