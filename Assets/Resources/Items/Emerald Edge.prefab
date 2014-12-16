@@ -50,7 +50,7 @@ MonoBehaviour:
   maxHealthScale: 0
   movementSpeedBoost: 0
   rateOfFireScale: 0
-  numberOfProjectilesBoost: 0
+  numberOfProjectilesBoost: 1
   projectileDamageBoost: 0
   projectileDamageScale: 0
   critChanceBoost: 0

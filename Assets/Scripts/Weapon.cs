@@ -98,8 +98,6 @@ public class Weapon : MonoBehaviour {
 			temp = temp;
 		}
 
-		Debug.Log(temp);
-
 		return temp;
 
 	}

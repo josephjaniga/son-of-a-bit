@@ -15,7 +15,7 @@ GameObject:
   - 54: {fileID: 5400000}
   - 114: {fileID: 11400000}
   - 122: {fileID: 12200000}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: SniperRound_BETA
   m_TagString: Untagged
   m_Icon: {fileID: 0}

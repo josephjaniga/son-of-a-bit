@@ -16,8 +16,8 @@ GameObject:
   - 114: {fileID: 11400000}
   - 198: {fileID: 19800000}
   - 199: {fileID: 19900000}
-  m_Layer: 8
-  m_Name: SniperRound
+  m_Layer: 9
+  m_Name: SniperRound_Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

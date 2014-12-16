@@ -54,16 +54,20 @@ public class Inventory : MonoBehaviour {
 	}
 
 	public void addItemToInventory(Item item){
+
 		// follow the same process on start
 		// item should be an INSTANCE in the ITEMS set
 		// item instance should have a valid ID
-
 		if ( item.itemId != 0){
+			
+			item.isEquipped = true;
+
 			// add the item to inventory items array
 			itemInventory.Add(item);
 			
 			// redraw the gui elements
 			ip.recreateInventoryGui();
+
 		}
 
 	}

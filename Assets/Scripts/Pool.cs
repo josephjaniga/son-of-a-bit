@@ -7,20 +7,25 @@ public class Pool : MonoBehaviour {
 	public GameObject slowBullet;
 
 	public List<GameObject> slowBulletList;
-	public Stack<GameObject> slowBulletStack;
+	//public Stack<GameObject> slowBulletStack;
+
+	public int listCount = 0;
 
 	// Use this for initialization
 	void Start () {
 	
 		slowBulletList = new List<GameObject>();
-		slowBulletStack = new Stack<GameObject>();
+		//slowBulletStack = new Stack<GameObject>();
 
 		for ( int i=0; i<5000; i++ ){
 
 			GameObject go = Instantiate(slowBullet, new Vector3(-999f, -999f, -999f), Quaternion.identity) as GameObject;
 			pushToStack(go);
+
 		}
 
+		listCount = slowBulletList.Count;
+		
 	}
 	
 	// Update is called once per frame
@@ -34,6 +39,7 @@ public class Pool : MonoBehaviour {
 		if ( slowBulletList.Count > 0 ){
 			temp = slowBulletList[0];
 			slowBulletList.RemoveAt(0);
+			listCount = slowBulletList.Count;
 		}
 		return temp;
 
@@ -44,6 +50,7 @@ public class Pool : MonoBehaviour {
 		go.transform.SetParent(GameObject.Find ("Pool").transform);
 		go.SetActive(false);
 		slowBulletList.Add(go);
+		listCount = slowBulletList.Count;
 
 	}
 

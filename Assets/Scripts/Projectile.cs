@@ -51,11 +51,18 @@ public class Projectile : MonoBehaviour {
 
 		// kill it after it expires
 		if ( Time.time - birthTime >= lifeSpan && useLifeSpan ){
-			Destroy(gameObject);
-		}
+			
+			if ( pool != null && projectileName == pool.slowBullet.GetComponent<Projectile>().projectileName ){
+				pool.pushToStack(gameObject);
+			} else {
+				Debug.Log (gameObject.name + " destroyed");
+				Destroy(gameObject);
+			}
 
+		}
+		
 	}
- 
+	
 	void OnCollisionEnter(Collision c){	 
 
 		if ( owner != null ){
@@ -92,6 +99,7 @@ public class Projectile : MonoBehaviour {
 						if ( pool != null && projectileName == pool.slowBullet.GetComponent<Projectile>().projectileName ){
 							pool.pushToStack(gameObject);
 						} else {
+							Debug.Log (gameObject.name + " destroyed");
 							Destroy(gameObject);
 						}
 						
@@ -120,6 +128,7 @@ public class Projectile : MonoBehaviour {
 					if ( pool != null && projectileName == pool.slowBullet.GetComponent<Projectile>().projectileName ){
 						pool.pushToStack(gameObject);
 					} else {
+						Debug.Log (gameObject.name + " destroyed");
 						Destroy(gameObject);
 					}
 
@@ -127,10 +136,19 @@ public class Projectile : MonoBehaviour {
 				
 			}
 
+		} else {
+
+			if ( pool != null && projectileName == pool.slowBullet.GetComponent<Projectile>().projectileName ){
+				pool.pushToStack(gameObject);
+			} else {
+				Debug.Log (gameObject.name + " destroyed");
+				Destroy(gameObject);
+			}
+			
 		}
-
+		
 	}
-
+	
 	public void setDirection( Vector3 v3 ){
 		targetDirection = v3.normalized;
 		rigidbody.velocity = targetDirection * speed;
