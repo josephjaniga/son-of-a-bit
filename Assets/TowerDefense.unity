@@ -2486,6 +2486,7 @@ GameObject:
   - 114: {fileID: 411576828}
   - 114: {fileID: 411576829}
   - 114: {fileID: 411576830}
+  - 114: {fileID: 411576831}
   m_Layer: 0
   m_Name: FatherBit
   m_TagString: Untagged
@@ -2564,6 +2565,17 @@ MonoBehaviour:
   playerBit: {fileID: 0}
   item: {fileID: 100002, guid: fbd0b8afe68cb4e1da9f0d546bd1ba07, type: 2}
   ip: {fileID: 0}
+--- !u!114 &411576831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 411576826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9aa994c4afbc4efb93e8f3edd8ebe23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &414185569
 GameObject:
   m_ObjectHideFlags: 0

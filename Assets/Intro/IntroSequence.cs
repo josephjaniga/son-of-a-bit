@@ -76,7 +76,7 @@ public class IntroSequence : MonoBehaviour {
 
 		if ( state == "done" ){
 			if ( Time.time - startTime >= duration ){
-				Application.LoadLevel("TowerDefense");
+				Application.LoadLevel("MainMenu");
 			}
 		}
 
