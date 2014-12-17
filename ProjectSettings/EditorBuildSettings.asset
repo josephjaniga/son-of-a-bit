@@ -13,3 +13,5 @@ EditorBuildSettings:
     path: Assets/MainMenu/MainMenu.unity
   - enabled: 1
     path: Assets/TowerDefense.unity
+  - enabled: 1
+    path: Assets/DeathScreen/DeathScreen.unity

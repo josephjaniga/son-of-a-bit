@@ -12,7 +12,7 @@ public class TowerDefense : MonoBehaviour {
 	void LateUpdate () {
 	
 		if ( GameObject.Find("Player") == null ) {
-			Application.LoadLevel("MainMenu");
+			Application.LoadLevel("DeathScreen");
 		}
 
 	}
