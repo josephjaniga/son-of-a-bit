@@ -143,14 +143,29 @@ public class Weapon : MonoBehaviour {
 		offset.y *= transform.localScale.y;
 		offset.z = 0.0f;
 
-		Pool pool = GameObject.Find("Pool").GetComponent<Pool>();
+		Pool slowBulletPool = GameObject.Find("SLOW_BULLET_POOL").GetComponent<Pool>();
+		Pool ffBulletPool = GameObject.Find("FF_Bullet_POOL").GetComponent<Pool>();
 
-		if ( pool != null && bullet.GetComponent<Projectile>().projectileName == pool.slowBullet.GetComponent<Projectile>().projectileName ){
+
+		if ( slowBulletPool != null && bullet.GetComponent<Projectile>().projectileName == slowBulletPool.goInstance.GetComponent<Projectile>().projectileName ){
 			
 			for ( var x = 0; x < tempNumberOfProjectiles; x++ ){
-				GameObject round = pool.popFromStack();
+				GameObject round = slowBulletPool.popFromStack();
 				round.transform.position = transform.position + offset;
 				round.SetActive(true);
+				round.GetComponent<Projectile>().birthTime = Time.time;
+				round.GetComponent<Projectile>().setDirection(target - offset);
+				round.transform.parent = GameObject.Find("Projectiles").transform;
+				round.GetComponent<Projectile>().setOwner(gameObject);
+			}
+
+		} else if ( ffBulletPool != null && bullet.GetComponent<Projectile>().projectileName == ffBulletPool.goInstance.GetComponent<Projectile>().projectileName ) {
+
+			for ( var x = 0; x < tempNumberOfProjectiles; x++ ){
+				GameObject round = ffBulletPool.popFromStack();
+				round.transform.position = transform.position + offset;
+				round.SetActive(true);
+				round.GetComponent<Projectile>().birthTime = Time.time;
 				round.GetComponent<Projectile>().setDirection(target - offset);
 				round.transform.parent = GameObject.Find("Projectiles").transform;
 				round.GetComponent<Projectile>().setOwner(gameObject);

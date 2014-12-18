@@ -15,7 +15,7 @@ public class Inventory : MonoBehaviour {
 
 	public Transform itemsContainer;
 	
-	// Use this for initialization
+	// Use this for initializationss
 	void Start () {
 
 		bit = gameObject.GetComponent<Bit>();
@@ -32,8 +32,14 @@ public class Inventory : MonoBehaviour {
 		*/
 
 		foreach ( Transform item in GameObject.Find("Items").transform ){
-			idCount++;
-			item.GetComponent<Item>().itemId = idCount;
+			Item i = item.GetComponent<Item>();
+			if ( i != null ){
+				idCount++;
+				i.itemId = idCount;	
+				if ( i.isEquipped ){
+					itemInventory.Add(i);
+				}
+			}
 		}
 
 		ip = GameObject.Find("FatherBit").GetComponent<InventoryPanel>();

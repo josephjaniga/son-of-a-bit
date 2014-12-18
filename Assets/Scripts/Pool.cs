@@ -4,42 +4,36 @@ using System.Collections.Generic;
 
 public class Pool : MonoBehaviour {
 
-	public GameObject slowBullet;
-
-	public List<GameObject> slowBulletList;
-	//public Stack<GameObject> slowBulletStack;
+	public string poolName;
+	public GameObject goInstance;
+	public List<GameObject> list;
 
 	public int listCount = 0;
 
 	// Use this for initialization
 	void Start () {
 	
-		slowBulletList = new List<GameObject>();
+		list = new List<GameObject>();
 		//slowBulletStack = new Stack<GameObject>();
 
-		for ( int i=0; i<5000; i++ ){
+		for ( int i=0; i<1000; i++ ){
 
-			GameObject go = Instantiate(slowBullet, new Vector3(-999f, -999f, -999f), Quaternion.identity) as GameObject;
+			GameObject go = Instantiate(goInstance, new Vector3(-999f, -999f, -999f), Quaternion.identity) as GameObject;
 			pushToStack(go);
 
 		}
 
-		listCount = slowBulletList.Count;
+		listCount = list.Count;
 		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 
 	public GameObject popFromStack(){
 
 		GameObject temp = null;
-		if ( slowBulletList.Count > 0 ){
-			temp = slowBulletList[0];
-			slowBulletList.RemoveAt(0);
-			listCount = slowBulletList.Count;
+		if ( list.Count > 0 ){
+			temp = list[0];
+			list.RemoveAt(0);
+			listCount = list.Count;
 		}
 		return temp;
 
@@ -47,10 +41,18 @@ public class Pool : MonoBehaviour {
 
 	public void pushToStack(GameObject go){
 
-		go.transform.SetParent(GameObject.Find ("Pool").transform);
+		go.transform.SetParent( gameObject.transform );
 		go.SetActive(false);
-		slowBulletList.Add(go);
-		listCount = slowBulletList.Count;
+		list.Add(go);
+		listCount = list.Count;
+
+		/*
+		if ( go.name == goInstance.name ){
+
+		} else {
+			Destroy(go);
+		}
+		*/
 
 	}
 

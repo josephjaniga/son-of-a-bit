@@ -18,6 +18,12 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	public void begin(){
+
+		GameObject i = GameObject.Find("Items");
+		if ( i != null ){
+			Destroy(i);
+		}
+
 		Application.LoadLevel("TowerDefense");
 	}
 

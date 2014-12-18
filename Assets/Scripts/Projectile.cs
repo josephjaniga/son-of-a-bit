@@ -29,9 +29,11 @@ public class Projectile : MonoBehaviour {
 	public Pool pool;
 	
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 
-		pool = GameObject.Find("Pool").GetComponent<Pool>();
+		Debug.Log(projectileName);
+
+		pool = GameObject.Find( projectileName + "_POOL").GetComponent<Pool>();;
 
 		bit = gameObject.GetComponent<Bit>();
 
@@ -52,7 +54,7 @@ public class Projectile : MonoBehaviour {
 		// kill it after it expires
 		if ( Time.time - birthTime >= lifeSpan && useLifeSpan ){
 			
-			if ( pool != null && projectileName == pool.slowBullet.GetComponent<Projectile>().projectileName ){
+			if ( pool != null && projectileName == pool.goInstance.GetComponent<Projectile>().projectileName ){
 				pool.pushToStack(gameObject);
 			} else {
 				Debug.Log (gameObject.name + " destroyed");
@@ -96,10 +98,10 @@ public class Projectile : MonoBehaviour {
 					
 					if ( destroyOnImpact ){
 
-						if ( pool != null && projectileName == pool.slowBullet.GetComponent<Projectile>().projectileName ){
+						if ( pool != null && projectileName == pool.goInstance.GetComponent<Projectile>().projectileName ){
 							pool.pushToStack(gameObject);
 						} else {
-							Debug.Log (gameObject.name + " destroyed");
+							//Debug.Log (gameObject.name + " destroyed");
 							Destroy(gameObject);
 						}
 						
@@ -125,10 +127,10 @@ public class Projectile : MonoBehaviour {
 					
 				} else {
 
-					if ( pool != null && projectileName == pool.slowBullet.GetComponent<Projectile>().projectileName ){
+					if ( pool != null && projectileName == pool.goInstance.GetComponent<Projectile>().projectileName ){
 						pool.pushToStack(gameObject);
 					} else {
-						Debug.Log (gameObject.name + " destroyed");
+						//Debug.Log (gameObject.name + " destroyed");
 						Destroy(gameObject);
 					}
 
@@ -138,7 +140,7 @@ public class Projectile : MonoBehaviour {
 
 		} else {
 
-			if ( pool != null && projectileName == pool.slowBullet.GetComponent<Projectile>().projectileName ){
+			if ( pool != null && projectileName == pool.goInstance.GetComponent<Projectile>().projectileName ){
 				pool.pushToStack(gameObject);
 			} else {
 				Debug.Log (gameObject.name + " destroyed");

@@ -113,6 +113,15 @@ public class Health : MonoBehaviour {
 	
 			deathClock += Time.deltaTime;
 			if ( deathClock >= deathFadeTime ){
+
+				if ( gameObject.name.Contains("Cylinder") ){
+					Pool cylinderPool = GameObject.Find ("Cylinder_POOL").GetComponent<Pool>();
+					cylinderPool.pushToStack(gameObject);
+				} else {
+					//Debug.Log (gameObject.name + " destroyed");
+					Destroy(gameObject);
+				}
+
 				gameObject.SetActive(false);
 			}
 

@@ -113,7 +113,7 @@ MonoBehaviour:
   colorHigh: {r: 1, g: .5, b: 0, a: .5}
   owner: {fileID: 0}
   bit: {fileID: 0}
-  projectileName: Bullet
+  projectileName: FF_Bullet
   pool: {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:
