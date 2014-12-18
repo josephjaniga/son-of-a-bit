@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDirection: {x: 0, y: 0, z: 0}
   speed: 7
-  destroyOnImpact: 1
+  destroyOnImpact: 0
   useLifeSpan: 1
   useGravity: 0
   birthTime: 0
@@ -108,12 +108,12 @@ MonoBehaviour:
   ROF: .5
   numProjectiles: 5
   projectileDamage: 5
-  sparkOnCollision: 0
+  sparkOnCollision: 1
   colorLow: {r: .600000024, g: .100000001, b: 0, a: .100000001}
   colorHigh: {r: 1, g: .5, b: 0, a: .5}
   owner: {fileID: 0}
   bit: {fileID: 0}
-  projectileName: Rocket
+  projectileName: FF_Rocket
   pool: {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:

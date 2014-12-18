@@ -31,7 +31,7 @@ public class Projectile : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 
-		Debug.Log(projectileName);
+		//Debug.Log(projectileName);
 
 		pool = GameObject.Find( projectileName + "_POOL").GetComponent<Pool>();;
 

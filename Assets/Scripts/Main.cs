@@ -54,16 +54,26 @@ public class Main : MonoBehaviour {
 		}
 
 		// DEVTOOLS
-		 devTools();
+		// devTools();
 	}
 
 
 	private void devTools(){
 
+		GameObject player = GameObject.Find ("Player");
+
 		// keypress j - spawn an item
 		if ( Input.GetKeyDown("j") ){
 			GameObject go = p.GetComponent<Inventory>().createRandomItem();
 			p.GetComponent<Inventory>().addItemToInventory(go.GetComponent<Item>());
+		}
+
+		if ( Input.GetKeyDown(KeyCode.Alpha1) ){
+			player.GetComponent<Weapon>().bullet = (GameObject)Resources.Load("Projectiles/FF_Bullet"); 
+		}
+		
+		if ( Input.GetKeyDown(KeyCode.Alpha2) ){
+			player.GetComponent<Weapon>().bullet = (GameObject)Resources.Load("Projectiles/FF_Rocket"); 
 		}
 
 

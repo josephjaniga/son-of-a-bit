@@ -24,7 +24,7 @@ public class MainMenu : MonoBehaviour {
 			Destroy(i);
 		}
 
-		Application.LoadLevel("TowerDefense");
+		Application.LoadLevel("LoadOut");
 	}
 
 }

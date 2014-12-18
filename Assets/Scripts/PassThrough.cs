@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PassThrough : MonoBehaviour {
 
+	public GameObject startingWeapon;
+
 	// Use this for initialization
 	void Start () {
 		if ( this.transform != null ){
@@ -17,4 +19,5 @@ public class PassThrough : MonoBehaviour {
 	void Update () {
 	
 	}
+
 }

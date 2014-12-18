@@ -59,13 +59,6 @@ public class Weapon : MonoBehaviour {
 				
 			}	
 
-			if ( Input.GetKeyDown(KeyCode.Alpha1) ){
-				bullet = (GameObject)Resources.Load("Projectiles/FF_Bullet"); 
-			}
-			
-			if ( Input.GetKeyDown(KeyCode.Alpha2) ){
-				bullet = (GameObject)Resources.Load("Projectiles/FF_Rocket"); 
-			}
 
 
 		} else if ( 	// if the weapon is AI controlled
