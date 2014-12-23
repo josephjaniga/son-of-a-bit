@@ -11,16 +11,16 @@ GameObject:
   - 33: {fileID: 3300000}
   - 65: {fileID: 6500000}
   - 23: {fileID: 2300000}
-  - 114: {fileID: 11400012}
-  - 114: {fileID: 11400010}
-  - 54: {fileID: 5400000}
-  - 114: {fileID: 11400008}
-  - 114: {fileID: 11400006}
-  - 114: {fileID: 11400004}
-  - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
-  m_Layer: 8
-  m_Name: Player
+  - 114: {fileID: 11400002}
+  - 54: {fileID: 5400000}
+  - 114: {fileID: 11400004}
+  - 114: {fileID: 11400006}
+  - 114: {fileID: 11400008}
+  - 114: {fileID: 11400010}
+  - 114: {fileID: 11400012}
+  m_Layer: 9
+  m_Name: PlayerShip
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.9200001, y: -5.36999989, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: .200000003, y: .200000003, z: .200000003}
   m_Children: []
   m_Father: {fileID: 0}
@@ -50,7 +50,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 80d8faef3105f43bc9360e5de7574785, type: 2}
+  - {fileID: 2100000, guid: 5a07d8791ae9945d39483780ebac8bce, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -78,7 +78,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 72
+  m_Constraints: 8
   m_CollisionDetection: 0
 --- !u!65 &6500000
 BoxCollider:
@@ -93,135 +93,6 @@ BoxCollider:
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84b75bdfecc534626ad80d3302969b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 0
-  itemName: Excaliber
-  value: 1
-  isEquipped: 0
-  statText: 
-  rarity: 0
-  type: 0
-  maxHealthBoost: 0
-  maxHealthScale: 0
-  movementSpeedBoost: 0
-  rateOfFireScale: 0
-  numberOfProjectilesBoost: 0
-  projectileDamageBoost: 0
-  projectileDamageScale: 0
-  critChanceBoost: 0
-  critDamageBoost: 0
-  healthRegenBoost: 0
-  statCount: 10
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 474b6416c6b9846a399ce6cac6bf4dc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bit: {fileID: 0}
-  cMaxHealth: 0
-  cRegen: 0
-  cMovementSpeed: 0
-  cRateOfFire: 0
-  cNumberOfProjectiles: 0
-  cProjectileDamage: 0
-  cCriticalChance: 0
-  cCriticalDamage: 0
-  unitsProjectile: {fileID: 0}
---- !u!114 &11400004
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f1d4ba99cc1e4a9cb4ed91066f8ebf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  generic: {fileID: 100000, guid: f30db08be92924a09a42fa75ab223a35, type: 2}
-  ip: {fileID: 0}
-  credits: 0
-  bit: {fileID: 0}
-  idCount: 0
-  itemInventory: []
-  itemsContainer: {fileID: 0}
---- !u!114 &11400006
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64621a89f125247d6ab010870406afc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offset: {x: 0, y: 1, z: 0}
-  scale: {x: 1.5, y: .0500000007, z: .0500000007}
-  maxHP: 100
-  currentHP: 1
-  regen: 1
-  regenRate: 2
-  regenTimer: 2
-  hpBar: {fileID: 0}
-  hpBarBG: {fileID: 0}
-  isDead: 0
-  isTerrain: 0
-  isImmortal: 1
-  bit: {fileID: 0}
-  sct: {fileID: 0}
---- !u!114 &11400008
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d21837fb31bef47b59be8d5d4be7ec38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bit: {fileID: 0}
-  bullet: {fileID: 100000, guid: 64733dd69dab444b5ad5e4491568483e, type: 2}
-  lastFired: 0
-  critChance: 0
-  critDamage: .5
-  rightJoystick: {fileID: 0}
---- !u!114 &11400010
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd14d4a05f5f04a31bfa910b231cf2c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: 0}
-  speed: 2
-  userControlled: 1
-  shouldLock: 1
-  flight: 1
-  rotation: {x: 44, y: 0, z: 0}
-  bit: {fileID: 0}
-  leftJoystick: {fileID: 0}
---- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -245,6 +116,123 @@ MonoBehaviour:
   faction: {fileID: 0}
   waveSpawner: {fileID: 0}
   inUse: 1
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd14d4a05f5f04a31bfa910b231cf2c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: 0, z: 0}
+  speed: 2
+  userControlled: 1
+  shouldLock: 1
+  flight: 1
+  rotation: {x: 44, y: 0, z: 0}
+  bit: {fileID: 0}
+  leftJoystick: {fileID: 0}
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21837fb31bef47b59be8d5d4be7ec38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bit: {fileID: 0}
+  bullet: {fileID: 100000, guid: 64733dd69dab444b5ad5e4491568483e, type: 2}
+  lastFired: 0
+  critChance: 0
+  critDamage: .5
+  rightJoystick: {fileID: 0}
+--- !u!114 &11400006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64621a89f125247d6ab010870406afc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 1, z: 0}
+  scale: {x: 1.5, y: .0500000007, z: .0500000007}
+  maxHP: 100
+  currentHP: 1
+  regen: 1
+  regenRate: 2
+  regenTimer: 2
+  hpBar: {fileID: 0}
+  hpBarBG: {fileID: 0}
+  isDead: 0
+  isTerrain: 0
+  isImmortal: 0
+  bit: {fileID: 0}
+  sct: {fileID: 0}
+--- !u!114 &11400008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f1d4ba99cc1e4a9cb4ed91066f8ebf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generic: {fileID: 0}
+  ip: {fileID: 0}
+  credits: 0
+  bit: {fileID: 0}
+  idCount: 0
+  itemInventory:
+  - {fileID: 0}
+  - {fileID: 0}
+  itemsContainer: {fileID: 0}
+--- !u!114 &11400010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474b6416c6b9846a399ce6cac6bf4dc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bit: {fileID: 0}
+  cMaxHealth: 0
+  cRegen: 0
+  cMovementSpeed: 0
+  cRateOfFire: 0
+  cNumberOfProjectiles: 0
+  cProjectileDamage: 0
+  cCriticalChance: 0
+  cCriticalDamage: 0
+  unitsProjectile: {fileID: 0}
+--- !u!114 &11400012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc8195cf5975947288baeccab68910e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vehicleName: Cube
+  cameraSize: 7
+  sct: {fileID: 0}
+  seat: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -67,7 +67,7 @@ public class Pool : MonoBehaviour {
 		*/
 
 		foreach ( Transform child in transform ) {
-			if ( !child.gameObject.activeSelf  ){
+			if ( !child.gameObject.activeSelf ){
 				temp = child.gameObject;
 				break;
 			}

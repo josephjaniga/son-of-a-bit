@@ -3,11 +3,14 @@ using System.Collections;
 
 public class TowerDefense : MonoBehaviour {
 
+	public GameObject package;
+	public GameObject player;
+
 	// Use this for initialization
 	void Start () {
 	
-		GameObject package = GameObject.Find("Package");
-		GameObject player = GameObject.Find("Player");
+		package = GameObject.Find("Package");
+		player = GameObject.Find("Player");
 
 		if ( package != null && player != null ){
 			player.GetComponent<Weapon>().bullet = package.GetComponent<PassThrough>().startingWeapon;
@@ -18,8 +21,8 @@ public class TowerDefense : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-	
-		if ( GameObject.Find("Player") == null ) {
+
+		if ( player.GetComponent<Bit>().health != null && player.GetComponent<Bit>().health.isDead ) {
 			Application.LoadLevel("DeathScreen");
 		}
 

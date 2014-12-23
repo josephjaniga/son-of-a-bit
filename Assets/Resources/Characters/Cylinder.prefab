@@ -134,6 +134,7 @@ MonoBehaviour:
   speed: 3
   userControlled: 0
   shouldLock: 0
+  flight: 1
   rotation: {x: 0, y: 0, z: 0}
   bit: {fileID: 0}
   leftJoystick: {fileID: 0}
@@ -159,7 +160,7 @@ MonoBehaviour:
   followTarget: {fileID: 0}
   attackTarget: {fileID: 0}
   collisionDamage: 2
-  dropChance: .0500000007
+  dropChance: 0
   dropRarity: 0
   dropRate: 1
   spawnTimer: 0

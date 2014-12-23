@@ -282,8 +282,6 @@ public class Health : MonoBehaviour {
 								alert.GetComponent<SCT>().Timer = 5;
 								alert.GetComponent<SCT>().Timeout = 5;
 
-
-
 							}
 						}
 					}
