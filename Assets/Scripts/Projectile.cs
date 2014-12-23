@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour {
 
 		//Debug.Log(projectileName);
 
-		pool = GameObject.Find( projectileName + "_POOL").GetComponent<Pool>();;
+		pool = GameObject.Find( projectileName + "_POOL").GetComponent<Pool>();
 
 		bit = gameObject.GetComponent<Bit>();
 

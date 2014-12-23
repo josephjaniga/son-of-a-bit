@@ -47,19 +47,23 @@ public class WaveSpawner : MonoBehaviour {
 			waveNumber++;
 
 			if ( enemyPool != null ){
+				int dimm = Mathf.RoundToInt(Mathf.Sqrt (waveNumber))+1;
 
-				for ( int i=0; i<waveNumber; i++ ){
-					Vector3 t = new Vector3(Random.Range(-3,3), Random.Range(-3,3), 0f);
-					GameObject go = enemyPool.popFromStack();
-					go.transform.position = transform.position + t;
-					go.SetActive(true);
-					go.transform.SetParent(faction.transform);
-					go.renderer.material.color = faction.GetComponent<Faction>().factionColor;
-					// TODO why do I have to do this to make this work.. "Awake?"
-					go.GetComponent<AI>().enabled = false;
-					go.GetComponent<AI>().enabled = true;
+				for ( int i=0; i<dimm; i++ ){
+					for ( int j=0; j<dimm; j++){
+						if ( i * dimm + j < waveNumber ){
+							Vector3 t = new Vector3(i-dimm/2f, j-dimm/2f, 0f);
+							GameObject go = enemyPool.popFromStack();
+							go.transform.position = transform.position + t;
+							go.SetActive(true);
+							go.transform.SetParent(faction.transform);
+							go.renderer.material.color = faction.GetComponent<Faction>().factionColor;
+							// TODO why do I have to do this to make this work.. "Awake?"
+							go.GetComponent<AI>().enabled = false;
+							go.GetComponent<AI>().enabled = true;
+						}
+					}
 				}
-				
 			}
 
 //			else {

@@ -17,6 +17,8 @@ public class Bit : MonoBehaviour {
 	public Faction		faction;
 	public WaveSpawner  waveSpawner;
 
+	public bool inUse = false;
+
 	void Awake () {
 		
 		setColor(c);

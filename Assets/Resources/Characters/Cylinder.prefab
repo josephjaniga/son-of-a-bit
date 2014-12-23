@@ -118,6 +118,7 @@ MonoBehaviour:
   weapon: {fileID: 0}
   faction: {fileID: 0}
   waveSpawner: {fileID: 0}
+  inUse: 1
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1

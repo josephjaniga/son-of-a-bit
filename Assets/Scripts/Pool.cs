@@ -10,50 +10,81 @@ public class Pool : MonoBehaviour {
 
 	public int listCount = 0;
 
+	public int poolMax;
+
 	// Use this for initialization
 	void Start () {
 	
 		list = new List<GameObject>();
 		//slowBulletStack = new Stack<GameObject>();
 
-		for ( int i=0; i<1000; i++ ){
+		if ( poolMax == 0 ){
+			poolMax = 1000;		
+		}
+
+		for ( int i=0; i<poolMax; i++ ){
 
 			GameObject go = Instantiate(goInstance, new Vector3(-999f, -999f, -999f), Quaternion.identity) as GameObject;
 			pushToStack(go);
 
 		}
 
-		listCount = list.Count;
+		listCount = countAvailable();
 		
 	}
 
 	public GameObject popFromStack(){
 
-		GameObject temp = null;
-		if ( list.Count > 0 ){
-			temp = list[0];
-			list.RemoveAt(0);
-			listCount = list.Count;
-		}
+		GameObject temp = getFirstAvailable();
+		Debug.Log (temp);
+		temp.GetComponent<Bit>().inUse = true;
+		//listCount = countAvailable();
 		return temp;
 
 	}
 
 	public void pushToStack(GameObject go){
 
+		go.GetComponent<Bit>().inUse = false;
 		go.transform.SetParent( gameObject.transform );
 		go.SetActive(false);
-		list.Add(go);
-		listCount = list.Count;
+		//listCount = countAvailable();
+
+	}
+
+	public GameObject getFirstAvailable(){
+		GameObject temp = null;
 
 		/*
-		if ( go.name == goInstance.name ){
-
-		} else {
-			Destroy(go);
+		for( int i=0; i<list.Count; i++ ){
+			GameObject go = list[i];
+			Debug.Log (go);
+			if ( go.GetComponent<Bit>() != null && !go.GetComponent<Bit>().inUse  ){
+				temp = go;
+				break;
+			}
 		}
 		*/
 
+		foreach ( Transform child in transform ) {
+			if ( !child.gameObject.activeSelf  ){
+				temp = child.gameObject;
+				break;
+			}
+		}
+
+		return temp;
+	}
+
+
+	public int countAvailable(){
+		int temp = 0;
+		foreach ( Transform child in transform ) {
+			if ( !child.gameObject.activeSelf  ){
+				temp++;
+			}
+		}
+		return temp;
 	}
 
 }

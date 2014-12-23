@@ -1565,6 +1565,7 @@ MonoBehaviour:
   weapon: {fileID: 0}
   faction: {fileID: 0}
   waveSpawner: {fileID: 0}
+  inUse: 1
 --- !u!23 &271298695
 Renderer:
   m_ObjectHideFlags: 0
@@ -1868,6 +1869,7 @@ MonoBehaviour:
   weapon: {fileID: 0}
   faction: {fileID: 0}
   waveSpawner: {fileID: 0}
+  inUse: 1
 --- !u!23 &286230673
 Renderer:
   m_ObjectHideFlags: 0
@@ -4568,6 +4570,7 @@ MonoBehaviour:
   goInstance: {fileID: 100000, guid: a0a73a56c244c432f9408e9e565b2ef8, type: 2}
   list: []
   listCount: 0
+  poolMax: 0
 --- !u!1 &980879454
 GameObject:
   m_ObjectHideFlags: 0
@@ -5019,6 +5022,7 @@ MonoBehaviour:
   goInstance: {fileID: 100000, guid: 64733dd69dab444b5ad5e4491568483e, type: 2}
   list: []
   listCount: 0
+  poolMax: 5000
 --- !u!1 &1108864377
 GameObject:
   m_ObjectHideFlags: 0
@@ -6365,6 +6369,7 @@ MonoBehaviour:
   weapon: {fileID: 0}
   faction: {fileID: 0}
   waveSpawner: {fileID: 0}
+  inUse: 0
 --- !u!114 &1514575701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6472,6 +6477,7 @@ MonoBehaviour:
   goInstance: {fileID: 100000, guid: f89d29d6ccabb478e8851de769a03e27, type: 2}
   list: []
   listCount: 0
+  poolMax: 250
 --- !u!1 &1620510065
 GameObject:
   m_ObjectHideFlags: 0
@@ -6503,6 +6509,7 @@ MonoBehaviour:
   goInstance: {fileID: 100000, guid: 96fee6bf5ef364c30abf8c24efb4322c, type: 2}
   list: []
   listCount: 0
+  poolMax: 500
 --- !u!4 &1620510067
 Transform:
   m_ObjectHideFlags: 0
@@ -7294,21 +7301,17 @@ Prefab:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: a3bbe807a328544afa043b11da0c3773, type: 2}
+      propertyPath: enemyPool
+      value: 
+      objectReference: {fileID: 1615310537}
+    - target: {fileID: 11400000, guid: a3bbe807a328544afa043b11da0c3773, type: 2}
       propertyPath: faction
       value: 
       objectReference: {fileID: 1810079135}
     - target: {fileID: 11400000, guid: a3bbe807a328544afa043b11da0c3773, type: 2}
-      propertyPath: mobInstance
-      value: 
-      objectReference: {fileID: 100000, guid: f89d29d6ccabb478e8851de769a03e27, type: 2}
-    - target: {fileID: 11400000, guid: a3bbe807a328544afa043b11da0c3773, type: 2}
       propertyPath: waveNumber
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: a3bbe807a328544afa043b11da0c3773, type: 2}
-      propertyPath: enemyPool
-      value: 
-      objectReference: {fileID: 1615310537}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a3bbe807a328544afa043b11da0c3773, type: 2}
   m_RootGameObject: {fileID: 1514575695}
@@ -8419,6 +8422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0839d324a46e145c08d1f3f9d86a1d05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingWeapon: {fileID: 0}
 --- !u!1 &2105321492
 GameObject:
   m_ObjectHideFlags: 0
