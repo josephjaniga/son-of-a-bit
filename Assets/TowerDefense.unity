@@ -1908,6 +1908,7 @@ GameObject:
   - 114: {fileID: 271298703}
   - 114: {fileID: 271298704}
   - 114: {fileID: 271298706}
+  - 114: {fileID: 271298707}
   - 114: {fileID: 271298705}
   m_Layer: 8
   m_Name: PlayerShip
@@ -2162,6 +2163,36 @@ MonoBehaviour:
   sct: {fileID: 0}
   seat: {fileID: 0}
   bit: {fileID: 0}
+--- !u!114 &271298707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400014, guid: 16fce1f1ba9fa4c85acb7a943b55ceba,
+    type: 2}
+  m_PrefabInternal: {fileID: 17331146}
+  m_GameObject: {fileID: 271298693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b75bdfecc534626ad80d3302969b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 0
+  itemName: Excaliber
+  value: 1
+  isEquipped: 0
+  statText: 
+  rarity: 0
+  type: 0
+  maxHealthBoost: 0
+  maxHealthScale: 0
+  movementSpeedBoost: 0
+  rateOfFireScale: 0
+  numberOfProjectilesBoost: 0
+  projectileDamageBoost: 0
+  projectileDamageScale: 0
+  critChanceBoost: 0
+  critDamageBoost: 0
+  healthRegenBoost: 0
+  statCount: 10
 --- !u!1 &286230668
 GameObject:
   m_ObjectHideFlags: 0
@@ -6846,7 +6877,7 @@ Transform:
   m_PrefabInternal: {fileID: 1762212788}
   m_GameObject: {fileID: 1514575695}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.6700001, y: 10.0600004, z: 0}
+  m_LocalPosition: {x: 15.1000004, y: 4.78999996, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 1663182034}
@@ -7776,11 +7807,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: a3bbe807a328544afa043b11da0c3773, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 25.6700001
+      value: 15.1000004
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a3bbe807a328544afa043b11da0c3773, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 10.0600004
+      value: 4.78999996
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a3bbe807a328544afa043b11da0c3773, type: 2}
       propertyPath: m_LocalPosition.z

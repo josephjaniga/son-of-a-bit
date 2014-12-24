@@ -13,6 +13,7 @@ public class InventoryPanel : MonoBehaviour {
 
 	void Awake(){
 		player = GameObject.Find("Player");
+		player = GameObject.Find("PlayerShip");
 		if ( player != null){
 			playerBit = player.GetComponent<Bit>();
 		}
@@ -24,6 +25,7 @@ public class InventoryPanel : MonoBehaviour {
 	void Start () {
 	
 		player = GameObject.Find("Player");
+		player = GameObject.Find("PlayerShip");
 		if ( player != null){
 			playerBit = player.GetComponent<Bit>();
 		}

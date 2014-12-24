@@ -31,6 +31,7 @@ public class CharacterPanel : MonoBehaviour {
 
 	void Awake(){
 		player = GameObject.Find("Player");
+		player = GameObject.Find("PlayerShip");
 		if ( player != null){
 			bit = player.GetComponent<Bit>();
 		}
@@ -40,6 +41,7 @@ public class CharacterPanel : MonoBehaviour {
 	void Start () {
 
 		player = GameObject.Find("Player");
+		player = GameObject.Find("PlayerShip");
 		if ( player != null){
 			bit = player.GetComponent<Bit>();
 		}

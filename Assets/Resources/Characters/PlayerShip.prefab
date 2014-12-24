@@ -19,6 +19,7 @@ GameObject:
   - 114: {fileID: 11400008}
   - 114: {fileID: 11400010}
   - 114: {fileID: 11400012}
+  - 114: {fileID: 11400014}
   m_Layer: 9
   m_Name: PlayerShip
   m_TagString: Unit
@@ -233,6 +234,36 @@ MonoBehaviour:
   cameraSize: 7
   sct: {fileID: 0}
   seat: {fileID: 0}
+  bit: {fileID: 0}
+--- !u!114 &11400014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b75bdfecc534626ad80d3302969b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 0
+  itemName: Excaliber
+  value: 1
+  isEquipped: 0
+  statText: 
+  rarity: 0
+  type: 0
+  maxHealthBoost: 0
+  maxHealthScale: 0
+  movementSpeedBoost: 0
+  rateOfFireScale: 0
+  numberOfProjectilesBoost: 0
+  projectileDamageBoost: 0
+  projectileDamageScale: 0
+  critChanceBoost: 0
+  critDamageBoost: 0
+  healthRegenBoost: 0
+  statCount: 10
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -36,7 +36,7 @@ public class Pool : MonoBehaviour {
 	public GameObject popFromStack(){
 
 		GameObject temp = getFirstAvailable();
-		Debug.Log (temp);
+		//Debug.Log (temp);
 		temp.GetComponent<Bit>().inUse = true;
 		//listCount = countAvailable();
 		return temp;

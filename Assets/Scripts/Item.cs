@@ -136,14 +136,12 @@ public class Item : MonoBehaviour {
 		
 
 	}
-
-
-
+	
 
 	public void askForId(){
 
 		if ( itemId == 0 ){
-			Inventory inv = GameObject.Find("Player").GetComponent<Inventory>();
+			Inventory inv = GameObject.Find("FatherBit").GetComponent<Main>().getActiveInventory();
 			inv.idCount++;
 			itemId = inv.idCount;
 		}

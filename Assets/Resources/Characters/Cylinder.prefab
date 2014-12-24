@@ -160,7 +160,7 @@ MonoBehaviour:
   followTarget: {fileID: 0}
   attackTarget: {fileID: 0}
   collisionDamage: 2
-  dropChance: 0
+  dropChance: 1
   dropRarity: 0
   dropRate: 1
   spawnTimer: 0

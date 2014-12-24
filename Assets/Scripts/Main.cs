@@ -204,5 +204,9 @@ public class Main : MonoBehaviour {
 
 
 
+	public Inventory getActiveInventory(){
+		return p.GetComponent<Inventory>();
+	}
+
 
 }
