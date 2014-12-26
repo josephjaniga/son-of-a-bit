@@ -18,7 +18,10 @@ public class InventoryPanel : MonoBehaviour {
 			playerBit = player.GetComponent<Bit>();
 		}
 
-		ip = GameObject.Find("InventoryPanel").transform;
+		if ( GameObject.Find("InventoryPanel") != null ){
+			ip = GameObject.Find("InventoryPanel").transform;
+		}
+
 	}
 
 	// Use this for initialization
@@ -64,7 +67,7 @@ public class InventoryPanel : MonoBehaviour {
 
 	public void buttonClick(Item temp){
 
-		playerBit.inventory.toggleEquipped(temp);
+		//playerBit.inventory.toggleEquipped(temp);
 
 	}
 

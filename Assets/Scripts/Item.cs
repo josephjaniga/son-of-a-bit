@@ -10,6 +10,8 @@ public class Item : MonoBehaviour {
 
 	public string statText;
 
+	public Sprite itemIcon;
+
 	public enum ItemRarity{
 		Junk,
 		Common,
@@ -72,6 +74,7 @@ public class Item : MonoBehaviour {
 		critChanceBoost				= clone.critChanceBoost;
 		critDamageBoost				= clone.critDamageBoost;
 		healthRegenBoost			= clone.healthRegenBoost;
+
 	}
 
 	public void randomize(int Rarity = 3){
@@ -80,6 +83,8 @@ public class Item : MonoBehaviour {
 		
 		int calculon = Rarity+1;
 		int MaxNumStats = Rarity+1;
+
+		itemIcon = Resources.LoadAll<Sprite>("Other/SciFi/scifi_items")[(int)Random.Range(0,197)];
 
 		// choose stats
 		for ( int i=0; i<MaxNumStats; i++ ){
@@ -110,7 +115,7 @@ public class Item : MonoBehaviour {
 				rateOfFireScale += statPercent;
 				break;
 			case (int)5:
-				numberOfProjectilesBoost += statValue;
+				//numberOfProjectilesBoost += statValue;
 				break;
 			case (int)6:
 				projectileDamageBoost += statValue;

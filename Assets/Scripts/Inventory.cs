@@ -4,91 +4,108 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour {
 
-	public GameObject generic;
+	public GameObject genericItem;
 
-	public InventoryPanel ip;
-	public int credits = 0;
-	public Bit bit;
+	public GameObject ip;
+	public List<Item> itemInventory = new List<Item>();
+	public int inventorySize = 1;
+	public List<ItemSlot> slots = new List<ItemSlot>();
+
 	public int idCount = 0;
 	
-	public List<Item> itemInventory = new List<Item>();
+	private Transform itemsContainer;
 
-	public Transform itemsContainer;
+	public int credits = 0;
+	public Bit bit;
+
+	public Item itemInHand = null;
 	
-	// Use this for initializationss
+	// Use this for initialization
 	void Start () {
 
-		bit = gameObject.GetComponent<Bit>();
-
-		int itemCounter = GameObject.Find("Items").transform.childCount;
-
+		// find all the stuff
+		GameObject temp = Resources.Load("UI/Slot") as GameObject;
 		itemsContainer = GameObject.Find("Items").transform;
-
-		/*
-		for ( int i = 0; i < itemCounter; i++ ) {
-			idCount++;
-			itemInventory[i].itemId = idCount;
+		int itemCounter = GameObject.Find("Items").transform.childCount;
+		
+		// make the slots
+		for ( int i =0; i<inventorySize; i++ ){
+			GameObject s = Instantiate(temp, Vector3.zero, Quaternion.identity) as GameObject;
+			s.transform.SetParent(gameObject.transform);
+			slots.Add(s.GetComponent<ItemSlot>());
 		}
-		*/
 
+		// grab the items from the scene
 		foreach ( Transform item in GameObject.Find("Items").transform ){
 			Item i = item.GetComponent<Item>();
 			if ( i != null ){
 				idCount++;
 				i.itemId = idCount;	
-				if ( i.isEquipped ){
-					itemInventory.Add(i);
-				}
+				itemInventory.Add(i);
 			}
 		}
-
-		ip = GameObject.Find("FatherBit").GetComponent<InventoryPanel>();
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+	
 	}
+
+
+	public void addItemToInventory(Item item){
+		
+		// follow the same process on start
+		// item should be an INSTANCE in the ITEMS set
+		// item instance should have a valid ID
+		if ( item.itemId != 0 ){
+			if ( countAvailableSlots() > 0 ){
+				getFirstAvailableSlot().item = item;
+			}
+		}
+		
+	} 
+
+
 	
 	public void addCredits(int Amount){
 		credits += Amount;
 	}
 
-	public void toggleEquipped(Item itemInstance){
-		itemInstance.isEquipped = !itemInstance.isEquipped;
-	}
-
-	public void addItemToInventory(Item item){
-
-		// follow the same process on start
-		// item should be an INSTANCE in the ITEMS set
-		// item instance should have a valid ID
-		if ( item.itemId != 0){
-			
-			item.isEquipped = true;
-
-			// add the item to inventory items array
-			itemInventory.Add(item);
-			
-			// redraw the gui elements
-			ip.recreateInventoryGui();
-
-		}
-
-	}
-
+	
 	public GameObject createRandomItem(){
-
+		
 		// make it
-		GameObject go = Instantiate(generic, Vector3.zero, Quaternion.identity) as GameObject;
+		GameObject go = Instantiate(genericItem, Vector3.zero, Quaternion.identity) as GameObject;
 		go.GetComponent<Item>().randomize();
 		go.transform.SetParent(itemsContainer);
 		go.GetComponent<Item>().askForId();
 		go.name = go.GetComponent<Item>().itemName;
-
+		
 		return go;
+		
+	}
 
+	public int countAvailableSlots(){
+		int count = 0;
+		for ( int i=0; i<inventorySize; i++ ){
+			if ( slots[i].GetComponent<ItemSlot>().item == null ){
+				count++;
+			}
+		}
+		Debug.Log (count + " available slots");
+		return count;
+	}
+
+	public ItemSlot getFirstAvailableSlot(){
+		ItemSlot iS = null;
+		for ( int i=0; i<inventorySize; i++ ){
+			if ( slots[i].GetComponent<ItemSlot>().item == null ){
+				iS = slots[i].GetComponent<ItemSlot>();
+				break;
+			}
+		}
+		return iS;
 	}
 	
 }

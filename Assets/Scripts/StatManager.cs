@@ -47,15 +47,25 @@ public class StatManager : MonoBehaviour {
 			unitsProjectile = bit.weapon.bullet.GetComponent<Projectile>();
 		}
 
+		// 		calculated stats for old inventory
+		//		cMaxHealth 				= Mathf.RoundToInt( ( bit.health.maxHP + calculateMaxHealthBoost() ) * ( 1.0f + calculateMaxHealthScale() ) );
+		//		cRegen	 				= bit.health.regen + calculateHealthRegenBoost();
+		//		cMovementSpeed 			= bit.motion.speed + calculateMovementSpeedBoost();
+		//		cRateOfFire				= unitsProjectile.ROF / ( 1.0f + calculateRateOfFireScale() );
+		//		cNumberOfProjectiles 	= unitsProjectile.numProjectiles + calculateNumberOfProjectilesBoost();
+		//		cCriticalChance			= bit.weapon.critChance + calculateCriticalChanceBoost();
+		//		cCriticalDamage			= bit.weapon.critDamage + calculateCriticalDamageBoost();
+		//		cProjectileDamage		= Mathf.RoundToInt( ( unitsProjectile.projectileDamage + calculateProjectileDamageBoost() ) * ( 1.0f + calculateProjectileDamageScale() ) );
+
 		// calculated stats
-		cMaxHealth 				= Mathf.RoundToInt( ( bit.health.maxHP + calculateMaxHealthBoost() ) * ( 1.0f + calculateMaxHealthScale() ) );
-		cRegen	 				= bit.health.regen + calculateHealthRegenBoost();
-		cMovementSpeed 			= bit.motion.speed + calculateMovementSpeedBoost();
-		cRateOfFire				= unitsProjectile.ROF / ( 1.0f + calculateRateOfFireScale() );
-		cNumberOfProjectiles 	= unitsProjectile.numProjectiles + calculateNumberOfProjectilesBoost();
-		cCriticalChance			= bit.weapon.critChance + calculateCriticalChanceBoost();
-		cCriticalDamage			= bit.weapon.critDamage + calculateCriticalDamageBoost();
-		cProjectileDamage		= Mathf.RoundToInt( ( unitsProjectile.projectileDamage + calculateProjectileDamageBoost() ) * ( 1.0f + calculateProjectileDamageScale() ) );
+		cMaxHealth 				= 111;
+		cRegen	 				= 0;
+		cMovementSpeed 			= 4f;
+		cRateOfFire				= 0.1f;
+		cNumberOfProjectiles 	= 1;
+		cCriticalChance			= 0.1f;
+		cCriticalDamage			= 0.1f;
+		cProjectileDamage		= 9;
 	}
 
 

@@ -148,12 +148,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f1d4ba99cc1e4a9cb4ed91066f8ebf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generic: {fileID: 100000, guid: f30db08be92924a09a42fa75ab223a35, type: 2}
+  genericItem: {fileID: 0}
   ip: {fileID: 0}
   credits: 0
   bit: {fileID: 0}

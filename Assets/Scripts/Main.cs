@@ -93,9 +93,7 @@ public class Main : MonoBehaviour {
 
 
 		// DEVTOOLS
-		// devTools();
-
-
+		 devTools();
 
 	}
 
@@ -108,6 +106,13 @@ public class Main : MonoBehaviour {
 		if ( Input.GetKeyDown("j") ){
 			GameObject go = p.GetComponent<Inventory>().createRandomItem();
 			p.GetComponent<Inventory>().addItemToInventory(go.GetComponent<Item>());
+		}
+
+		// keypress k - spawn an item
+		if ( Input.GetKeyDown("k") ){
+			GameObject NI = GameObject.Find("NewInventory");
+			GameObject go = NI.GetComponent<Inventory>().createRandomItem();
+			NI.GetComponent<Inventory>().addItemToInventory(go.GetComponent<Item>());
 		}
 
 		if ( Input.GetKeyDown(KeyCode.Alpha1) ){
@@ -205,7 +210,7 @@ public class Main : MonoBehaviour {
 
 
 	public Inventory getActiveInventory(){
-		return p.GetComponent<Inventory>();
+		return GameObject.Find("NewInventory").GetComponent<Inventory>();
 	}
 
 
