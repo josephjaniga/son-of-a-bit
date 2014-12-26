@@ -46,6 +46,11 @@ public class Vehicle : MonoBehaviour {
 			GameObject.Find("FatherBit").GetComponent<Main>().vehicleToBoard = gameObject;
 			GameObject.Find("FatherBit").GetComponent<Main>().v = this;
 
+			// clear all the alerts
+			foreach (Transform child in GameObject.Find("Alerts").transform) {
+				GameObject.Destroy(child.gameObject);
+			}
+
 			// show the message
 			GameObject alert = Instantiate(sct, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
 			alert.GetComponent<Text>().text = "Press [<color=#00DD00>E</color>]: to Board this " + vehicleName;
@@ -61,6 +66,11 @@ public class Vehicle : MonoBehaviour {
 
 	public void boardVehicle(GameObject player){
 		seat = player;
+
+		// clear all the alerts
+		foreach (Transform child in GameObject.Find("Alerts").transform) {
+			GameObject.Destroy(child.gameObject);
+		}
 
 		// show the message
 		GameObject alert = Instantiate(sct, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;

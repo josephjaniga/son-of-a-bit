@@ -57,6 +57,8 @@ public class Inventory : MonoBehaviour {
 	
 		if ( itemInHand != null ){
 
+			itemOnHandIcon.transform.SetParent(GameObject.Find("Canvas").transform);
+
 			Vector3 temp = Input.mousePosition;
 			temp.x += 18;
 			temp.y -= 18;
@@ -91,14 +93,11 @@ public class Inventory : MonoBehaviour {
 			}
 		}
 		
-	} 
+	}
 
-
-	
 	public void addCredits(int Amount){
 		credits += Amount;
 	}
-
 	
 	public GameObject createRandomItem(){
 		
@@ -134,5 +133,8 @@ public class Inventory : MonoBehaviour {
 		}
 		return iS;
 	}
+
+
+
 	
 }

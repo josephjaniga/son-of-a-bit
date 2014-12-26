@@ -74,7 +74,6 @@ public class Item : MonoBehaviour {
 		critChanceBoost				= clone.critChanceBoost;
 		critDamageBoost				= clone.critDamageBoost;
 		healthRegenBoost			= clone.healthRegenBoost;
-
 	}
 
 	public void randomize(int Rarity = 3){

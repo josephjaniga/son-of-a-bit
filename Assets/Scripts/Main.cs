@@ -102,11 +102,11 @@ public class Main : MonoBehaviour {
 
 		GameObject player = GameObject.Find ("Player");
 
-		// keypress j - spawn an item
-		if ( Input.GetKeyDown("j") ){
-			GameObject go = p.GetComponent<Inventory>().createRandomItem();
-			p.GetComponent<Inventory>().addItemToInventory(go.GetComponent<Item>());
-		}
+		// 	keypress j - spawn an item
+		//	if ( Input.GetKeyDown("j") ){
+		//		GameObject go = p.GetComponent<Inventory>().createRandomItem();
+		//		p.GetComponent<Inventory>().addItemToInventory(go.GetComponent<Item>());
+		//	}
 
 		// keypress k - spawn an item
 		if ( Input.GetKeyDown("k") ){
@@ -145,16 +145,11 @@ public class Main : MonoBehaviour {
 		}
 
 		if ( !doneLerping ){
-			
 			Camera.main.GetComponent<Camera>().orthographicSize = Mathf.Lerp(cameraFrom, cameraTo, (Time.time - startTime)/lerpDuration );
-
 			if ( Camera.main.GetComponent<Camera>().orthographicSize == cameraTo ){
 				doneLerping = true;
 			}
-
 		}
-
-
 
 		if ( !inVehicle && vehicleToBoard != null && v != null ){
 			if ( Input.GetKeyDown(KeyCode.E) ){
@@ -180,7 +175,6 @@ public class Main : MonoBehaviour {
 			}
 		}
 
-
 		if ( inVehicle && v != null ){
 			if ( Input.GetKeyDown(KeyCode.Q) ){
 				inVehicle = false;
@@ -204,14 +198,10 @@ public class Main : MonoBehaviour {
 				Camera.main.GetComponent<MiniMapCameraFollow>().target = p.transform;
 			}
 		}
-
 	}
-
-
 
 	public Inventory getActiveInventory(){
 		return GameObject.Find("NewInventory").GetComponent<Inventory>();
 	}
-
 
 }

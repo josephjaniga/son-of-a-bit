@@ -4026,7 +4026,7 @@ MonoBehaviour:
   value: 0
   isEquipped: 1
   statText: 
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300002, guid: 33bdeb0b539fb41258a52261aebcbeab, type: 3}
   rarity: 0
   type: 0
   maxHealthBoost: 0
@@ -5506,11 +5506,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 210355294}
   m_RootOrder: 5
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 386, y: -176.899994}
-  m_SizeDelta: {x: -827, y: -425}
-  m_Pivot: {x: .5, y: .5}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -27.5, y: 35.6000061}
+  m_SizeDelta: {x: 331, y: 232}
+  m_Pivot: {x: 1, y: 0}
 --- !u!114 &1098339568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5523,7 +5523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: .823529422}
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
@@ -5575,7 +5575,7 @@ MonoBehaviour:
   genericItem: {fileID: 100000, guid: f30db08be92924a09a42fa75ab223a35, type: 2}
   ip: {fileID: 0}
   itemInventory: []
-  inventorySize: 4
+  inventorySize: 24
   slots: []
   idCount: 0
   credits: 0

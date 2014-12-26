@@ -256,13 +256,13 @@ public class Health : MonoBehaviour {
 					p = dmgSource.GetComponent<Bit>().projectile;
 					if ( p != null && p.owner != null ){
 						// if the owner has an inventory
-						Inventory i = p.owner.GetComponent<Bit>().inventory;;
+						Inventory i = GameObject.Find ("NewInventory").GetComponent<Inventory>();
 						if ( i != null ){
 							// call owner inventory grant reward
 							i.addCredits(bit.artificialInteligence.dropRate);
 							
 							// do a drop roll
-							if ( p.owner.GetComponent<Inventory>() != null 
+							if ( GameObject.Find ("NewInventory").GetComponent<Inventory>() != null 
 							    && bit.artificialInteligence.calculateLootDrops()
 							    ) {
 
@@ -271,8 +271,8 @@ public class Health : MonoBehaviour {
 									GameObject.Destroy(child.gameObject);
 								}
 
-								GameObject go = p.owner.GetComponent<Inventory>().createRandomItem();
-								p.owner.GetComponent<Inventory>().addItemToInventory(go.GetComponent<Item>());
+								GameObject go = GameObject.Find ("NewInventory").GetComponent<Inventory>().createRandomItem();
+								GameObject.Find ("NewInventory").GetComponent<Inventory>().addItemToInventory(go.GetComponent<Item>());
 								
 								GameObject alert = Instantiate(sct, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
 								alert.GetComponent<Text>().text = "You have picked up: [<color=red>"+ go.GetComponent<Item>().itemName +"</color>]!";
