@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -19,9 +20,13 @@ public class Inventory : MonoBehaviour {
 	public Bit bit;
 
 	public Item itemInHand = null;
-	
+	public GameObject itemOnHandIcon = null;
+
 	// Use this for initialization
 	void Start () {
+
+		itemOnHandIcon = GameObject.Find("ItemOnHandIcon");
+		itemOnHandIcon.SetActive(false);
 
 		// find all the stuff
 		GameObject temp = Resources.Load("UI/Slot") as GameObject;
@@ -50,6 +55,28 @@ public class Inventory : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+		if ( itemInHand != null ){
+
+			Vector3 temp = Input.mousePosition;
+			temp.x += 18;
+			temp.y -= 18;
+
+			// set position
+			itemOnHandIcon.transform.position = temp;
+
+			// set image
+			itemOnHandIcon.GetComponent<Image>().sprite = itemInHand.itemIcon;
+
+			// show
+			itemOnHandIcon.SetActive(true);
+
+
+		} else {
+
+			//hide
+			itemOnHandIcon.SetActive(false);
+		}
+
 	}
 
 

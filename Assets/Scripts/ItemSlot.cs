@@ -32,11 +32,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler {
 				Debug.LogError("Sprite not found ", item.itemIcon );
 			}
 
-
 		} else {
 			gameObject.GetComponent<Image>().sprite = null;
-			gameObject.GetComponent<Image>().color = Color.gray;
 		}
+
+		gameObject.GetComponent<Image>().color = Color.white;
 
 	}
 	
@@ -45,7 +45,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler {
 			Debug.Log(item.name + " picked up");
 			inventory.GetComponent<Inventory>().itemInHand = item;
 			item = null;
+		} else if ( item == null && inventory.GetComponent<Inventory>().itemInHand != null ) {
+			item = inventory.GetComponent<Inventory>().itemInHand;
+			inventory.GetComponent<Inventory>().itemInHand = null;
 		}
 	}
+
+
 
 }
