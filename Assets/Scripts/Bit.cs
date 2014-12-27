@@ -71,6 +71,10 @@ public class Bit : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if ( weapon == null ){
+			weapon = gameObject.GetComponent<Weapon>();
+		}
+
 	}
 	
 	public void setColor(Color input){

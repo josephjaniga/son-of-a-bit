@@ -29,15 +29,13 @@ public class Weapon : MonoBehaviour {
 		// get the correct rate of fire / flat or calculated
 		float tempROF = bullet.GetComponent<Projectile>().ROF;
 		
-		if ( bit.statManager != null ){
+		if ( bit != null && bit.statManager != null ){
 			tempROF = bit.statManager.cRateOfFire;
 		}
 	
 		// if weapon owner is user controlled
-		if ( bit.motion != null && bit.motion.userControlled ){
-			if 	(
-					Input.GetMouseButton(0)
-					&& Time.time - tempROF >= lastFired ){
+		if ( bit != null && bit.motion != null && bit.motion.userControlled ){
+			if 	( Input.GetMouseButton(0) && Time.time - tempROF >= lastFired ){
 				
 				//Debug.DrawRay(transform.position, aimAtMouse()- transform.position, Color.red);
 				//Debug.DrawRay(transform.position, aimAtMouse(), Color.blue);
@@ -56,13 +54,11 @@ public class Weapon : MonoBehaviour {
 
 				}
 
-				
 			}	
 
-
-
 		} else if ( 	// if the weapon is AI controlled
-		           		bit.artificialInteligence != null
+		           		bit != null
+		           		&& bit.artificialInteligence != null
 		           		&& bit.artificialInteligence.attackTarget != null
 		          		&& Time.time - tempROF >= lastFired ) {
 
@@ -112,7 +108,6 @@ public class Weapon : MonoBehaviour {
 			temp.z = 0.0f;
 			temp = temp - transform.position;
 		}
-
 
 		return temp;
 		

@@ -44,10 +44,10 @@ public class Item : MonoBehaviour {
 	public float critDamageBoost			= 0.0f;
 	public int healthRegenBoost				= 0;
 
-
 	public int statCount = 10;
-	public UnityEngine.Random r;
-	
+
+	public Weapon weaponInstance = null;
+
 	// Use this for initialization
 	void Start () {
 
@@ -105,6 +105,10 @@ public class Item : MonoBehaviour {
 			type						= (int)Random.Range((int)ItemType.Generic, (int)ItemType.Technology+1);
 
 			//Debug.Log ("i:" + i + " // rolled:" + statRoll);
+
+			if ( type == (int)ItemType.Weapon ){
+				weaponInstance = (Resources.Load<GameObject>("Items/Weapons/GenericWeapon") as GameObject).GetComponent<Weapon>();
+			}
 
 			switch(statRoll){
 			case (int)1:
@@ -200,6 +204,13 @@ public class Item : MonoBehaviour {
 
 		if ( healthRegenBoost != 0 ){
 			statText += "+" + healthRegenBoost + " health / 2 seconds \r\n";
+		}
+
+		if ( type == (int)ItemType.Weapon ){
+			statText += "Base Damage: " + 0 + " \r\n";
+			statText += "Base Rate of Fire: " + 0 + " \r\n";
+			statText += "Base Critical Chance: " + 0 + " \r\n";
+			statText += "Base Critical Damage Mod: " + 0 + " \r\n";
 		}
 
 	}

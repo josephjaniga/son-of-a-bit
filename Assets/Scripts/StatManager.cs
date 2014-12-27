@@ -59,8 +59,15 @@ public class StatManager : MonoBehaviour {
 		cMovementSpeed 			= bit.motion.speed + calculateMovementSpeedBoost();
 		cRateOfFire				= unitsProjectile.ROF / ( 1.0f + calculateRateOfFireScale() );
 		cNumberOfProjectiles 	= unitsProjectile.numProjectiles + calculateNumberOfProjectilesBoost();
-		cCriticalChance			= bit.weapon.critChance + calculateCriticalChanceBoost();
-		cCriticalDamage			= bit.weapon.critDamage + calculateCriticalDamageBoost();
+
+		if ( bit.weapon != null ){
+			cCriticalChance			= bit.weapon.critChance + calculateCriticalChanceBoost();
+			cCriticalDamage			= bit.weapon.critDamage + calculateCriticalDamageBoost();
+		} else {
+			cCriticalChance			= 0f;
+			cCriticalDamage			= 0f;
+		}
+
 		cProjectileDamage		= Mathf.RoundToInt( ( unitsProjectile.projectileDamage + calculateProjectileDamageBoost() ) * ( 1.0f + calculateProjectileDamageScale() ) );
 
 		// calculated stats

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 public class Equipment : MonoBehaviour {
 
+	public Bit bit;
+
 	public bool isPlayer = false;
 	public bool isVehicle = false;
 
@@ -20,11 +22,23 @@ public class Equipment : MonoBehaviour {
 
 	public List<ItemSlot> genericSlotList;
 
+	public Weapon defaultWeapon;
+	public GameObject defaultBullet;
+
 	// Use this for initialization
 	void Awake () {
 
+		
+		if ( bit == null ){
+			bit = gameObject.GetComponent<Bit>();
+		} else {
+			if ( bit.weapon != null ){
+				defaultWeapon = bit.weapon;
+				defaultBullet = bit.weapon.bullet;
+			}
+		}
+
 		//make an Equipment panel
-		GameObject canvas = GameObject.Find("Canvas");
 		GameObject temp = Resources.Load("UI/Slot") as GameObject;
 		GameObject panel = Resources.Load("UI/EquipmentPanel") as GameObject;
 		equipPanel = Instantiate(panel, Vector3.zero, Quaternion.identity) as GameObject;
@@ -82,6 +96,15 @@ public class Equipment : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if ( bit == null ){
+			bit = gameObject.GetComponent<Bit>();
+		} else {
+			if ( bit.weapon != null ){
+				defaultWeapon = bit.weapon;
+				defaultBullet = bit.weapon.bullet;
+			}
+		}
+
 		if ( itemContainer.GetComponent<GridLayoutGroup>() == null ){
 			equipPanel.SetActive(false);
 			itemContainer.AddComponent<GridLayoutGroup>();
@@ -92,6 +115,31 @@ public class Equipment : MonoBehaviour {
 			itemContainer.GetComponent<GridLayoutGroup>().cellSize = new Vector2(32, 32);
 			itemContainer.GetComponent<GridLayoutGroup>().spacing = new Vector2(8, 8);
 		}
+
+		if ( GameObject.Find ("FatherBit").GetComponent<Main>().unitInControl == bit.gameObject ){
+			
+			if ( getWeaponSlot() != null){
+				Debug.Log (getWeaponSlot().item);
+			}
+			
+			if ( bit.weapon != null ){
+				if ( getWeaponSlot() != null && getWeaponSlot().item != null && getWeaponSlot().item.weaponInstance != null ) {
+					if ( bit.weapon != getWeaponSlot().item.weaponInstance ){
+						Debug.Log ("reassigned");
+						bit.weapon = getWeaponSlot().item.weaponInstance;
+						bit.weapon.bullet = getWeaponSlot().item.weaponInstance.bullet;
+					}
+				} else {
+					if ( bit.weapon != defaultWeapon ){
+						Debug.Log ("defaulted");
+						bit.weapon = defaultWeapon;
+						bit.weapon.bullet = defaultWeapon.bullet;
+					}
+				}
+			}
+
+		}
+
 
 	}
 
@@ -122,6 +170,20 @@ public class Equipment : MonoBehaviour {
 
 	}
 	
+	public ItemSlot getWeaponSlot(){
+		ItemSlot iS = null;
+		List<ItemSlot> haystack = genericSlotList;
 
+		for ( int i=0; i<haystack.Count; i++ ){
+			ItemSlot temp = haystack[i].GetComponent<ItemSlot>();
+			if ( temp != null && temp.itemSlotType == (int)Item.ItemType.Weapon ){
+				iS = haystack[i].GetComponent<ItemSlot>();
+				break;
+			}
+		}
+
+		return iS;
+	}
+	
 
 }
