@@ -1421,11 +1421,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayer: 0
   isVehicle: 0
-  weaponSlots: 0
-  armorSlots: 0
-  accessorySlots: 0
-  techSlots: 0
-  genericSlots: 6
+  weaponSlots: 1
+  armorSlots: 2
+  accessorySlots: 2
+  techSlots: 1
+  genericSlots: 1
   equipPanel: {fileID: 0}
   itemContainer: {fileID: 0}
   genericSlotList: []

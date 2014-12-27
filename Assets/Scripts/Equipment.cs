@@ -38,16 +38,44 @@ public class Equipment : MonoBehaviour {
 		// setup the slots
 		genericSlotList = new List<ItemSlot>();
 
-		// make the slots
+		for ( int i=0; i<weaponSlots; i++ ){
+			GameObject s = Instantiate(temp, Vector3.zero, Quaternion.identity) as GameObject;
+			s.GetComponent<ItemSlot>().itemSlotType = (int)ItemSlot.ItemType.Weapon;
+			s.transform.SetParent(itemContainer.transform);
+			s.GetComponent<ItemSlot>().owner = gameObject;
+			genericSlotList.Add(s.GetComponent<ItemSlot>());
+		}
+
+		for ( int i=0; i<armorSlots; i++ ){
+			GameObject s = Instantiate(temp, Vector3.zero, Quaternion.identity) as GameObject;
+			s.GetComponent<ItemSlot>().itemSlotType = (int)ItemSlot.ItemType.Armor;
+			s.transform.SetParent(itemContainer.transform);
+			s.GetComponent<ItemSlot>().owner = gameObject;
+			genericSlotList.Add(s.GetComponent<ItemSlot>());
+		}
+
+		for ( int i=0; i<accessorySlots; i++ ){
+			GameObject s = Instantiate(temp, Vector3.zero, Quaternion.identity) as GameObject;
+			s.GetComponent<ItemSlot>().itemSlotType = (int)ItemSlot.ItemType.Accessory;
+			s.transform.SetParent(itemContainer.transform);
+			s.GetComponent<ItemSlot>().owner = gameObject;
+			genericSlotList.Add(s.GetComponent<ItemSlot>());
+		}
+
+		for ( int i=0; i<techSlots; i++ ){
+			GameObject s = Instantiate(temp, Vector3.zero, Quaternion.identity) as GameObject;
+			s.GetComponent<ItemSlot>().itemSlotType = (int)ItemSlot.ItemType.Technology;
+			s.transform.SetParent(itemContainer.transform);
+			s.GetComponent<ItemSlot>().owner = gameObject;
+			genericSlotList.Add(s.GetComponent<ItemSlot>());
+		}
+
 		for ( int i=0; i<genericSlots; i++ ){
 			GameObject s = Instantiate(temp, Vector3.zero, Quaternion.identity) as GameObject;
 			s.transform.SetParent(itemContainer.transform);
 			s.GetComponent<ItemSlot>().owner = gameObject;
-			//s.transform.localPosition = Vector3.zero;
 			genericSlotList.Add(s.GetComponent<ItemSlot>());
 		}
-
-
 
 	}
 	
@@ -72,7 +100,7 @@ public class Equipment : MonoBehaviour {
 		ItemSlot iS = null;
 		List<ItemSlot> haystack = null;
 
-		switch (itemType){
+		switch (itemType.ToLower() ){
 		case "generic":
 			haystack = genericSlotList;
 			break;

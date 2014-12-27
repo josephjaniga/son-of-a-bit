@@ -16,15 +16,21 @@ public class Item : MonoBehaviour {
 		Junk,
 		Common,
 		Uncommon,
-		Rare
+		Rare,
+		Epic,
+		Legendary
 	};
 	
 	public enum ItemType {
-		Thing
+		Generic,
+		Weapon,
+		Armor,
+		Accessory,
+		Technology
 	};
 
 	public int rarity = (int)ItemRarity.Junk;
-	public int type = (int)ItemType.Thing;
+	public int type = (int)ItemType.Generic;
 
 	// Stats
 	public int maxHealthBoost 				= 0;
@@ -76,7 +82,7 @@ public class Item : MonoBehaviour {
 		healthRegenBoost			= clone.healthRegenBoost;
 	}
 
-	public void randomize(int Rarity = 3){
+	public void randomize(int Rarity = 0){
 
 		rarity = Rarity;
 		
@@ -96,7 +102,7 @@ public class Item : MonoBehaviour {
 			
 			itemName 					= WordFinder2((int)Random.Range(4,11));
 			isEquipped					= false;
-			type						= (int)ItemType.Thing;
+			type						= (int)Random.Range((int)ItemType.Generic, (int)ItemType.Technology+1);
 
 			//Debug.Log ("i:" + i + " // rolled:" + statRoll);
 
@@ -105,13 +111,13 @@ public class Item : MonoBehaviour {
 				maxHealthBoost += statValue;
 				break;
 			case (int)2:
-				maxHealthScale += statPercent;
+				maxHealthScale += statPercent * 0.5f;
 				break;
 			case (int)3:
 				movementSpeedBoost += statPercent;
 				break;
 			case (int)4:
-				rateOfFireScale += statPercent;
+				rateOfFireScale += statPercent * 0.5f;
 				break;
 			case (int)5:
 				//numberOfProjectilesBoost += statValue;
@@ -203,33 +209,23 @@ public class Item : MonoBehaviour {
 
 	/* Random Name Crap */
 
-	public string WordFinder2(int requestedLength)
-	{
+	public string WordFinder2(int requestedLength){
 		UnityEngine.Random rnd = new UnityEngine.Random();
 		string[] consonants = { "b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z" };
 		string[] vowels = { "a", "e", "i", "o", "u" };
-		
 		string word = "";
-		
-		if (requestedLength == 1)
-		{
+		if (requestedLength == 1){
 			word = GetRandomLetter(rnd, vowels);
-		}
-		else
-		{
-			for (int i = 0; i < requestedLength; i+=2)
-			{
+		} else {
+			for (int i = 0; i < requestedLength; i+=2){
 				word += GetRandomLetter(rnd, consonants) + GetRandomLetter(rnd, vowels);
 			}
-			
 			word = word.Replace("q", "qu").Substring(0, requestedLength); // We may generate a string longer than requested length, but it doesn't matter if cut off the excess.
 		}
-		
 		return char.ToUpper(word[0]) + word.Substring(1);
 	}
 	
-	private static string GetRandomLetter(UnityEngine.Random rnd, string[] letters)
-	{
+	private static string GetRandomLetter(UnityEngine.Random rnd, string[] letters){
 		return letters[Mathf.RoundToInt(UnityEngine.Random.Range(0, letters.Length - 1))];
 	}
 	

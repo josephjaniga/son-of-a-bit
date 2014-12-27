@@ -53,9 +53,21 @@ public class TooltipHover :  UIBehaviour, IPointerEnterHandler, IPointerExitHand
 			TTIcon.GetComponent<Image>().sprite = container.item.itemIcon;
 			
 			switch (container.item.type){
-			case 0:
+			case (int)ItemSlot.ItemType.Technology:
+				TTType.GetComponent<Text>().text = "Technology";
+				break;
+			case (int)ItemSlot.ItemType.Accessory:
+				TTType.GetComponent<Text>().text = "Accessory";
+				break;
+			case (int)ItemSlot.ItemType.Armor:
+				TTType.GetComponent<Text>().text = "Armor";
+				break;
+			case (int)ItemSlot.ItemType.Weapon:
+				TTType.GetComponent<Text>().text = "Weapon";
+				break;
+			case (int)ItemSlot.ItemType.Generic:
 			default:
-				TTType.GetComponent<Text>().text = "Thing";
+				TTType.GetComponent<Text>().text = "Generic";
 				break;
 			}
 			
