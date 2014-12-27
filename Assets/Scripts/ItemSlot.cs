@@ -16,25 +16,17 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler {
 	public Inventory inventory;
 	public Equipment equipment;
 
+	public GameObject owner;
+
 	public bool inventoryParent = false;
 	public bool equipmentParent = false;
 
+	public bool initialized = false;
+
 	// Use this for initialization
 	void Start () {
-
-		parent = gameObject.transform.parent.gameObject;
-		inventory = parent.GetComponent<Inventory>();
-		equipment = parent.GetComponent<Equipment>();
-
-		if ( inventory != null ){
-			inventoryParent = true;
-		} else {
-			inventory = GameObject.Find("NewInventory").GetComponent<Inventory>();
-		}
-
-		if ( equipment != null ){
-			equipmentParent = true;
-		}
+	
+		initialize ();
 
 	}
 	
@@ -79,6 +71,31 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler {
 			if ( item != null ){
 				item = null;
 			}
+		}
+
+		if ( !initialized && owner == null ){
+			initialize();
+		}
+
+	}
+
+
+	public void initialize(){
+
+		parent = gameObject.transform.parent.gameObject;
+		inventory = GameObject.Find("NewInventory").GetComponent<Inventory>();
+
+		if ( owner != null )
+			equipment = owner.GetComponent<Equipment>();
+		
+		if ( inventory != null ){
+			inventoryParent = true;
+		} else {
+			inventory = GameObject.Find("NewInventory").GetComponent<Inventory>();
+		}
+		
+		if ( equipment != null ){
+			equipmentParent = true;
 		}
 
 	}

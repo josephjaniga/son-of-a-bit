@@ -27,6 +27,7 @@ public class Health : MonoBehaviour {
 	private float deathClock = 0f;
 	private float deathFadeTime = 5f;
 
+	public Inventory inv;
 
 	//public Motion m;
 	//public AI ai;
@@ -35,6 +36,8 @@ public class Health : MonoBehaviour {
 	void Awake () {
 
 		bit = gameObject.GetComponent<Bit>();
+
+		inv = GameObject.Find ("NewInventory").GetComponent<Inventory>();
 
 		//sct = GameObject.Find("SCT");
 		sct = Resources.Load("UI/SCT") as GameObject;
@@ -256,13 +259,13 @@ public class Health : MonoBehaviour {
 					p = dmgSource.GetComponent<Bit>().projectile;
 					if ( p != null && p.owner != null ){
 						// if the owner has an inventory
-						Inventory i = GameObject.Find ("NewInventory").GetComponent<Inventory>();
+						Inventory i = inv;
 						if ( i != null ){
 							// call owner inventory grant reward
 							i.addCredits(bit.artificialInteligence.dropRate);
 							
 							// do a drop roll
-							if ( GameObject.Find ("NewInventory").GetComponent<Inventory>() != null 
+							if ( i != null 
 							    && bit.artificialInteligence.calculateLootDrops()
 							    ) {
 
@@ -271,8 +274,8 @@ public class Health : MonoBehaviour {
 									GameObject.Destroy(child.gameObject);
 								}
 
-								GameObject go = GameObject.Find ("NewInventory").GetComponent<Inventory>().createRandomItem();
-								GameObject.Find ("NewInventory").GetComponent<Inventory>().addItemToInventory(go.GetComponent<Item>());
+								GameObject go = i.createRandomItem();
+								i.addItemToInventory(go.GetComponent<Item>());
 								
 								GameObject alert = Instantiate(sct, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
 								alert.GetComponent<Text>().text = "You have picked up: [<color=red>"+ go.GetComponent<Item>().itemName +"</color>]!";

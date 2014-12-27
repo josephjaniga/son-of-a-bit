@@ -55,7 +55,13 @@ MonoBehaviour:
   itemSlotType: 0
   itemSlotName: Default
   item: {fileID: 0}
+  parent: {fileID: 0}
   inventory: {fileID: 0}
+  equipment: {fileID: 0}
+  owner: {fileID: 0}
+  inventoryParent: 0
+  equipmentParent: 0
+  initialized: 0
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -111,8 +117,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 78, y: 67}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: .5, y: .5}

@@ -5,9 +5,11 @@ public class Main : MonoBehaviour {
 
 	public bool displayCharacter = false;
 	public bool displayInventory = false;
+	public bool displayEquipment = false;
 
 	public GameObject characterPanel;
 	public GameObject inventoryPanel;
+	public GameObject equipmentPanel;
 
 	// vehicle management
 	public GameObject p;
@@ -27,14 +29,15 @@ public class Main : MonoBehaviour {
 	public float cameraTo = 1.5f;
 	public bool doneLerping = false;
 
-	
 	// Use this for initialization
 	void Start () {
-		inventoryPanel = GameObject.Find("InventoryPanel");
+
+		inventoryPanel = GameObject.Find("NewInventory");
 		characterPanel = GameObject.Find("CharacterPanel");
+		if ( getActiveEquipment() != null )
+			equipmentPanel = getActiveEquipment().equipPanel;
 		p = GameObject.Find("Player");
 		unitInControl = p;
-
 
 		// start the camera lerp
 		startTime = Time.time;
@@ -52,6 +55,7 @@ public class Main : MonoBehaviour {
 		if ( Input.GetKeyDown(KeyCode.Escape) ){
 			displayCharacter = false;
 			displayInventory = false;
+			displayEquipment = false;
 		}
 
 		// keypress c - toggle Character Panel
@@ -62,6 +66,11 @@ public class Main : MonoBehaviour {
 		// keypress i - toggle Inventory Panel
 		if ( Input.GetKeyDown("i") ){
 			displayInventory = !displayInventory;
+		}
+
+		// keypress z - toggle equipment
+		if ( Input.GetKeyDown ("z") ){
+			displayEquipment = !displayEquipment;
 		}
 
 		if ( characterPanel != null ) {
@@ -80,20 +89,27 @@ public class Main : MonoBehaviour {
 			}
 		}
 
+		if ( getActiveEquipment() != null )
+			equipmentPanel = getActiveEquipment().equipPanel;
+		if ( equipmentPanel != null ){
+			if ( displayEquipment ){
+				equipmentPanel.SetActive(true);
+			} else if ( !displayEquipment ){
+				foreach( Transform child in GameObject.Find("EquipmentPanels").transform ){
+					child.gameObject.SetActive(false);
+				}
+			}
+		}
 
 
 		/*
 		 * Vehicle Stuffs
 		 ************************************
 		 */ 
-
 		vehicleManagement();
-
-
-
-
+	
 		// DEVTOOLS
-		 devTools();
+		devTools();
 
 	}
 
@@ -110,18 +126,17 @@ public class Main : MonoBehaviour {
 
 		// keypress k - spawn an item
 		if ( Input.GetKeyDown("k") ){
-			GameObject NI = GameObject.Find("NewInventory");
-			GameObject go = NI.GetComponent<Inventory>().createRandomItem();
-			NI.GetComponent<Inventory>().addItemToInventory(go.GetComponent<Item>());
+			GameObject go = inventoryPanel.GetComponent<Inventory>().createRandomItem();
+			inventoryPanel.GetComponent<Inventory>().addItemToInventory(go.GetComponent<Item>());
 		}
 
-		if ( Input.GetKeyDown(KeyCode.Alpha1) ){
-			player.GetComponent<Weapon>().bullet = (GameObject)Resources.Load("Projectiles/FF_Bullet"); 
-		}
-		
-		if ( Input.GetKeyDown(KeyCode.Alpha2) ){
-			player.GetComponent<Weapon>().bullet = (GameObject)Resources.Load("Projectiles/FF_Rocket"); 
-		}
+		//	if ( Input.GetKeyDown(KeyCode.Alpha1) ){
+		//		player.GetComponent<Weapon>().bullet = (GameObject)Resources.Load("Projectiles/FF_Bullet"); 
+		//	}
+		//
+		//	if ( Input.GetKeyDown(KeyCode.Alpha2) ){
+		//		player.GetComponent<Weapon>().bullet = (GameObject)Resources.Load("Projectiles/FF_Rocket"); 
+		//	}
 
 	}
 
@@ -201,7 +216,14 @@ public class Main : MonoBehaviour {
 	}
 
 	public Inventory getActiveInventory(){
-		return GameObject.Find("NewInventory").GetComponent<Inventory>();
+		return inventoryPanel.GetComponent<Inventory>();
+	}
+
+	public Equipment getActiveEquipment(){
+		Equipment temp = null;
+		if ( unitInControl != null )
+			temp = unitInControl.GetComponent<Equipment>();
+		return temp;
 	}
 
 }

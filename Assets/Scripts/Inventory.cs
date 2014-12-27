@@ -22,6 +22,8 @@ public class Inventory : MonoBehaviour {
 	public Item itemInHand = null;
 	public GameObject itemOnHandIcon = null;
 
+	public Transform itemsPanel;
+
 	// Use this for initialization
 	void Start () {
 
@@ -32,11 +34,12 @@ public class Inventory : MonoBehaviour {
 		GameObject temp = Resources.Load("UI/Slot") as GameObject;
 		itemsContainer = GameObject.Find("Items").transform;
 		int itemCounter = GameObject.Find("Items").transform.childCount;
+		itemsPanel = GameObject.Find ("NewInventory").transform.FindChild("ItemContainer").transform;
 		
 		// make the slots
-		for ( int i =0; i<inventorySize; i++ ){
+		for ( int i=0; i<inventorySize; i++ ){
 			GameObject s = Instantiate(temp, Vector3.zero, Quaternion.identity) as GameObject;
-			s.transform.SetParent(gameObject.transform);
+			s.transform.SetParent(itemsPanel);
 			slots.Add(s.GetComponent<ItemSlot>());
 		}
 

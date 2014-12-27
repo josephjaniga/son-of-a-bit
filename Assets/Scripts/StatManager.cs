@@ -6,6 +6,8 @@ public class StatManager : MonoBehaviour {
 
 	public Bit bit;
 
+	public Equipment e;
+
 	public int cMaxHealth;
 	public int cRegen;
 	public float cMovementSpeed;
@@ -29,10 +31,14 @@ public class StatManager : MonoBehaviour {
 			unitsProjectile = bit.weapon.bullet.GetComponent<Projectile>();
 		}
 
+		e = bit.equipment;
+
 	}
 
 	// Use this for initialization
 	void Start () {
+		
+		e = bit.equipment;
 
 	}
 	
@@ -47,116 +53,115 @@ public class StatManager : MonoBehaviour {
 			unitsProjectile = bit.weapon.bullet.GetComponent<Projectile>();
 		}
 
-		// 		calculated stats for old inventory
-		//		cMaxHealth 				= Mathf.RoundToInt( ( bit.health.maxHP + calculateMaxHealthBoost() ) * ( 1.0f + calculateMaxHealthScale() ) );
-		//		cRegen	 				= bit.health.regen + calculateHealthRegenBoost();
-		//		cMovementSpeed 			= bit.motion.speed + calculateMovementSpeedBoost();
-		//		cRateOfFire				= unitsProjectile.ROF / ( 1.0f + calculateRateOfFireScale() );
-		//		cNumberOfProjectiles 	= unitsProjectile.numProjectiles + calculateNumberOfProjectilesBoost();
-		//		cCriticalChance			= bit.weapon.critChance + calculateCriticalChanceBoost();
-		//		cCriticalDamage			= bit.weapon.critDamage + calculateCriticalDamageBoost();
-		//		cProjectileDamage		= Mathf.RoundToInt( ( unitsProjectile.projectileDamage + calculateProjectileDamageBoost() ) * ( 1.0f + calculateProjectileDamageScale() ) );
+ 		
+		cMaxHealth 				= Mathf.RoundToInt( ( bit.health.maxHP + calculateMaxHealthBoost() ) * ( 1.0f + calculateMaxHealthScale() ) );
+		cRegen	 				= bit.health.regen + calculateHealthRegenBoost();
+		cMovementSpeed 			= bit.motion.speed + calculateMovementSpeedBoost();
+		cRateOfFire				= unitsProjectile.ROF / ( 1.0f + calculateRateOfFireScale() );
+		cNumberOfProjectiles 	= unitsProjectile.numProjectiles + calculateNumberOfProjectilesBoost();
+		cCriticalChance			= bit.weapon.critChance + calculateCriticalChanceBoost();
+		cCriticalDamage			= bit.weapon.critDamage + calculateCriticalDamageBoost();
+		cProjectileDamage		= Mathf.RoundToInt( ( unitsProjectile.projectileDamage + calculateProjectileDamageBoost() ) * ( 1.0f + calculateProjectileDamageScale() ) );
 
 		// calculated stats
-		cMaxHealth 				= 111;
-		cRegen	 				= 0;
-		cMovementSpeed 			= 4f;
-		cRateOfFire				= 0.1f;
-		cNumberOfProjectiles 	= 1;
-		cCriticalChance			= 0.1f;
-		cCriticalDamage			= 0.1f;
-		cProjectileDamage		= 9;
+		//		cMaxHealth 				= 111;
+		//		cRegen	 				= 0;
+		//		cMovementSpeed 			= 4f;
+		//		cRateOfFire				= 0.1f;
+		//		cNumberOfProjectiles 	= 1;
+		//		cCriticalChance			= 0.1f;
+		//		cCriticalDamage			= 0.1f;
+		//		cProjectileDamage		= 9;
+
 	}
 
 
 	public int calculateMaxHealthBoost(){
 		int tempBoost = 0;
-		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
-			if ( bit.inventory.itemInventory[i].isEquipped )
-				tempBoost += bit.inventory.itemInventory[i].maxHealthBoost;
+		for ( int i = 0; i < bit.equipment.genericSlotList.Count; i++ ){
+			if ( bit.equipment.genericSlotList[i].item != null )
+				tempBoost += bit.equipment.genericSlotList[i].item.maxHealthBoost;
 		}
 		return tempBoost;
 	}
 
 	public float calculateMaxHealthScale(){
 		float tempBoost = 0f;
-		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
-			if ( bit.inventory.itemInventory[i].isEquipped )
-				tempBoost += bit.inventory.itemInventory[i].maxHealthScale;
+		for ( int i = 0; i < bit.equipment.genericSlotList.Count; i++ ){
+			if ( bit.equipment.genericSlotList[i].item != null )
+				tempBoost += bit.equipment.genericSlotList[i].item.maxHealthScale;
 		}
 		return tempBoost;
 	}
 
 	public float calculateMovementSpeedBoost(){
 		float tempBoost = 0;
-		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
-			if ( bit.inventory.itemInventory[i].isEquipped )
-				tempBoost += bit.inventory.itemInventory[i].movementSpeedBoost;
+		for ( int i = 0; i < bit.equipment.genericSlotList.Count; i++ ){
+			if ( bit.equipment.genericSlotList[i].item != null )
+				tempBoost += bit.equipment.genericSlotList[i].item.movementSpeedBoost;
 		}
 		return tempBoost;
 	}
 
 	public float calculateRateOfFireScale(){
 		float tempBoost = 0f;
-		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
-			if ( bit.inventory.itemInventory[i].isEquipped )
-				tempBoost += bit.inventory.itemInventory[i].rateOfFireScale;
+		for ( int i = 0; i < bit.equipment.genericSlotList.Count; i++ ){
+			if ( bit.equipment.genericSlotList[i].item != null )
+				tempBoost += bit.equipment.genericSlotList[i].item.rateOfFireScale;
 		}
 		return tempBoost;
 	}
 
 	public int calculateNumberOfProjectilesBoost(){
 		int tempBoost = 0;
-		
-		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
-			if ( bit.inventory.itemInventory[i].isEquipped )
-				tempBoost += bit.inventory.itemInventory[i].numberOfProjectilesBoost;
+		for ( int i = 0; i < bit.equipment.genericSlotList.Count; i++ ){
+			if ( bit.equipment.genericSlotList[i].item != null )
+				tempBoost += bit.equipment.genericSlotList[i].item.numberOfProjectilesBoost;
 		}
-		
 		return tempBoost;
 	}
 
 	public int calculateProjectileDamageBoost(){
 		int tempBoost = 0;
-		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
-			if ( bit.inventory.itemInventory[i].isEquipped )
-				tempBoost += bit.inventory.itemInventory[i].projectileDamageBoost;
+		for ( int i = 0; i < bit.equipment.genericSlotList.Count; i++ ){
+			if ( bit.equipment.genericSlotList[i].item != null )
+				tempBoost += bit.equipment.genericSlotList[i].item.projectileDamageBoost;
 		}
 		return tempBoost;
 	}
 
 	public float calculateProjectileDamageScale(){
 		float tempBoost = 0;
-		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
-			if ( bit.inventory.itemInventory[i].isEquipped )
-				tempBoost += bit.inventory.itemInventory[i].projectileDamageScale;
+		for ( int i = 0; i < bit.equipment.genericSlotList.Count; i++ ){
+			if ( bit.equipment.genericSlotList[i].item != null )
+				tempBoost += bit.equipment.genericSlotList[i].item.projectileDamageScale;
 		}
 		return tempBoost;
 	}
 
 	public float calculateCriticalChanceBoost(){
 		float tempBoost = 0;
-		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
-			if ( bit.inventory.itemInventory[i].isEquipped )
-				tempBoost += bit.inventory.itemInventory[i].critChanceBoost;
+		for ( int i = 0; i < bit.equipment.genericSlotList.Count; i++ ){
+			if ( bit.equipment.genericSlotList[i].item != null )
+				tempBoost += bit.equipment.genericSlotList[i].item.critChanceBoost;
 		}
 		return tempBoost;
 	}
 
 	public float calculateCriticalDamageBoost(){
 		float tempBoost = 0;
-		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
-			if ( bit.inventory.itemInventory[i].isEquipped )
-				tempBoost += bit.inventory.itemInventory[i].critDamageBoost;
+		for ( int i = 0; i < bit.equipment.genericSlotList.Count; i++ ){
+			if ( bit.equipment.genericSlotList[i].item != null )
+				tempBoost += bit.equipment.genericSlotList[i].item.critDamageBoost;
 		}
 		return tempBoost;
 	}
 
 	public int calculateHealthRegenBoost(){
 		int tempBoost = 0;
-		for ( int i = 0; i < bit.inventory.itemInventory.Count; i++ ){
-			if ( bit.inventory.itemInventory[i].isEquipped )
-				tempBoost += bit.inventory.itemInventory[i].healthRegenBoost;
+		for ( int i = 0; i < bit.equipment.genericSlotList.Count; i++ ){
+			if ( bit.equipment.genericSlotList[i].item != null )
+				tempBoost += bit.equipment.genericSlotList[i].item.healthRegenBoost;
 		}
 		return tempBoost;
 	}
