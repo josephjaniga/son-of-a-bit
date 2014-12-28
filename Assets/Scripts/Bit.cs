@@ -75,6 +75,10 @@ public class Bit : MonoBehaviour {
 			weapon = gameObject.GetComponent<Weapon>();
 		}
 
+		if ( equipment == null ){
+			equipment = gameObject.GetComponent<Equipment>();
+		}
+
 	}
 	
 	public void setColor(Color input){

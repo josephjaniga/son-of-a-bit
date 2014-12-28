@@ -46,11 +46,20 @@ public class Item : MonoBehaviour {
 
 	public int statCount = 10;
 
-	public Weapon weaponInstance = null;
+
+	public GameObject genericWeapon = null;
+	public GameObject weaponInstance = null;
+	public Weapon weaponComponent = null;
+
+//	public GameObject genericBullet = null;
+//	public GameObject bulletInstance = null;
+//	public Projectile bulletComponent = null;
 
 	// Use this for initialization
 	void Start () {
 
+//		genericBullet = Resources.Load<GameObject>("Projectiles/FF_Bullet") as GameObject;
+		genericWeapon = Resources.Load<GameObject>("Items/Weapons/GenericWeapon") as GameObject;
 		updateItemStatText();
 
 	}
@@ -102,12 +111,30 @@ public class Item : MonoBehaviour {
 			
 			itemName 					= WordFinder2((int)Random.Range(4,11));
 			isEquipped					= false;
-			type						= (int)Random.Range((int)ItemType.Generic, (int)ItemType.Technology+1);
+			//type						= (int)Random.Range((int)ItemType.Generic, (int)ItemType.Technology+1);
+			type						= (int)ItemType.Weapon;
 
 			//Debug.Log ("i:" + i + " // rolled:" + statRoll);
 
 			if ( type == (int)ItemType.Weapon ){
-				weaponInstance = (Resources.Load<GameObject>("Items/Weapons/GenericWeapon") as GameObject).GetComponent<Weapon>();
+
+//				genericBullet = Resources.Load<GameObject>("Projectiles/FF_Bullet") as GameObject;
+				genericWeapon = Resources.Load<GameObject>("Items/Weapons/GenericWeapon") as GameObject;
+
+//				bulletInstance = Instantiate (genericBullet, Vector3.zero, Quaternion.identity) as GameObject;
+//				bulletInstance.name = WordFinder2(11);
+//				bulletInstance.GetComponent<Projectile>().projectileDamage = statValue * Random.Range(11, 333);
+//				bulletInstance.GetComponent<Projectile>().ROF = 1.0f - statPercent;
+//				bulletInstance.GetComponent<Projectile>().speed = statValue * Random.Range(3, 7);
+				
+				weaponInstance = Instantiate (genericWeapon, Vector3.zero, Quaternion.identity) as GameObject;
+				weaponInstance.name = WordFinder2(11);
+				weaponInstance.GetComponent<Weapon>().critChance = statPercent * 0.5f;
+				weaponInstance.GetComponent<Weapon>().critDamage = statPercent;
+//				weaponInstance.GetComponent<Weapon>().bullet = bulletInstance;
+
+//				bulletInstance.SetActive(false);
+
 			}
 
 			switch(statRoll){
@@ -164,8 +191,16 @@ public class Item : MonoBehaviour {
 
 
 	public void updateItemStatText(){
+
 		statText = "";
 		
+		if ( type == (int)ItemType.Weapon ){
+			statText += "Base Damage: " + weaponInstance.GetComponent<Weapon>().bullet.GetComponent<Projectile>().projectileDamage + " \r\n";
+			statText += "Base Rate of Fire: " + weaponInstance.GetComponent<Weapon>().bullet.GetComponent<Projectile>().ROF + " \r\n";
+			statText += "Base Critical Chance: " + weaponInstance.GetComponent<Weapon>().critChance + " \r\n";
+			statText += "Base Critical Damage Mod: " + weaponInstance.GetComponent<Weapon>().critDamage + " \r\n";
+		}
+
 		if ( maxHealthBoost != 0 ){
 			statText += "+" + maxHealthBoost + " Maximum Health \r\n";
 		}
@@ -206,12 +241,6 @@ public class Item : MonoBehaviour {
 			statText += "+" + healthRegenBoost + " health / 2 seconds \r\n";
 		}
 
-		if ( type == (int)ItemType.Weapon ){
-			statText += "Base Damage: " + 0 + " \r\n";
-			statText += "Base Rate of Fire: " + 0 + " \r\n";
-			statText += "Base Critical Chance: " + 0 + " \r\n";
-			statText += "Base Critical Damage Mod: " + 0 + " \r\n";
-		}
 
 	}
 

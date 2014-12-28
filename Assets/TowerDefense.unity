@@ -1429,7 +1429,12 @@ MonoBehaviour:
   critDamageBoost: 0
   healthRegenBoost: 0
   statCount: 10
+  genericWeapon: {fileID: 0}
   weaponInstance: {fileID: 0}
+  weaponComponent: {fileID: 0}
+  genericBullet: {fileID: 0}
+  bulletInstance: {fileID: 0}
+  bulletComponent: {fileID: 0}
 --- !u!114 &206654196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2255,7 +2260,12 @@ MonoBehaviour:
   critDamageBoost: 0
   healthRegenBoost: 0
   statCount: 10
+  genericWeapon: {fileID: 0}
   weaponInstance: {fileID: 0}
+  weaponComponent: {fileID: 0}
+  genericBullet: {fileID: 0}
+  bulletInstance: {fileID: 0}
+  bulletComponent: {fileID: 0}
 --- !u!114 &271298706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2304,7 +2314,12 @@ MonoBehaviour:
   critDamageBoost: 0
   healthRegenBoost: 0
   statCount: 10
+  genericWeapon: {fileID: 0}
   weaponInstance: {fileID: 0}
+  weaponComponent: {fileID: 0}
+  genericBullet: {fileID: 0}
+  bulletInstance: {fileID: 0}
+  bulletComponent: {fileID: 0}
 --- !u!1 &286230668
 GameObject:
   m_ObjectHideFlags: 0
@@ -4142,7 +4157,12 @@ MonoBehaviour:
   critDamageBoost: 0
   healthRegenBoost: 0
   statCount: 10
+  genericWeapon: {fileID: 0}
   weaponInstance: {fileID: 0}
+  weaponComponent: {fileID: 0}
+  genericBullet: {fileID: 0}
+  bulletInstance: {fileID: 0}
+  bulletComponent: {fileID: 0}
 --- !u!1 &666514326
 GameObject:
   m_ObjectHideFlags: 0

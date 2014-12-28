@@ -25,18 +25,20 @@ public class Equipment : MonoBehaviour {
 	public Weapon defaultWeapon;
 	public GameObject defaultBullet;
 
+	public Weapon currentWeapon;
+	public GameObject currentBullet;
+
 	// Use this for initialization
 	void Awake () {
 
-		
-		if ( bit == null ){
-			bit = gameObject.GetComponent<Bit>();
-		} else {
-			if ( bit.weapon != null ){
-				defaultWeapon = bit.weapon;
-				defaultBullet = bit.weapon.bullet;
-			}
-		}
+//		if ( bit == null ){
+//			bit = gameObject.GetComponent<Bit>();
+//		} else {
+//			if ( bit.weapon != null ){
+//				defaultWeapon = bit.weapon;
+//				defaultBullet = bit.weapon.bullet;
+//			}
+//		}
 
 		//make an Equipment panel
 		GameObject temp = Resources.Load("UI/Slot") as GameObject;
@@ -96,14 +98,14 @@ public class Equipment : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if ( bit == null ){
-			bit = gameObject.GetComponent<Bit>();
-		} else {
-			if ( bit.weapon != null ){
-				defaultWeapon = bit.weapon;
-				defaultBullet = bit.weapon.bullet;
-			}
-		}
+//		if ( bit == null ){
+//			bit = gameObject.GetComponent<Bit>();
+//		} else {
+//			if ( bit.weapon != null ){
+//				defaultWeapon = bit.weapon;
+//				defaultBullet = bit.weapon.bullet;
+//			}
+//		}
 
 		if ( itemContainer.GetComponent<GridLayoutGroup>() == null ){
 			equipPanel.SetActive(false);
@@ -116,29 +118,29 @@ public class Equipment : MonoBehaviour {
 			itemContainer.GetComponent<GridLayoutGroup>().spacing = new Vector2(8, 8);
 		}
 
-		if ( GameObject.Find ("FatherBit").GetComponent<Main>().unitInControl == bit.gameObject ){
-			
-			if ( getWeaponSlot() != null){
-				Debug.Log (getWeaponSlot().item);
-			}
-			
-			if ( bit.weapon != null ){
-				if ( getWeaponSlot() != null && getWeaponSlot().item != null && getWeaponSlot().item.weaponInstance != null ) {
-					if ( bit.weapon != getWeaponSlot().item.weaponInstance ){
-						Debug.Log ("reassigned");
-						bit.weapon = getWeaponSlot().item.weaponInstance;
-						bit.weapon.bullet = getWeaponSlot().item.weaponInstance.bullet;
-					}
-				} else {
-					if ( bit.weapon != defaultWeapon ){
-						Debug.Log ("defaulted");
-						bit.weapon = defaultWeapon;
-						bit.weapon.bullet = defaultWeapon.bullet;
-					}
-				}
-			}
-
-		}
+//		if ( GameObject.Find ("FatherBit").GetComponent<Main>().unitInControl == bit.gameObject ){
+//			
+//			if ( getWeaponSlot() != null){
+//				Debug.Log (getWeaponSlot().item);
+//			}
+//			
+//			if ( bit.weapon != null ){
+//				if ( getWeaponSlot() != null && getWeaponSlot().item != null && getWeaponSlot().item.weaponInstance != null ) {
+//					if ( bit.weapon != getWeaponSlot().item.weaponInstance.GetComponent<Weapon>() ){
+//						Debug.Log ("reassigned");
+//						bit.weapon = getWeaponSlot().item.weaponInstance.GetComponent<Weapon>();
+//						bit.weapon.bullet = getWeaponSlot().item.weaponInstance.GetComponent<Weapon>().bullet;
+//					}
+//				} else {
+//					if ( bit.weapon != defaultWeapon ){
+//						Debug.Log ("defaulted");
+//						bit.weapon = defaultWeapon;
+//						bit.weapon.bullet = defaultBullet;
+//					}
+//				}
+//			}
+//
+//		}
 
 
 	}

@@ -105,7 +105,7 @@ MonoBehaviour:
   useGravity: 0
   birthTime: 0
   lifeSpan: 3
-  ROF: .150000006
+  ROF: .25
   numProjectiles: 1
   projectileDamage: 4
   sparkOnCollision: 0
@@ -132,12 +132,14 @@ MonoBehaviour:
   health: {fileID: 0}
   item: {fileID: 0}
   inventory: {fileID: 0}
+  equipment: {fileID: 0}
   motion: {fileID: 0}
   projectile: {fileID: 0}
   statManager: {fileID: 0}
   weapon: {fileID: 0}
   faction: {fileID: 0}
   waveSpawner: {fileID: 0}
+  inUse: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

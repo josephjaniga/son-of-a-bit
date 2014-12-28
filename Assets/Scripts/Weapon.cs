@@ -12,10 +12,20 @@ public class Weapon : MonoBehaviour {
 	
 	public Joystick rightJoystick;
 
+	public Weapon weaponToFire = null;
+
+	public GameObject UIC = null;
+
 	// Use this for initialization
 	void Start () {
 	
 		bit = gameObject.GetComponent<Bit>();
+		if ( GameObject.Find ("FatherBit").GetComponent<Main>() != null ) {
+			UIC = GameObject.Find ("FatherBit").GetComponent<Main>().unitInControl;
+		}
+		if ( bit == null && UIC != null ){
+			bit = UIC.GetComponent<Bit>();
+		}
 
 		if ( GameObject.Find("RightJoystick") != null ){
 			rightJoystick = GameObject.Find("RightJoystick").GetComponent<Joystick>();
@@ -25,6 +35,22 @@ public class Weapon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		bit = gameObject.GetComponent<Bit>();
+		if ( GameObject.Find ("FatherBit").GetComponent<Main>() != null ) {
+			UIC = GameObject.Find ("FatherBit").GetComponent<Main>().unitInControl;
+		}
+		if ( bit == null && UIC != null ){
+			bit = UIC.GetComponent<Bit>();
+		}
+
+		if ( 	bit != null
+		    	&& bit.equipment != null
+		    	&& bit.equipment.getWeaponSlot() != null
+		    	&& bit.equipment.getWeaponSlot().item != null
+		    	&& bit.equipment.getWeaponSlot().item.weaponInstance != null ){
+			weaponToFire = bit.equipment.getWeaponSlot().item.weaponInstance.GetComponent<Weapon>();
+		}
 
 		// get the correct rate of fire / flat or calculated
 		float tempROF = bullet.GetComponent<Projectile>().ROF;
@@ -46,10 +72,18 @@ public class Weapon : MonoBehaviour {
 					if ( bit.health != null ){
 						// and the unit is still alive
 						if ( !bit.health.isDead ){
-							fire(aimAtMouse());
+							if ( weaponToFire == null ){
+								fire(aimAtMouse());
+							} else {
+								weaponToFire.fire(aimAtMouse());
+							}
 						}
 					} else {
-						fire(aimAtMouse());
+						if ( weaponToFire == null ){
+							fire(aimAtMouse());
+						} else {
+							weaponToFire.fire(aimAtMouse());
+						}
 					}
 
 				}
@@ -120,7 +154,7 @@ public class Weapon : MonoBehaviour {
 		// get the correct rate of fire / flat or calculated
 		int tempNumberOfProjectiles = bullet.GetComponent<Projectile>().numProjectiles;
 		
-		if ( bit.statManager != null ){
+		if ( bit != null && bit.statManager != null ){
 			tempNumberOfProjectiles = bit.statManager.cNumberOfProjectiles;
 		}
 
@@ -145,6 +179,10 @@ public class Weapon : MonoBehaviour {
 				round.GetComponent<Projectile>().setDirection(target - offset);
 				round.transform.parent = GameObject.Find("Projectiles").transform;
 				round.GetComponent<Projectile>().setOwner(gameObject);
+
+				if ( weaponToFire != null ){
+					round.GetComponent<Projectile>().setOwner(UIC);
+				}
 			}
 
 		} else if ( ffBulletPool != null && bullet.GetComponent<Projectile>().projectileName == ffBulletPool.goInstance.GetComponent<Projectile>().projectileName ) {
@@ -157,6 +195,10 @@ public class Weapon : MonoBehaviour {
 				round.GetComponent<Projectile>().setDirection(target - offset);
 				round.transform.parent = GameObject.Find("Projectiles").transform;
 				round.GetComponent<Projectile>().setOwner(gameObject);
+
+				if ( weaponToFire != null ){
+					round.GetComponent<Projectile>().setOwner(UIC);
+				}
 			}
 
 		} else {
@@ -166,6 +208,10 @@ public class Weapon : MonoBehaviour {
 				round.GetComponent<Projectile>().setDirection(target - offset);
 				round.transform.parent = GameObject.Find("Projectiles").transform;
 				round.GetComponent<Projectile>().setOwner(gameObject);
+
+				if ( weaponToFire != null ){
+					round.GetComponent<Projectile>().setOwner(UIC);
+				}
 			}
 
 		}
