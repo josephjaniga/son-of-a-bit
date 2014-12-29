@@ -90,10 +90,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bit: {fileID: 0}
-  bullet: {fileID: 100000, guid: 96fee6bf5ef364c30abf8c24efb4322c, type: 2}
+  bullet: {fileID: 0}
+  defaultBullet: {fileID: 100000, guid: 96fee6bf5ef364c30abf8c24efb4322c, type: 2}
   lastFired: 0
-  critChance: 0
-  critDamage: 0
   rightJoystick: {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:
@@ -112,6 +111,7 @@ MonoBehaviour:
   health: {fileID: 0}
   item: {fileID: 0}
   inventory: {fileID: 0}
+  equipment: {fileID: 0}
   motion: {fileID: 0}
   projectile: {fileID: 0}
   statManager: {fileID: 0}
@@ -161,7 +161,7 @@ MonoBehaviour:
   attackTarget: {fileID: 0}
   collisionDamage: 2
   dropChance: 1
-  dropRarity: 0
+  dropRarity: 1
   dropRate: 1
   spawnTimer: 0
   spawnRate: 0
@@ -192,6 +192,7 @@ MonoBehaviour:
   isImmortal: 0
   bit: {fileID: 0}
   sct: {fileID: 0}
+  inv: {fileID: 0}
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1

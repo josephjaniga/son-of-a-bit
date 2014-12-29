@@ -149,6 +149,14 @@ Prefab:
       propertyPath: genericItem
       value: 
       objectReference: {fileID: 100000, guid: f30db08be92924a09a42fa75ab223a35, type: 2}
+    - target: {fileID: 11400004, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
+      propertyPath: defaultBullet
+      value: 
+      objectReference: {fileID: 100000, guid: 64733dd69dab444b5ad5e4491568483e, type: 2}
+    - target: {fileID: 11400004, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
@@ -360,6 +368,14 @@ Prefab:
       propertyPath: genericItem
       value: 
       objectReference: {fileID: 100000, guid: f30db08be92924a09a42fa75ab223a35, type: 2}
+    - target: {fileID: 11400008, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
+      propertyPath: defaultBullet
+      value: 
+      objectReference: {fileID: 100000, guid: 64733dd69dab444b5ad5e4491568483e, type: 2}
+    - target: {fileID: 11400008, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400004, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
@@ -1385,6 +1401,7 @@ MonoBehaviour:
   critDamageBoost: 0
   healthRegenBoost: 0
   statCount: 10
+  weaponBullet: {fileID: 0}
 --- !u!114 &206654196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1469,10 +1486,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bit: {fileID: 0}
-  bullet: {fileID: 100000, guid: 64733dd69dab444b5ad5e4491568483e, type: 2}
+  bullet: {fileID: 0}
+  defaultBullet: {fileID: 100000, guid: 64733dd69dab444b5ad5e4491568483e, type: 2}
   lastFired: 0
-  critChance: 0
-  critDamage: .5
   rightJoystick: {fileID: 0}
 --- !u!54 &206654200
 Rigidbody:
@@ -2082,10 +2098,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bit: {fileID: 0}
-  bullet: {fileID: 100000, guid: 64733dd69dab444b5ad5e4491568483e, type: 2}
+  bullet: {fileID: 0}
+  defaultBullet: {fileID: 100000, guid: 64733dd69dab444b5ad5e4491568483e, type: 2}
   lastFired: 0
-  critChance: 0
-  critDamage: .5
   rightJoystick: {fileID: 0}
 --- !u!54 &271298701
 Rigidbody:
@@ -2143,11 +2158,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayer: 0
   isVehicle: 1
-  weaponSlots: 0
-  armorSlots: 0
-  accessorySlots: 0
-  techSlots: 0
-  genericSlots: 11
+  weaponSlots: 1
+  armorSlots: 1
+  accessorySlots: 1
+  techSlots: 1
+  genericSlots: 1
   equipPanel: {fileID: 0}
   itemContainer: {fileID: 0}
   genericSlotList: []
@@ -2204,6 +2219,7 @@ MonoBehaviour:
   critDamageBoost: 0
   healthRegenBoost: 0
   statCount: 10
+  weaponBullet: {fileID: 0}
 --- !u!114 &271298706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2252,6 +2268,7 @@ MonoBehaviour:
   critDamageBoost: 0
   healthRegenBoost: 0
   statCount: 10
+  weaponBullet: {fileID: 0}
 --- !u!1 &286230668
 GameObject:
   m_ObjectHideFlags: 0
@@ -4089,6 +4106,7 @@ MonoBehaviour:
   critDamageBoost: 0
   healthRegenBoost: 0
   statCount: 10
+  weaponBullet: {fileID: 0}
 --- !u!1 &666514326
 GameObject:
   m_ObjectHideFlags: 0

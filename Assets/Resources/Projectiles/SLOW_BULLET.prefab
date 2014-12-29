@@ -99,15 +99,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetDirection: {x: 0, y: 0, z: 0}
-  speed: 5
+  birthTime: 0
   destroyOnImpact: 1
   useLifeSpan: 1
   useGravity: 0
-  birthTime: 0
+  speed: 5
   lifeSpan: 3
   ROF: .600000024
   numProjectiles: 1
   projectileDamage: 2
+  critChance: 0
+  critDamage: .5
+  bulletColor: {r: .320826143, g: .610868394, b: .948529422, a: 1}
   sparkOnCollision: 0
   colorLow: {r: .600000024, g: .100000001, b: 0, a: .100000001}
   colorHigh: {r: 1, g: .5, b: 0, a: .5}
@@ -132,6 +135,7 @@ MonoBehaviour:
   health: {fileID: 0}
   item: {fileID: 0}
   inventory: {fileID: 0}
+  equipment: {fileID: 0}
   motion: {fileID: 0}
   projectile: {fileID: 0}
   statManager: {fileID: 0}

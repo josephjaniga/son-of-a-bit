@@ -169,7 +169,18 @@ public class Item : MonoBehaviour {
 
 
 	public void updateItemStatText(){
+
 		statText = "";
+		
+		if ( type == (int)ItemType.Weapon ){
+			statText += "Base Damage: " + weaponBullet.GetComponent<Projectile>().projectileDamage + " \r\n";
+			statText += "Base Rate of Fire: " + weaponBullet.GetComponent<Projectile>().ROF + " \r\n";
+			statText += "Base Critical Chance: " + weaponBullet.GetComponent<Projectile>().critChance + " \r\n";
+			statText += "Base Critical Damage Mod: " + weaponBullet.GetComponent<Projectile>().critDamage + " \r\n";
+		}
+
+
+		statText += "<color=#00FF00> \r\n";
 		
 		if ( maxHealthBoost != 0 ){
 			statText += "+" + maxHealthBoost + " Maximum Health \r\n";
@@ -210,6 +221,8 @@ public class Item : MonoBehaviour {
 		if ( healthRegenBoost != 0 ){
 			statText += "+" + healthRegenBoost + " health / 2 seconds \r\n";
 		}
+
+		statText += "</color> \r\n";
 
 	}
 

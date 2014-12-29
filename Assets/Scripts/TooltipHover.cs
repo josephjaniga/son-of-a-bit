@@ -50,8 +50,8 @@ public class TooltipHover :  UIBehaviour, IPointerEnterHandler, IPointerExitHand
 			showToolTip ();
 			TTName.GetComponent<Text>().text 	= container.item.itemName;
 			TTValue.GetComponent<Text>().text 	= ""+container.item.value;
-			TTIcon.GetComponent<Image>().sprite = container.item.itemIcon;
-			
+			TTIcon.GetComponent<Image>().sprite = container.item.itemIcon; 
+
 			switch (container.item.type){
 			case (int)ItemSlot.ItemType.Technology:
 				TTType.GetComponent<Text>().text = "Technology";
