@@ -22,7 +22,11 @@ public class Weapon : MonoBehaviour {
 		}
 
 	}
-	
+
+	/*
+	 *  WEAPON SYSTEM IN DIRE NEED OF OVERHAUL
+	 */
+
 	// Update is called once per frame
 	void Update () {
 
