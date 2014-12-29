@@ -95,23 +95,16 @@ public class Equipment : MonoBehaviour {
 
 	}
 
-	public ItemSlot getFirstAvailableSlotOfType(string itemType){
+	public ItemSlot getFirstAvailableSlotOfType(int ItemSlotType){
 
 		ItemSlot iS = null;
 		List<ItemSlot> haystack = null;
 
-		switch (itemType.ToLower() ){
-		case "generic":
-			haystack = genericSlotList;
-			break;
-		default:
-			haystack = null;
-			break;
-		}
+		haystack = genericSlotList;
 		
 		if ( haystack != null ){
 			for ( int i=0; i<genericSlots; i++ ){
-				if ( haystack[i].GetComponent<ItemSlot>().item == null ){
+				if ( haystack[i].GetComponent<ItemSlot>().itemSlotType == ItemSlotType ){
 					iS = haystack[i].GetComponent<ItemSlot>();
 					break;
 				}
@@ -121,7 +114,24 @@ public class Equipment : MonoBehaviour {
 		return iS;
 
 	}
+
+	public Item getEquippedWeapon(){
+		Item returnItem = null;
+		ItemSlot temp = getFirstAvailableSlotOfType((int)Item.ItemType.Weapon);
+		if ( temp != null ){
+			returnItem = temp.item;
+		}
+		return returnItem;
+	}
+
+	public GameObject getEquippedProjectile(){
+
+		GameObject returnBullet = null;
+		Item weaponEquipped = getEquippedWeapon();
+		if ( weaponEquipped != null ){
+
+		}
+		return returnBullet;
+	}
 	
-
-
 }

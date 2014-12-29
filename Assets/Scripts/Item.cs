@@ -46,7 +46,8 @@ public class Item : MonoBehaviour {
 
 
 	public int statCount = 10;
-	public UnityEngine.Random r;
+
+	public GameObject weaponBullet;
 	
 	// Use this for initialization
 	void Start () {
@@ -103,6 +104,14 @@ public class Item : MonoBehaviour {
 			itemName 					= WordFinder2((int)Random.Range(4,11));
 			isEquipped					= false;
 			type						= (int)Random.Range((int)ItemType.Generic, (int)ItemType.Technology+1);
+
+			if ( type == (int)ItemType.Weapon ){
+				weaponBullet = Instantiate(Resources.Load ("Projectiles/FF_Bullet"), Vector3.zero, Quaternion.identity) as GameObject;
+				weaponBullet.transform.SetParent(gameObject.transform);
+				weaponBullet.name = itemName+"(bullet)";
+				weaponBullet.GetComponent<Projectile>().randomizeBullet(Rarity);
+				weaponBullet.SetActive(false);
+			}
 
 			//Debug.Log ("i:" + i + " // rolled:" + statRoll);
 

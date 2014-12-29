@@ -274,7 +274,7 @@ public class Health : MonoBehaviour {
 									GameObject.Destroy(child.gameObject);
 								}
 
-								GameObject go = i.createRandomItem();
+								GameObject go = i.createRandomItem(bit.artificialInteligence.dropRarity);
 								i.addItemToInventory(go.GetComponent<Item>());
 								
 								GameObject alert = Instantiate(sct, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;

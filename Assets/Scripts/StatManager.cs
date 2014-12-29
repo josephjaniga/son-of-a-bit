@@ -45,23 +45,26 @@ public class StatManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if ( 
-		    bit != null 
-		    && bit.weapon != null 
-		    && bit.weapon.bullet != null 
-		    ){
-			unitsProjectile = bit.weapon.bullet.GetComponent<Projectile>();
+		if ( bit != null && bit.weapon != null ){
+			if ( bit.weapon.bullet != null ){
+				unitsProjectile = bit.weapon.bullet.GetComponent<Projectile>();
+			} else {
+				unitsProjectile = bit.weapon.defaultBullet.GetComponent<Projectile>();
+			}
 		}
 
  		
 		cMaxHealth 				= Mathf.RoundToInt( ( bit.health.maxHP + calculateMaxHealthBoost() ) * ( 1.0f + calculateMaxHealthScale() ) );
 		cRegen	 				= bit.health.regen + calculateHealthRegenBoost();
 		cMovementSpeed 			= bit.motion.speed + calculateMovementSpeedBoost();
-		cRateOfFire				= unitsProjectile.ROF / ( 1.0f + calculateRateOfFireScale() );
-		cNumberOfProjectiles 	= unitsProjectile.numProjectiles + calculateNumberOfProjectilesBoost();
-		cCriticalChance			= bit.weapon.critChance + calculateCriticalChanceBoost();
-		cCriticalDamage			= bit.weapon.critDamage + calculateCriticalDamageBoost();
-		cProjectileDamage		= Mathf.RoundToInt( ( unitsProjectile.projectileDamage + calculateProjectileDamageBoost() ) * ( 1.0f + calculateProjectileDamageScale() ) );
+
+		if ( unitsProjectile != null ){
+			cRateOfFire				= unitsProjectile.ROF / ( 1.0f + calculateRateOfFireScale() );
+			cNumberOfProjectiles 	= unitsProjectile.numProjectiles + calculateNumberOfProjectilesBoost();
+			cCriticalChance			= unitsProjectile.critChance + calculateCriticalChanceBoost();
+			cCriticalDamage			= unitsProjectile.critDamage + calculateCriticalDamageBoost();
+			cProjectileDamage		= Mathf.RoundToInt( ( unitsProjectile.projectileDamage + calculateProjectileDamageBoost() ) * ( 1.0f + calculateProjectileDamageScale() ) );
+		}
 
 		// calculated stats
 		//		cMaxHealth 				= 111;

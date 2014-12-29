@@ -4,18 +4,19 @@ using System.Collections;
 public class Projectile : MonoBehaviour {
 	
 	public Vector3	targetDirection = Vector3.zero;
-	public float 	speed = 11.0f;
+	public float	birthTime;
+	
 	public bool 	destroyOnImpact = false;
 	public bool		useLifeSpan		= true;
 	public bool 	useGravity		= false;
-
-	public float	birthTime;
+	public float 	speed = 11.0f;
 	public float	lifeSpan = 3f;
 	public float	ROF = 0.5f;
-
 	public int 		numProjectiles = 5;
 	public int		projectileDamage = 1;
-
+	public float 	critChance = 0.0f;
+	public float 	critDamage = 0.5f;
+	public Color	bulletColor = Color.white;
 	public bool		sparkOnCollision = true;
 	public Color	colorLow 	= new Color(0.6f,0.1f,0.0f,0.1f);
 	public Color	colorHigh	= new Color(1.0f,0.5f,0.0f,0.5f);
@@ -179,6 +180,46 @@ public class Projectile : MonoBehaviour {
 
 	public void setOwner(GameObject o){
 		owner = o;
+	}
+
+	public void copyBulletAttributes(Projectile p){
+		destroyOnImpact 	= p.destroyOnImpact;
+		useLifeSpan			= p.useLifeSpan;
+		useGravity			= p.useGravity;
+		speed 				= p.speed;
+		lifeSpan 			= p.lifeSpan;
+		ROF 				= p.ROF;
+		numProjectiles 		= p.numProjectiles;
+		projectileDamage 	= p.projectileDamage;
+		critChance 			= p.critChance;
+		critDamage 			= p.critDamage;
+		bulletColor 		= p.bulletColor;
+		sparkOnCollision 	= p.sparkOnCollision;
+		colorLow 			= p.colorLow;
+		colorHigh			= p.colorHigh;
+
+		gameObject.GetComponent<Bit>().setColor(bulletColor);
+	}
+
+	public void randomizeBullet(int Rarity = 0){
+
+		float r = Random.Range(0f,1f);
+		float g = Random.Range(0f,1f);
+		float b = Random.Range(0f,1f);
+		float a = Random.Range(0f,1f);
+
+		destroyOnImpact 	= true;
+		useLifeSpan			= true;
+		useGravity			= Random.Range (0, 1) > 0.5f;
+		speed 				= 10.0f + 2.5f * Random.Range(0, Rarity+1);
+		lifeSpan 			= 2.5f;
+		ROF 				= 1f - .05f * Random.Range(0, Rarity+2);
+		numProjectiles 		= 1;
+		projectileDamage 	= Mathf.RoundToInt((4 * Random.Range(1, Rarity+2) + Random.Range(1, Rarity) ) * Random.Range(0.8f, 1.25f));
+		critChance 			= .05f * Random.Range(0, Rarity+1);
+		critDamage 			= .25f * Random.Range(0, Rarity+2);
+		bulletColor 		= new Color(r, g, b, a);
+
 	}
 
 }

@@ -102,11 +102,11 @@ public class Inventory : MonoBehaviour {
 		credits += Amount;
 	}
 	
-	public GameObject createRandomItem(){
+	public GameObject createRandomItem(int Rarity = 0){
 		
 		// make it
 		GameObject go = Instantiate(genericItem, Vector3.zero, Quaternion.identity) as GameObject;
-		go.GetComponent<Item>().randomize();
+		go.GetComponent<Item>().randomize(Rarity);
 		go.transform.SetParent(itemsContainer);
 		go.GetComponent<Item>().askForId();
 		go.name = go.GetComponent<Item>().itemName;

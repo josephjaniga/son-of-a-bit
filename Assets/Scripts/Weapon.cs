@@ -5,16 +5,16 @@ public class Weapon : MonoBehaviour {
 
 	public Bit bit;
 	public GameObject bullet = null;
+	public GameObject defaultBullet = null;
 	public float lastFired = 0.0f;
-
-	public float critChance = 0.0f;
-	public float critDamage = 0.5f;
 	
 	public Joystick rightJoystick;
 
 	// Use this for initialization
 	void Start () {
 	
+		bullet = defaultBullet;
+
 		bit = gameObject.GetComponent<Bit>();
 
 		if ( GameObject.Find("RightJoystick") != null ){
@@ -30,6 +30,17 @@ public class Weapon : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if ( bit != null && bit.equipment != null && bit.equipment.getEquippedWeapon() != null ){
+			Item itemTemp = bit.equipment.getEquippedWeapon();
+			if ( itemTemp != null && itemTemp.weaponBullet != null ){
+				bullet = itemTemp.weaponBullet;
+			} else {
+				bullet = defaultBullet;	
+			}
+		} else {
+			bullet = defaultBullet;		
+		}
+
 		// get the correct rate of fire / flat or calculated
 		float tempROF = bullet.GetComponent<Projectile>().ROF;
 		
@@ -39,13 +50,7 @@ public class Weapon : MonoBehaviour {
 	
 		// if weapon owner is user controlled
 		if ( bit.motion != null && bit.motion.userControlled ){
-			if 	(
-					Input.GetMouseButton(0)
-					&& Time.time - tempROF >= lastFired ){
-				
-				//Debug.DrawRay(transform.position, aimAtMouse()- transform.position, Color.red);
-				//Debug.DrawRay(transform.position, aimAtMouse(), Color.blue);
-
+			if 	( Input.GetMouseButton(0) && Time.time - tempROF >= lastFired ){
 				if ( ( rightJoystick != null && rightJoystick.position.x != 0.0f && rightJoystick.position.y != 0.0f ) || rightJoystick == null ){
 
 					// if the unit has health
@@ -59,12 +64,7 @@ public class Weapon : MonoBehaviour {
 					}
 
 				}
-
-				
 			}	
-
-
-
 		} else if ( 	// if the weapon is AI controlled
 		           		bit.artificialInteligence != null
 		           		&& bit.artificialInteligence.attackTarget != null
@@ -115,8 +115,8 @@ public class Weapon : MonoBehaviour {
 			temp = bit.artificialInteligence.attackTarget.transform.position;
 			temp.z = 0.0f;
 			temp = temp - transform.position;
-		}
 
+		}
 
 		return temp;
 		
@@ -143,7 +143,6 @@ public class Weapon : MonoBehaviour {
 		Pool slowBulletPool = GameObject.Find("SLOW_BULLET_POOL").GetComponent<Pool>();
 		Pool ffBulletPool = GameObject.Find("FF_Bullet_POOL").GetComponent<Pool>();
 
-
 		if ( slowBulletPool != null && bullet.GetComponent<Projectile>().projectileName == slowBulletPool.goInstance.GetComponent<Projectile>().projectileName ){
 			
 			for ( var x = 0; x < tempNumberOfProjectiles; x++ ){
@@ -154,6 +153,7 @@ public class Weapon : MonoBehaviour {
 				round.GetComponent<Projectile>().setDirection(target - offset);
 				round.transform.parent = GameObject.Find("Projectiles").transform;
 				round.GetComponent<Projectile>().setOwner(gameObject);
+				round.GetComponent<Projectile>().copyBulletAttributes(bullet.GetComponent<Projectile>());
 			}
 
 		} else if ( ffBulletPool != null && bullet.GetComponent<Projectile>().projectileName == ffBulletPool.goInstance.GetComponent<Projectile>().projectileName ) {
@@ -166,6 +166,7 @@ public class Weapon : MonoBehaviour {
 				round.GetComponent<Projectile>().setDirection(target - offset);
 				round.transform.parent = GameObject.Find("Projectiles").transform;
 				round.GetComponent<Projectile>().setOwner(gameObject);
+				round.GetComponent<Projectile>().copyBulletAttributes(bullet.GetComponent<Projectile>());
 			}
 
 		} else {
@@ -175,6 +176,7 @@ public class Weapon : MonoBehaviour {
 				round.GetComponent<Projectile>().setDirection(target - offset);
 				round.transform.parent = GameObject.Find("Projectiles").transform;
 				round.GetComponent<Projectile>().setOwner(gameObject);
+				round.GetComponent<Projectile>().copyBulletAttributes(bullet.GetComponent<Projectile>());
 			}
 
 		}
