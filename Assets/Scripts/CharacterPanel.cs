@@ -24,9 +24,6 @@ public class CharacterPanel : MonoBehaviour {
 	public GameObject HUDWeaponNameValue;
 	public GameObject HUDCredits;
 
-	public GameObject GameMode;
-	public GameObject WaveNumber;
-
 	private Projectile unitsProjectile;
 
 	void Awake(){
@@ -58,16 +55,10 @@ public class CharacterPanel : MonoBehaviour {
 		CriticalDamageValue		= GameObject.Find("CriticalDamageValue");
 		DPSValue 				= GameObject.Find("DPSValue");
 
-
 		// HUD Panel
 		if ( GameObject.Find("WeaponName") != null && GameObject.Find("CreditsValue") != null ){
 			HUDWeaponNameValue 	= GameObject.Find("WeaponName");
 			HUDCredits		 	= GameObject.Find("CreditsValue");
-		}
-
-		if ( GameObject.Find("GameModeValue") != null && GameObject.Find("WaveValue") != null ){
-			GameMode = GameObject.Find("GameModeValue");
-			WaveNumber = GameObject.Find("WaveValue");
 		}
 
 	}
@@ -101,11 +92,6 @@ public class CharacterPanel : MonoBehaviour {
 				HUDCredits.GetComponent<Text>().text 		 	= "" + bit.inventory.credits + " credits";
 			}
 
-			// Base Defense
-			if ( GameMode != null && WaveNumber != null ){
-				GameMode.GetComponent<Text>().text = "Protect Your Base!";
-				WaveNumber.GetComponent<Text>().text = "Wave #" + GameObject.Find("WaveSpawner").GetComponent<WaveSpawner>().waveNumber + "!";
-			}
 		}
 	}
 

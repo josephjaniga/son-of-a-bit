@@ -51,16 +51,22 @@ public class Health : MonoBehaviour {
 		// health bar background
 		hpBarBG = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		hpBarBG.transform.localScale = new Vector3(scale.x + 0.05f, scale.y + 0.05f, scale.z + 0.05f);
-		hpBarBG.name = "hpbarbg";
+		hpBarBG.name = "hpbarbg_"+gameObject.name;
 		hpBarBG.GetComponent<BoxCollider>().enabled = false;
 		hpBarBG.renderer.material.color = new Color(0f,0f,0f,0.25f);
 		hpBarBG.transform.parent = GameObject.Find("Widgets").transform;
 		// health bar
 		hpBar = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		hpBar.transform.localScale = scale;
-		hpBar.name = "hpbar";
+		hpBar.name = "hpbar_"+gameObject.name;;
 		hpBar.GetComponent<BoxCollider>().enabled = false;
 		hpBar.transform.parent = GameObject.Find("Widgets").transform;
+
+		//currentHP--; 
+		setColor();
+		
+		// update health bars
+		updateBarSize();
 
 	}
 	

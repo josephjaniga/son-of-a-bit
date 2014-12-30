@@ -70,6 +70,8 @@ public class TooltipHover :  UIBehaviour, IPointerEnterHandler, IPointerExitHand
 				TTType.GetComponent<Text>().text = "Generic";
 				break;
 			}
+
+
 			
 			TTStats.GetComponent<Text>().text 	= container.item.statText;
 		}
