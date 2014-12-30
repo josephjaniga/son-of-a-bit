@@ -143,7 +143,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 5400000, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
       propertyPath: m_UseGravity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400008, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
       propertyPath: genericItem
@@ -220,7 +220,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 5400000, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
       propertyPath: m_UseGravity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
       propertyPath: speed
@@ -791,7 +791,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: .0500000007
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 88
@@ -1304,7 +1304,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: .0500000007
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 8
@@ -1608,8 +1608,8 @@ MonoBehaviour:
   vehicleToBoard: {fileID: 0}
   v: {fileID: 0}
   boardingDistance: 10
-  closeCameraSize: 2
-  farCameraSize: 7
+  closeCameraSize: 7
+  farCameraSize: 20
   lerpDuration: 2
   startTime: 0
   cameraFrom: 7

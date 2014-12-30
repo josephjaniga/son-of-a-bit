@@ -35,16 +35,6 @@ public class PlanetaryBody : MonoBehaviour {
 
 	}
 
-	void OnGUI (){
-		
-		Handles.color = Color.green;
-		Handles.DrawWireArc(Camera.main.ScreenToWorldPoint(Vector3.zero), 
-		                    Camera.main.ScreenToWorldPoint(Vector3.back),
-		                               Camera.main.ScreenToWorldPoint(Vector3.up),
-		                    360, 
-		                    distanceFromOrigin);
-	}
-
 	public void recalculate(){
 
 		if ( theBody != null){

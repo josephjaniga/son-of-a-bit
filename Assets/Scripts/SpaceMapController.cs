@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -48,8 +50,28 @@ public class SpaceMapController : MonoBehaviour {
 		foreach( Transform child in systemContainer.transform ){
 			float revSpeed = child.GetComponent<PlanetaryBody>().revolutionSpeed;
 			child.transform.RotateAround(Vector3.zero, Vector3.forward,  revSpeed * Time.deltaTime);
-
 		}
 
 	}
+
+	void OnGUI(){
+		
+		Handles.color = Color.green;
+		Handles.DrawWireArc(
+			Vector3.zero, 
+			Vector3.right,
+			Vector3.up,
+			180f, 
+			5f);
+	}
+	
+	//	Handles.color = Color.green;
+//	foreach( Transform child in systemContainer.transform ){
+//		Handles.DrawSolidArc(Camera.main.WorldToScreenPoint(origin.transform.FindChild("LV-416").transform.position), 
+//		                     origin.transform.FindChild("LV-416").transform.up,
+//		                     origin.transform.FindChild("LV-416").transform.right,
+//		                     360, 
+//		                     child.gameObject.GetComponent<PlanetaryBody>().distanceFromOrigin);
+//	}
+	
 }
