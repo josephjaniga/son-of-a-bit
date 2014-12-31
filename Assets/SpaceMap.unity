@@ -87,11 +87,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
       propertyPath: m_LocalPosition.x
-      value: .579999983
+      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -.0299999993
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
       propertyPath: m_LocalPosition.z
@@ -176,11 +176,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -.620000005
+      value: -12
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -.0299999993
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
       propertyPath: m_LocalPosition.z
@@ -232,7 +232,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
       propertyPath: flight
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
       propertyPath: m_CastShadows
@@ -284,7 +284,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400004, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
@@ -647,7 +647,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &206654194
 Transform:
   m_ObjectHideFlags: 0
@@ -655,7 +655,7 @@ Transform:
   m_PrefabInternal: {fileID: 34480261}
   m_GameObject: {fileID: 206654193}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.620000005, y: -.0299999993, z: 0}
+  m_LocalPosition: {x: -12, y: 16, z: 0}
   m_LocalScale: {x: .0250000004, y: .0500000007, z: .0250000004}
   m_Children: []
   m_Father: {fileID: 232751179}
@@ -812,7 +812,7 @@ MonoBehaviour:
   speed: .5
   userControlled: 1
   shouldLock: 0
-  flight: 0
+  flight: 1
   rotation: {x: 44, y: 0, z: 0}
   bit: {fileID: 0}
   leftJoystick: {fileID: 0}
@@ -1251,7 +1251,7 @@ Transform:
   m_PrefabInternal: {fileID: 17331146}
   m_GameObject: {fileID: 271298693}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .579999983, y: -.0299999993, z: 0}
+  m_LocalPosition: {x: -11, y: 16, z: 0}
   m_LocalScale: {x: .200000003, y: .200000003, z: .200000003}
   m_Children: []
   m_Father: {fileID: 232751179}
@@ -1563,6 +1563,7 @@ GameObject:
   - 4: {fileID: 411576827}
   - 114: {fileID: 411576828}
   - 114: {fileID: 411576829}
+  - 114: {fileID: 411576830}
   m_Layer: 0
   m_Name: FatherBit
   m_TagString: Untagged
@@ -1639,6 +1640,19 @@ MonoBehaviour:
   DPSValue: {fileID: 0}
   HUDWeaponNameValue: {fileID: 0}
   HUDCredits: {fileID: 0}
+--- !u!114 &411576830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 411576826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f8e2f08c377746b784fecbf9cc0103b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  systemContainer: {fileID: 0}
+  maxSystemSize: 0
 --- !u!1 &444564975
 GameObject:
   m_ObjectHideFlags: 0
@@ -4772,7 +4786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2502ed848e9664724953ae6a6dc0988a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 271298698}
+  target: {fileID: 206654194}
   Wireframe: 0
 --- !u!1 &1783325545
 GameObject:
