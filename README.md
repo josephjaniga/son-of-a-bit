@@ -1,6 +1,6 @@
 son-of-a-bit
 ============
 
-![Low Poly Space!!!](http://zippy.gfycat.com/FragrantMiserableDowitcher.gif)
+![Low Poly Space!!!](http://giant.gfycat.com/FragrantMiserableDowitcher.gif)
 
 http://retiredpirate.com/SonOfABit/
