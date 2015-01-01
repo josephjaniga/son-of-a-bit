@@ -2761,7 +2761,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 65d14d2da039c403da761cd27663453c, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 65d14d2da039c403da761cd27663453c, type: 2}
       propertyPath: m_IsActive
@@ -3926,8 +3926,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   tile: {fileID: 100000, guid: 148887b474cdd4e7399373d76390c2c0, type: 2}
-  dimmensionX: 1
-  dimmensionY: 1
+  dimmensionX: 33
+  dimmensionY: 33
   width: 0
   height: 0
 --- !u!4 &1400830810

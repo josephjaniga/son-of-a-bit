@@ -90,7 +90,11 @@ public class PlanetaryBody : MonoBehaviour {
 		
 		// create a body with these properties
 		theBody = null;
-		theBody = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		if ( isOrigin ){
+			theBody = Instantiate(Resources.Load("Other/Planets/IceRockSand_1"), Vector3.zero, Quaternion.identity) as GameObject;
+		} else {
+			theBody = Instantiate(Resources.Load("Other/Planets/EarthLike"), Vector3.zero, Quaternion.identity) as GameObject;
+		}
 		theBody.name = name+"*";
 		if ( isMoon ){
 			if(orbitalParent != null) {
@@ -101,15 +105,18 @@ public class PlanetaryBody : MonoBehaviour {
 		} else {
 			theBody.transform.SetParent(gameObject.transform);
 		}
-		theBody.AddComponent<Rigidbody>();
-		theBody.AddComponent<SphereCollider>();
-		
-		theBody.GetComponent<Rigidbody>().isKinematic = true;
-		theBody.GetComponent<Rigidbody>().useGravity = false;
+
+
+		foreach ( Transform child in theBody.transform ){
+			child.gameObject.AddComponent<MeshCollider>();
+			child.gameObject.AddComponent<Rigidbody>();
+			child.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+			child.gameObject.GetComponent<Rigidbody>().useGravity = false;
+		}
 		
 		if ( isOrigin ){
 
-			theBody.renderer.material = Resources.Load<Material>("Sprites/Planet_2") as Material;
+			//theBody.renderer.material = Resources.Load<Material>("Sprites/Planet_2") as Material;
 
 			theBody.transform.position = Vector3.zero;
 			theBody.name = "PB"+"*";
@@ -118,8 +125,6 @@ public class PlanetaryBody : MonoBehaviour {
 			orbitContainer.transform.SetParent(gameObject.transform);
 			sizeOfBody = Random.Range(15f, 22f);
 		} else {
-
-			theBody.renderer.material = Resources.Load<Material>("Sprites/Planet_1") as Material;
 
 			// set distance position & size
 			if ( isMoon ){
