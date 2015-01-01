@@ -92,6 +92,8 @@ public class PlanetaryBody : MonoBehaviour {
 		theBody = null;
 		if ( isOrigin ){
 			theBody = Instantiate(Resources.Load("Other/Planets/IceRockSand_1"), Vector3.zero, Quaternion.identity) as GameObject;
+		} else if ( isMoon ){
+			theBody = Instantiate(Resources.Load("Other/Planets/MoonLike"), Vector3.zero, Quaternion.identity) as GameObject;
 		} else {
 			theBody = Instantiate(Resources.Load("Other/Planets/EarthLike"), Vector3.zero, Quaternion.identity) as GameObject;
 		}
@@ -129,7 +131,7 @@ public class PlanetaryBody : MonoBehaviour {
 			// set distance position & size
 			if ( isMoon ){
 				float parentSize = orbitalParent.transform.parent.GetComponent<PlanetaryBody>().sizeOfBody;
-				sizeOfBody = Random.Range(0.1f, 0.4f);
+				sizeOfBody = Random.Range(0.3f, 1f);
 				distanceFromParent = Random.Range(parentSize, parentSize*2f) + parentSize/2f;
 			} else {
 
