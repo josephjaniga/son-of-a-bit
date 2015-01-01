@@ -3919,15 +3919,15 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1400830808}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 996ebd78e3c68466189b34c3e1c5a780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   tile: {fileID: 100000, guid: 148887b474cdd4e7399373d76390c2c0, type: 2}
-  dimmensionX: 100
-  dimmensionY: 100
+  dimmensionX: 1
+  dimmensionY: 1
   width: 0
   height: 0
 --- !u!4 &1400830810

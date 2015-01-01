@@ -27,8 +27,11 @@ public class PlanetaryBody : MonoBehaviour {
 	public float startingRotation;
 	
 	public bool isMoon = false;
+	public bool isGiant = false;
 
 	public List<GameObject> children;
+
+	public GameObject LevelData;
 
 	// Use this for initialization
 	void Start () {
@@ -83,17 +86,7 @@ public class PlanetaryBody : MonoBehaviour {
 			Destroy (theBody.gameObject);
 		}
 
-		rotation = new Vector3(Random.Range(4f, 8f), Random.Range(4f, 8f), Random.Range(4f, 8f));
-
-		if ( Random.Range (0f, 1f) < 0.5f ){
-			rotation.x *= -1f;
-		}
-		if ( Random.Range (0f, 1f) < 0.5f ){
-			rotation.y *= -1f;
-		}
-		if ( Random.Range (0f, 1f) < 0.5f ){
-			rotation.z *= -1f;
-		}
+		setRotation ();
 		
 		// create a body with these properties
 		theBody = null;
@@ -115,6 +108,9 @@ public class PlanetaryBody : MonoBehaviour {
 		theBody.GetComponent<Rigidbody>().useGravity = false;
 		
 		if ( isOrigin ){
+
+			theBody.renderer.material = Resources.Load<Material>("Sprites/Planet_2") as Material;
+
 			theBody.transform.position = Vector3.zero;
 			theBody.name = "PB"+"*";
 			GameObject orbitContainer = new GameObject();
@@ -123,13 +119,25 @@ public class PlanetaryBody : MonoBehaviour {
 			sizeOfBody = Random.Range(15f, 22f);
 		} else {
 
+			theBody.renderer.material = Resources.Load<Material>("Sprites/Planet_1") as Material;
+
 			// set distance position & size
 			if ( isMoon ){
 				float parentSize = orbitalParent.transform.parent.GetComponent<PlanetaryBody>().sizeOfBody;
 				sizeOfBody = Random.Range(0.1f, 0.4f);
 				distanceFromParent = Random.Range(parentSize, parentSize*2f) + parentSize/2f;
 			} else {
+
 				sizeOfBody = Random.Range(4f, 8f);
+
+				// Giants
+				if ( index > 2 ){
+					if ( Random.Range (0f,1f) < 1f ){
+						isGiant = true;
+						sizeOfBody *= 10f;
+					}
+				}
+
 				if ( index < 3 ){
 					sizeOfBody *= Random.Range(0.25f, 1.5f);
 				}
@@ -162,20 +170,19 @@ public class PlanetaryBody : MonoBehaviour {
 			LineRenderer lr = orbit.GetComponent<LineRenderer>();
 			lr.material = new Material(Shader.Find("Particles/Additive"));
 			lr.useWorldSpace  = true;
-			lr.SetWidth(0.5f,0.5f);
-			lr.SetColors(Color.green, new Color(0f, 0f, 1f, 0.25f));
+			lr.SetWidth(0.75f,0.75f);
+			lr.SetColors(new Color(0f,1f,0f,0.125f), new Color(0f,1f,0f,0.125f));
 			lr.SetVertexCount(lengthOfLineRenderer+1);
 
 			if ( isMoon ){
 				lr.SetWidth(0.25f,0.25f);
-				theBody.renderer.material.color = Color.red;
-				lr.SetColors(Color.yellow, Color.white);
+				//theBody.renderer.material.color = Color.red;
+				lr.SetColors(new Color(1f,1f,0f,0.125f), new Color(1f,1f,0f,0.125f));
 			}
 
 			setOrbit();
 
 			orbit.transform.SetParent(GameObject.Find ("Origin").transform.FindChild("Orbits").transform);
-			orbit.transform.RotateAround(orbitalParent.transform.position, orbitalParent.transform.forward, revolutionSpeed * startingRotation);
 		}
 
 		if ( isMoon && orbitalParent != null ){
@@ -201,12 +208,70 @@ public class PlanetaryBody : MonoBehaviour {
 				y + orbitalParent.transform.position.y,
 				0f
 			);
+
+			pos = RotatePointAroundPivot(
+				pos,
+				orbitalParent.transform.parent.GetComponent<PlanetaryBody>().theBody.transform.position,
+				Quaternion.Euler(0f, 0f, theBody.transform.rotation.z)
+			);
+			
 			lr.SetPosition(i, pos);
 			theta += deltaTheta;
 		}
 
 	}
-	
+
+
+	public void setRotation(){
+
+		// set the rotation
+		int numberAxesToRotate = Random.Range (0, 3);
+		
+		float rotationX = 0f;
+		float rotationY = 0f;
+		float rotationZ = 0f;
+		
+		do {
+			int i = Random.Range (0,3);
+			
+			switch(i){
+				case 0:
+					Debug.Log("X");
+					rotationX = Random.Range(4f, 8f);
+					break;
+				default:
+				case 1:
+					Debug.Log("Y");
+					rotationY = Random.Range(4f, 8f);
+					break;
+				case 2:
+					Debug.Log("Z");
+					rotationZ = Random.Range(4f, 8f);
+					break;
+			}
+			
+			numberAxesToRotate--;
+			
+		} while ( numberAxesToRotate > 0 );
+		
+		rotation = new Vector3(rotationX, rotationY, rotationZ);
+		
+		if ( Random.Range (0f, 1f) < 0.5f ){
+			rotation.x *= -1f;
+		}
+		if ( Random.Range (0f, 1f) < 0.5f ){
+			rotation.y *= -1f;
+		}
+		if ( Random.Range (0f, 1f) < 0.5f ){
+			rotation.z *= -1f;
+		}
+
+	}
+
+	public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Quaternion angle) {
+		return angle * ( point - pivot ) + pivot;
+	}
+
 	
 	
 }
