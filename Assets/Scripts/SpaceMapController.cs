@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class SpaceMapController : MonoBehaviour {
 	
 	private GameObject origin;
-	private List<GameObject> system;
+	public List<GameObject> system;
 
 	public GameObject systemContainer;
 
@@ -22,7 +22,7 @@ public class SpaceMapController : MonoBehaviour {
 
 		system = new List<GameObject>();
 
-		maxSystemSize = Random.Range (2, 11);
+		maxSystemSize = Random.Range (2, 9);
 
 		origin = new GameObject();
 		origin.name = "Origin";
@@ -33,25 +33,76 @@ public class SpaceMapController : MonoBehaviour {
 		origin.transform.SetParent(systemContainer.transform);
 
 		for ( currentSystemSize = 1; currentSystemSize < maxSystemSize; currentSystemSize++ ){
+
 			GameObject newPlanetaryBody = new GameObject();
 			newPlanetaryBody.name = "PB-" + currentSystemSize;
-			newPlanetaryBody.AddComponent<PlanetaryBody>().isOrigin = false;
+			newPlanetaryBody.AddComponent<PlanetaryBody>();
+			newPlanetaryBody.GetComponent<PlanetaryBody>().name = newPlanetaryBody.name;
 			newPlanetaryBody.GetComponent<PlanetaryBody>().index = currentSystemSize;
-			newPlanetaryBody.GetComponent<PlanetaryBody>().recalculate();
+			newPlanetaryBody.GetComponent<PlanetaryBody>().recalculate(origin);
 			newPlanetaryBody.transform.SetParent(systemContainer.transform);
 			system.Add(newPlanetaryBody);
+
+			// THATS NO MOON!
+			if ( Random.Range (0f, 1f) < 5f ){ 
+
+				GameObject newMoon = new GameObject();
+				newMoon.name = "PB-" + currentSystemSize + "-A";
+				newMoon.AddComponent<PlanetaryBody>();
+				newMoon.GetComponent<PlanetaryBody>().isMoon = true;
+				newMoon.GetComponent<PlanetaryBody>().name = newMoon.name;
+				newMoon.GetComponent<PlanetaryBody>().index = newPlanetaryBody.GetComponent<PlanetaryBody>().index;
+				newMoon.GetComponent<PlanetaryBody>().recalculate(newPlanetaryBody);
+				newMoon.transform.SetParent(systemContainer.transform);
+				system.Add(newMoon);
+
+			}
+
 		}
-	
+
+
+		foreach( GameObject child in system ){
+			PlanetaryBody pb = child.GetComponent<PlanetaryBody>();
+			if ( !pb.isOrigin
+			    && pb.theBody != null
+			    && pb.orbitalParent != null
+			    && pb.orbitalParent.transform.parent.GetComponent<PlanetaryBody>().theBody ){
+				
+				float revSpeed = pb.revolutionSpeed;
+				pb.theBody.transform.position = RotatePointAroundPivot(
+					pb.theBody.transform.position,
+					pb.orbitalParent.transform.parent.GetComponent<PlanetaryBody>().theBody.transform.position,
+					Quaternion.Euler(0, 0, revSpeed * Random.Range (-360f, 360f) )
+				);
+			}
+		}
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
-		foreach( Transform child in systemContainer.transform ){
-			float revSpeed = child.GetComponent<PlanetaryBody>().revolutionSpeed;
-			child.transform.RotateAround(Vector3.zero, Vector3.forward,  revSpeed * Time.deltaTime);
-		}
+		foreach( GameObject child in system ){
+			PlanetaryBody pb = child.GetComponent<PlanetaryBody>();
+			if ( !pb.isOrigin
+			     && pb.theBody != null
+			     && pb.orbitalParent != null
+			     && pb.orbitalParent.transform.parent.GetComponent<PlanetaryBody>().theBody ){
 
+				float revSpeed = pb.revolutionSpeed;
+				pb.theBody.transform.position = RotatePointAroundPivot(
+					pb.theBody.transform.position,
+					pb.orbitalParent.transform.parent.GetComponent<PlanetaryBody>().theBody.transform.position,
+					Quaternion.Euler(0, 0, revSpeed * Time.deltaTime)
+				);
+			}
+		}
+		
+	}
+
+
+	public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Quaternion angle) {
+		return angle * ( point - pivot ) + pivot;
 	}
 
 
