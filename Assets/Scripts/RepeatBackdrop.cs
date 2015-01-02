@@ -75,8 +75,10 @@ public class RepeatBackdrop : MonoBehaviour {
 			
 			mesh = plane.GetComponent<MeshFilter> ().mesh;
 
-			int w = 100;
-			int h = 100;
+			plane.transform.position = new Vector3(0f, 0f, 360f);
+
+			int w = 200;
+			int h = 200;
 
 			addVerts(newVertices, w, h);
 			addTris (newTriangles, w, h);
@@ -87,7 +89,7 @@ public class RepeatBackdrop : MonoBehaviour {
 			mesh.Optimize ();
 			mesh.RecalculateNormals ();
 
-			plane.transform.Rotate( new Vector3(180f, 0f, 0f) );
+			plane.transform.Rotate( new Vector3(235f, 0f, 0f) );
 
 			plane.layer = 31; // BG layer
 
