@@ -44,6 +44,7 @@ public class MeshGenerator {
 			go.transform.SetParent(parent);
 		meshFilter = (MeshFilter)go.AddComponent(typeof(MeshFilter));
 		mr = go.AddComponent<MeshRenderer>();
+		mr.material.shader = Resources.Load ("Other/Shaders/WindyGrass", typeof(Shader)) as Shader;
 		mesh = go.GetComponent<MeshFilter>().mesh;
 
 	}
@@ -136,7 +137,7 @@ public class MeshGenerator {
 				
 				float x = 0f;
 				float y = 0f;
-				float z = Random.Range(-2f, 1f);
+				float z = Random.Range(-2f, 2f);
 				
 				// clamp magnitude
 				x = Mathf.Clamp(x + animationVertices[i].x, baseline[i].x-magnitude, baseline[i].x+magnitude);
@@ -167,15 +168,15 @@ public class MeshGenerator {
 				youGood[i] = true;
 			}
 		}
-
+		
 		mesh.vertices = newVertices.ToArray();
 		mesh.Optimize();
 		mesh.RecalculateBounds();
 		mesh.RecalculateNormals();
-
 		
 		
 	}
+
 
 
 }

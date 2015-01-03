@@ -18,7 +18,7 @@ public class LevelMapController : MonoBehaviour {
 	void Start () {
 
 		numberOfRooms = Random.Range(1, maxRooms);
-	
+		
 	}
 	
 	// Update is called once per frame
