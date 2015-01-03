@@ -25,8 +25,8 @@ public class Equipment : MonoBehaviour {
 
 		//make an Equipment panel
 		GameObject canvas = GameObject.Find("Canvas");
-		GameObject temp = Resources.Load("UI/Slot") as GameObject;
-		GameObject panel = Resources.Load("UI/EquipmentPanel") as GameObject;
+		GameObject temp = Resources.Load("Prefabs/UI/Slot") as GameObject;
+		GameObject panel = Resources.Load("Prefabs/UI/EquipmentPanel") as GameObject;
 		equipPanel = Instantiate(panel, Vector3.zero, Quaternion.identity) as GameObject;
 		equipPanel.transform.SetParent(GameObject.Find ("EquipmentPanels").transform);
 		equipPanel.transform.localPosition = Vector3.zero;

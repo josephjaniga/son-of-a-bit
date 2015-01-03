@@ -19,7 +19,7 @@ public class Vehicle : MonoBehaviour {
 		bit = gameObject.GetComponent<Bit>();
 		
 		// the text box
-		sct = Resources.Load("UI/SCT") as GameObject;
+		sct = Resources.Load("Prefabs/UI/SCT") as GameObject;
 		sct.GetComponent<SCT>().isEnabled = false;
 		
 	}

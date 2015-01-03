@@ -40,7 +40,7 @@ public class Health : MonoBehaviour {
 		inv = GameObject.Find ("NewInventory").GetComponent<Inventory>();
 
 		//sct = GameObject.Find("SCT");
-		sct = Resources.Load("UI/SCT") as GameObject;
+		sct = Resources.Load("Prefabs/UI/SCT") as GameObject;
 		sct.GetComponent<SCT>().isEnabled = false;
 
 		//ai = gameObject.GetComponent<AI>();

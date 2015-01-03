@@ -106,7 +106,7 @@ public class Item : MonoBehaviour {
 			type						= (int)Random.Range((int)ItemType.Generic, (int)ItemType.Technology+1);
 
 			if ( type == (int)ItemType.Weapon ){
-				weaponBullet = Instantiate(Resources.Load ("Projectiles/FF_Bullet"), Vector3.zero, Quaternion.identity) as GameObject;
+				weaponBullet = Instantiate(Resources.Load ("Prefabs/Projectiles/FF_Bullet"), Vector3.zero, Quaternion.identity) as GameObject;
 				weaponBullet.transform.SetParent(gameObject.transform);
 				weaponBullet.name = itemName+"(bullet)";
 				weaponBullet.GetComponent<Projectile>().randomizeBullet(Rarity);

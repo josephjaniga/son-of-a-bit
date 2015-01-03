@@ -31,7 +31,7 @@ public class Inventory : MonoBehaviour {
 		itemOnHandIcon.SetActive(false);
 
 		// find all the stuff
-		GameObject temp = Resources.Load("UI/Slot") as GameObject;
+		GameObject temp = Resources.Load("Prefabs/UI/Slot") as GameObject;
 		itemsContainer = GameObject.Find("Items").transform;
 		int itemCounter = GameObject.Find("Items").transform.childCount;
 		itemsPanel = GameObject.Find ("NewInventory").transform.FindChild("ItemContainer").transform;
