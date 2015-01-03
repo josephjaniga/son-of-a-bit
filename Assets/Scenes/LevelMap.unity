@@ -378,6 +378,69 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 85964643}
+--- !u!1 &97903164
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 97903165}
+  - 108: {fileID: 97903166}
+  m_Layer: 31
+  m_Name: Directional light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &97903165
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 97903164}
+  m_LocalRotation: {x: .408217937, y: -.234569728, z: .109381676, w: .875426054}
+  m_LocalPosition: {x: 17.2469254, y: 91.3784332, z: 41.2393188}
+  m_LocalScale: {x: .333333313, y: .333333313, z: .333333343}
+  m_Children: []
+  m_Father: {fileID: 444564976}
+  m_RootOrder: 2
+--- !u!108 &97903166
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 97903164}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Type: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: .5
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_Strength: 1
+    m_Bias: .0500000007
+    m_Softness: 4
+    m_SoftnessFade: 1
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_ActuallyLightmapped: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 1
+  m_ShadowSamples: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_IndirectIntensity: 1
+  m_AreaSize: {x: 1, y: 1}
 --- !u!1 &114228753
 GameObject:
   m_ObjectHideFlags: 0
@@ -1517,7 +1580,6 @@ GameObject:
   - 4: {fileID: 411576827}
   - 114: {fileID: 411576828}
   - 114: {fileID: 411576829}
-  - 114: {fileID: 411576830}
   m_Layer: 0
   m_Name: FatherBit
   m_TagString: Untagged
@@ -1595,20 +1657,6 @@ MonoBehaviour:
   DPSValue: {fileID: 0}
   HUDWeaponNameValue: {fileID: 0}
   HUDCredits: {fileID: 0}
---- !u!114 &411576830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 411576826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f8e2f08c377746b784fecbf9cc0103b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  system: []
-  systemContainer: {fileID: 0}
-  maxSystemSize: 0
 --- !u!1 &444564975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1636,6 +1684,7 @@ Transform:
   m_Children:
   - {fileID: 370029208}
   - {fileID: 1400830810}
+  - {fileID: 97903165}
   m_Father: {fileID: 0}
   m_RootOrder: 1
 --- !u!1 &455808760
@@ -3823,9 +3872,6 @@ MonoBehaviour:
   width: 0
   height: 0
   useSprites: 0
-  newVertices: []
-  newTriangles: 
-  newUV: []
 --- !u!4 &1400830810
 Transform:
   m_ObjectHideFlags: 0
