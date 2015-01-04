@@ -87,11 +87,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -11
+      value: 2.00999999
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 16
+      value: 1.22000003
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
       propertyPath: m_LocalPosition.z
@@ -188,11 +188,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -12
+      value: 1.00999999
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 16
+      value: 1.22000003
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
       propertyPath: m_LocalPosition.z
@@ -672,7 +672,7 @@ Transform:
   m_PrefabInternal: {fileID: 34480261}
   m_GameObject: {fileID: 206654193}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12, y: 16, z: 0}
+  m_LocalPosition: {x: 1.00999999, y: 1.22000003, z: 0}
   m_LocalScale: {x: .0250000004, y: .0500000007, z: .0250000004}
   m_Children: []
   m_Father: {fileID: 232751179}
@@ -1268,7 +1268,7 @@ Transform:
   m_PrefabInternal: {fileID: 17331146}
   m_GameObject: {fileID: 271298693}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11, y: 16, z: 0}
+  m_LocalPosition: {x: 2.00999999, y: 1.22000003, z: 0}
   m_LocalScale: {x: .200000003, y: .200000003, z: .200000003}
   m_Children: []
   m_Father: {fileID: 232751179}
@@ -1580,6 +1580,7 @@ GameObject:
   - 4: {fileID: 411576827}
   - 114: {fileID: 411576828}
   - 114: {fileID: 411576829}
+  - 114: {fileID: 411576830}
   m_Layer: 0
   m_Name: FatherBit
   m_TagString: Untagged
@@ -1657,6 +1658,20 @@ MonoBehaviour:
   DPSValue: {fileID: 0}
   HUDWeaponNameValue: {fileID: 0}
   HUDCredits: {fileID: 0}
+--- !u!114 &411576830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 411576826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9f9831e24334e00b2af824b8b439fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelType: 0
+  useGravity: 1
+  numberOfRooms: 1
 --- !u!1 &444564975
 GameObject:
   m_ObjectHideFlags: 0

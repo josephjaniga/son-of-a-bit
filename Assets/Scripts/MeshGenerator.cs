@@ -44,7 +44,7 @@ public class MeshGenerator {
 			go.transform.SetParent(parent);
 		meshFilter = (MeshFilter)go.AddComponent(typeof(MeshFilter));
 		mr = go.AddComponent<MeshRenderer>();
-		mr.material.shader = Resources.Load ("Other/Shaders/WindyGrass", typeof(Shader)) as Shader;
+		//mr.material.shader = Resources.Load ("Other/Shaders/WindyGrass", typeof(Shader)) as Shader;
 		mesh = go.GetComponent<MeshFilter>().mesh;
 
 	}
