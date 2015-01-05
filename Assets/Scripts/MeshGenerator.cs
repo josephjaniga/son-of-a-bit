@@ -52,7 +52,7 @@ public class MeshGenerator {
 	public void setMeshColor(Color c){
 		meshColor = c;
 		if ( mr != null ) {
-			Debug.Log (meshColor);
+			//Debug.Log (meshColor);
 			mr.material.color = meshColor;
 		}
 	}

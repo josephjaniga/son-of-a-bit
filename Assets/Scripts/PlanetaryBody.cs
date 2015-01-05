@@ -97,14 +97,17 @@ public class PlanetaryBody : MonoBehaviour {
 		// create a body with these properties
 		theBody = null;
 		if ( isOrigin ){
-			theBody = Instantiate(Resources.Load("Other/Planets/IceRockSand_1"), Vector3.zero, Quaternion.identity) as GameObject;
-
+			theBody = Instantiate(Resources.Load("Other/Planets/IceRockSand_2"), Vector3.zero, Quaternion.identity) as GameObject;
 		} else if ( isMoon ){
-			theBody = Instantiate(Resources.Load("Other/Planets/MoonLike"), Vector3.zero, Quaternion.identity) as GameObject;
+			theBody = Instantiate(Resources.Load("Other/Planets/MoonLike_2"), Vector3.zero, Quaternion.identity) as GameObject;
 		} else {
-			theBody = Instantiate(Resources.Load("Other/Planets/EarthLike"), Vector3.zero, Quaternion.identity) as GameObject;
+			theBody = Instantiate(Resources.Load("Other/Planets/EarthLike_2"), Vector3.zero, Quaternion.identity) as GameObject;
 		}
+
+		theBody.AddComponent<LandingScript>().pb = this;
+
 		theBody.name = name+"*";
+
 		if ( isMoon ){
 			if(orbitalParent != null) {
 				theBody.transform.SetParent(
@@ -117,10 +120,10 @@ public class PlanetaryBody : MonoBehaviour {
 
 
 		foreach ( Transform child in theBody.transform ){
-			child.gameObject.AddComponent<MeshCollider>();
-			child.gameObject.AddComponent<Rigidbody>();
-			child.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-			child.gameObject.GetComponent<Rigidbody>().useGravity = false;
+//			child.gameObject.AddComponent<MeshCollider>();
+//			child.gameObject.AddComponent<Rigidbody>();
+//			child.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+//			child.gameObject.GetComponent<Rigidbody>().useGravity = false;
 		}
 		
 		if ( isOrigin ){
@@ -132,17 +135,18 @@ public class PlanetaryBody : MonoBehaviour {
 			GameObject orbitContainer = new GameObject();
 			orbitContainer.name = "Orbits";
 			orbitContainer.transform.SetParent(gameObject.transform);
-			sizeOfBody = Random.Range(15f, 22f);
+			sizeOfBody = Random.Range(30f, 40f);
+
 		} else {
 
 			// set distance position & size
 			if ( isMoon ){
 				float parentSize = orbitalParent.transform.parent.GetComponent<PlanetaryBody>().sizeOfBody;
-				sizeOfBody = Random.Range(0.3f, 1f);
+				sizeOfBody = Random.Range(0.5f, 0.8f);
 				distanceFromParent = Random.Range(parentSize, parentSize*2f) + parentSize/2f;
 			} else {
 
-				sizeOfBody = Random.Range(4f, 8f);
+				sizeOfBody = Random.Range(30f, 40f);
 
 				// Giants
 				if ( index > 2 ){
@@ -250,16 +254,16 @@ public class PlanetaryBody : MonoBehaviour {
 			
 			switch(i){
 				case 0:
-					Debug.Log("X");
+					//Debug.Log("X");
 					rotationX = Random.Range(4f, 8f);
 					break;
 				default:
 				case 1:
-					Debug.Log("Y");
+					//Debug.Log("Y");
 					rotationY = Random.Range(4f, 8f);
 					break;
 				case 2:
-					Debug.Log("Z");
+					//Debug.Log("Z");
 					rotationZ = Random.Range(4f, 8f);
 					break;
 			}
@@ -287,31 +291,7 @@ public class PlanetaryBody : MonoBehaviour {
 	}
 
 
-	void OnCollisionEnter(Collision hit){
-		
-		if ( hit.gameObject.name == "PlayerShip" || hit.gameObject.name == "Player" ){
-			
-			// load this in planet to land
-			GameObject.Find("FatherBit").GetComponent<Main>().planetToLand = theBody;
-			GameObject.Find("FatherBit").GetComponent<Main>().body = this;
-			
-			// clear all the alerts
-			foreach (Transform child in GameObject.Find("Alerts").transform) {
-				GameObject.Destroy(child.gameObject);
-			}
-			
-			// show the message
-			GameObject alert = Instantiate(sct, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
-			alert.GetComponent<Text>().text = "Press [<color=#00DD00>E</color>]: to Land on " + name;
-			alert.transform.SetParent(GameObject.Find("Alerts").transform);
-			alert.transform.localPosition = new Vector3(0f, -80f, 0f);
-			alert.GetComponent<Text>().fontSize = 12;
-			alert.GetComponent<SCT>().Timer = 6;
-			alert.GetComponent<SCT>().Timeout = 6;
-			
-		}
-		
-	}
+
 	
 	
 }

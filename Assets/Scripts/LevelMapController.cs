@@ -22,8 +22,8 @@ public class LevelMapController : MonoBehaviour {
 	public bool useGravity = true;
 
 	public int numberOfRooms;
-	private int minRooms = 25;
-	private int maxRooms = 125;
+	private int minRooms = 11;
+	private int maxRooms = 30;
 
 	// Use this for initialization
 	void Start () {
@@ -234,7 +234,6 @@ public class LevelMapController : MonoBehaviour {
 				(int)CardinalDirection.East
 				);
 		}
-
 
 		List<GameObject> intersectingRooms = new List<GameObject>();
 

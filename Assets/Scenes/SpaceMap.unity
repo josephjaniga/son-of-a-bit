@@ -1629,7 +1629,9 @@ MonoBehaviour:
   lastInVehicle: 0
   vehicleToBoard: {fileID: 0}
   v: {fileID: 0}
-  boardingDistance: 10
+  vehicleBoardingDistance: 10
+  planetToLand: {fileID: 0}
+  body: {fileID: 0}
   closeCameraSize: 7
   farCameraSize: 20
   lerpDuration: 2
@@ -4011,9 +4013,6 @@ MonoBehaviour:
   width: 0
   height: 0
   useSprites: 0
-  newVertices: []
-  newTriangles: 
-  newUV: []
 --- !u!4 &1400830810
 Transform:
   m_ObjectHideFlags: 0
