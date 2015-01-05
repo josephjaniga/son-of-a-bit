@@ -34,8 +34,7 @@ public class SpaceMapController : MonoBehaviour {
 
 		for ( currentSystemSize = 1; currentSystemSize < maxSystemSize; currentSystemSize++ ){
 
-			GameObject newPlanetaryBody = new GameObject();
-			newPlanetaryBody.name = "PB-" + currentSystemSize;
+			GameObject newPlanetaryBody = new GameObject("PB-" + currentSystemSize);
 			newPlanetaryBody.AddComponent<PlanetaryBody>();
 			newPlanetaryBody.GetComponent<PlanetaryBody>().name = newPlanetaryBody.name;
 			newPlanetaryBody.GetComponent<PlanetaryBody>().index = currentSystemSize;
@@ -46,8 +45,7 @@ public class SpaceMapController : MonoBehaviour {
 			// THATS NO MOON!
 			if ( Random.Range (0f, 1f) < 5f ){ 
 
-				GameObject newMoon = new GameObject();
-				newMoon.name = "PB-" + currentSystemSize + "-A";
+				GameObject newMoon = new GameObject("PB-" + currentSystemSize + "-A");
 				newMoon.AddComponent<PlanetaryBody>();
 				newMoon.GetComponent<PlanetaryBody>().isMoon = true;
 				newMoon.GetComponent<PlanetaryBody>().name = newMoon.name;

@@ -33,8 +33,15 @@ public class PlanetaryBody : MonoBehaviour {
 
 	public GameObject LevelData;
 
+	public GameObject sct;
+
 	// Use this for initialization
 	void Start () {
+
+		// the text box
+		sct = Resources.Load("Prefabs/UI/SCT") as GameObject;
+		sct.GetComponent<SCT>().isEnabled = false;
+
 		startingRotation = Random.Range(-15f, 15f);
 	}
 	
@@ -47,7 +54,6 @@ public class PlanetaryBody : MonoBehaviour {
 		temp.y *= Time.deltaTime;
 		temp.z *= Time.deltaTime;
 		theBody.transform.Rotate(temp);
-
 
 		foreach ( GameObject child in children ){
 			child.transform.RotateAround(
@@ -82,7 +88,7 @@ public class PlanetaryBody : MonoBehaviour {
 			orbitalParent = inheritedParent.GetComponent<PlanetaryBody>().theBody;
 		}
 
-		if ( theBody != null){
+		if ( theBody != null ){
 			Destroy (theBody.gameObject);
 		}
 
@@ -92,6 +98,7 @@ public class PlanetaryBody : MonoBehaviour {
 		theBody = null;
 		if ( isOrigin ){
 			theBody = Instantiate(Resources.Load("Other/Planets/IceRockSand_1"), Vector3.zero, Quaternion.identity) as GameObject;
+
 		} else if ( isMoon ){
 			theBody = Instantiate(Resources.Load("Other/Planets/MoonLike"), Vector3.zero, Quaternion.identity) as GameObject;
 		} else {
@@ -279,6 +286,32 @@ public class PlanetaryBody : MonoBehaviour {
 		return angle * ( point - pivot ) + pivot;
 	}
 
+
+	void OnCollisionEnter(Collision hit){
+		
+		if ( hit.gameObject.name == "PlayerShip" || hit.gameObject.name == "Player" ){
+			
+			// load this in planet to land
+			GameObject.Find("FatherBit").GetComponent<Main>().planetToLand = theBody;
+			GameObject.Find("FatherBit").GetComponent<Main>().body = this;
+			
+			// clear all the alerts
+			foreach (Transform child in GameObject.Find("Alerts").transform) {
+				GameObject.Destroy(child.gameObject);
+			}
+			
+			// show the message
+			GameObject alert = Instantiate(sct, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
+			alert.GetComponent<Text>().text = "Press [<color=#00DD00>E</color>]: to Land on " + name;
+			alert.transform.SetParent(GameObject.Find("Alerts").transform);
+			alert.transform.localPosition = new Vector3(0f, -80f, 0f);
+			alert.GetComponent<Text>().fontSize = 12;
+			alert.GetComponent<SCT>().Timer = 6;
+			alert.GetComponent<SCT>().Timeout = 6;
+			
+		}
+		
+	}
 	
 	
 }

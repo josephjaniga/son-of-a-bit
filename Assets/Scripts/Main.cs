@@ -18,7 +18,11 @@ public class Main : MonoBehaviour {
 	public bool lastInVehicle = false;
 	public GameObject vehicleToBoard;
 	public Vehicle v;
-	public float boardingDistance = 10f;
+	public float vehicleBoardingDistance = 1f;
+
+	// level management
+	public GameObject planetToLand;
+	public PlanetaryBody body;
 
 	// camera lerp
 	public float closeCameraSize = 2f;
@@ -107,6 +111,9 @@ public class Main : MonoBehaviour {
 		 ************************************
 		 */ 
 		vehicleManagement();
+
+		/* Planet + Level Stuffs */
+		levelManagement();
 	
 		// DEVTOOLS
 		devTools();
@@ -171,7 +178,7 @@ public class Main : MonoBehaviour {
 
 				float distance = Vector3.Distance(p.transform.position, vehicleToBoard.transform.position);
 				// board vehicle
-				if ( distance <= boardingDistance ){
+				if ( distance <= vehicleBoardingDistance ){
 					inVehicle = true;
 					// put player in the seat
 					v.boardVehicle(p);
@@ -211,6 +218,15 @@ public class Main : MonoBehaviour {
 				unitInControl.GetComponent<Motion>().userControlled = true;
 				// set the camera
 				Camera.main.GetComponent<MiniMapCameraFollow>().target = p.transform;
+			}
+		}
+	}
+
+	public void levelManagement(){
+		if ( planetToLand != null ){
+			// land on planet
+			if ( Input.GetKeyDown(KeyCode.E) ){
+				Application.LoadLevel("LevelMap");
 			}
 		}
 	}

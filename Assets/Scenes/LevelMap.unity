@@ -163,7 +163,7 @@ Prefab:
       objectReference: {fileID: 206654193}
     - target: {fileID: 11400002, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
       propertyPath: speed
-      value: 4
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
       propertyPath: m_CastShadows
@@ -171,6 +171,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
       propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
+      propertyPath: shouldLock
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -232,7 +236,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 5400000, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
       propertyPath: speed
@@ -244,7 +248,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
       propertyPath: flight
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: c003db0dbd9ab4c2d8b95217fb018709, type: 2}
       propertyPath: m_CastShadows
@@ -808,7 +812,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: .0500000007
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 88
@@ -829,7 +833,7 @@ MonoBehaviour:
   speed: .5
   userControlled: 1
   shouldLock: 0
-  flight: 1
+  flight: 0
   rotation: {x: 44, y: 0, z: 0}
   bit: {fileID: 0}
   leftJoystick: {fileID: 0}
@@ -1286,9 +1290,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0, z: 0}
-  speed: 4
+  speed: 15
   userControlled: 0
-  shouldLock: 1
+  shouldLock: 0
   flight: 1
   rotation: {x: 44, y: 0, z: 0}
   bit: {fileID: 0}
@@ -4748,7 +4752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2502ed848e9664724953ae6a6dc0988a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 206654194}
+  target: {fileID: 271298698}
   Wireframe: 0
 --- !u!1 &1783325545
 GameObject:
