@@ -2,25 +2,25 @@
 using System.Collections;
 using System.Collections.Generic;
 
+public enum LevelTypes {
+	Rooms,
+	Surface
+};
+
+public enum CardinalDirection {
+	North,
+	South,
+	East,
+	West
+};
+
 public class LevelMapController : MonoBehaviour {
 
+	public LevelData LevelOptions;
+
 	public static List<GameObject> rooms;
-
-	public enum LevelTypes {
-		Rooms
-	};
-
-	public enum CardinalDirection {
-		North,
-		South,
-		East,
-		West
-	};
-
-	public int levelType = (int)LevelTypes.Rooms;
-
+	public LevelTypes levelType = LevelTypes.Rooms;
 	public bool useGravity = true;
-
 	public int numberOfRooms;
 	private int minRooms = 11;
 	private int maxRooms = 30;
@@ -37,76 +37,97 @@ public class LevelMapController : MonoBehaviour {
 		m.unitInControl = ship;
 		ship.GetComponent<Vehicle>().seat = playa;
 		m.inVehicle = true;
+		m.v = ship.GetComponent<Vehicle>();
 		playa.SetActive(false);
+
+
+		GameObject ldObj = GameObject.Find ("LevelData");
+		if (  ldObj != null ){
+			LevelOptions = ldObj.GetComponent<LevelData>();
+			if ( LevelOptions != null ){
+				setLevelData(LevelOptions);
+			}
+		}
+
 
 		GameObject LevelMap = new GameObject("LevelMap");
 
-		rooms = new List<GameObject>();
-		numberOfRooms = Random.Range(minRooms, maxRooms);
-	
-		Vector3 rSize = new Vector3(10f, 10f, 1f);
-		Vector3 rPosition = new Vector3(1f, 1f, 1f);
-
-		for( int i=0; i<numberOfRooms; i++){
-		
-			if ( i==0 ){
-				rSize = new Vector3(20f,10f, 1f);
-				rPosition = new Vector3(0f, 0f, 1f);
-			} else {
-
-				// get last room right edge
-				Vector3 lastPosition = rooms[i-1].transform.position;
-				Vector3 lastSize = rooms[i-1].transform.localScale;
-
-				float padding = lastSize.y/4f;
-
-				// right X
-				float rightX = lastPosition.x + lastSize.x/2;
-				rSize = new Vector3(Random.Range(3f, 25f), Random.Range(3f, 22f), 1f);
-
-				if (i==numberOfRooms-1){
-					rSize *= 3.05f;
-				} else {
-					rSize *= 1.05f;
-				}
-				rSize.z = 1f;	
-
-				// random Y on that edge
-				float rightRandomY = Random.Range (
-						lastPosition.y - lastSize.y/2 + padding,
-						lastPosition.y + lastSize.y/2 - padding
-					);
-
-				float rightRandomYConnection = Random.Range (
-						-rSize.y/2f,
-						rSize.y/2f
-					);
-
-				rPosition = new Vector3(rightX + rSize.x/2, rightRandomY + rightRandomYConnection, 1f);
-
-			}
-
-
-			makeRoom(rSize, rPosition).name = "Room_"+i;
-
+		if ( levelType == LevelTypes.Rooms ){
+			generateRooms ();
 		}
 
-		// make the walls
-		foreach( GameObject room in rooms ){
-			construct(room);
+		if ( levelType == LevelTypes.Surface ){
+			generateSurface ();
 		}
-
-		// starting room
-		rooms[0].renderer.material.color = new Color(0f, 0.3f, 0f);
-		
-		// boss room
-		rooms[rooms.Count-1].renderer.material.color = new Color(0.3f, 0f, 0f);
 
 	}
 
 	// Update is called once per frame
 	void Update () {
 
+	}
+
+	public void setLevelData(LevelData ld){
+
+		levelType 	= ld.levelType;
+		useGravity 	= ld.useGravity;
+		minRooms 	= ld.minRooms;
+		maxRooms 	= ld.maxRooms;
+
+	}
+
+	public void generateRooms(){
+		rooms = new List<GameObject>();
+		numberOfRooms = Random.Range(minRooms, maxRooms);
+		Vector3 rSize = new Vector3(10f, 10f, 1f);
+		Vector3 rPosition = new Vector3(1f, 1f, 1f);
+		for( int i=0; i<numberOfRooms; i++){
+			if ( i==0 ){
+				rSize = new Vector3(20f,10f, 1f);
+				rPosition = new Vector3(0f, 0f, 1f);
+			} else {
+				// get last room right edge
+				Vector3 lastPosition = rooms[i-1].transform.position;
+				Vector3 lastSize = rooms[i-1].transform.localScale;
+				float padding = lastSize.y/4f;
+				// right X
+				float rightX = lastPosition.x + lastSize.x/2;
+				rSize = new Vector3(Random.Range(3f, 25f), Random.Range(3f, 22f), 1f);
+				if (i==numberOfRooms-1){
+					rSize *= 3.05f;
+				} else {
+					rSize *= 1.05f;
+				}
+				rSize.z = 1f;	
+				// random Y on that edge
+				float rightRandomY = Random.Range ( lastPosition.y - lastSize.y/2 + padding, lastPosition.y + lastSize.y/2 - padding );
+				float rightRandomYConnection = Random.Range ( -rSize.y/2f, rSize.y/2f );
+				rPosition = new Vector3(rightX + rSize.x/2, rightRandomY + rightRandomYConnection, 1f);
+			}
+			makeRoom(rSize, rPosition).name = "Room_"+i;
+		}
+		// make the walls
+		foreach( GameObject room in rooms ){
+			construct(room);
+		}
+		// starting room
+		rooms[0].renderer.material.color = new Color(0f, 0.3f, 0f);
+		// boss room
+		rooms[rooms.Count-1].renderer.material.color = new Color(0.3f, 0f, 0f);
+	}
+
+	public void generateSurface(){
+		rooms = new List<GameObject>();
+		numberOfRooms = 1;
+		Vector3 rSize = new Vector3(300f, 15, 1f);
+		Vector3 rPosition = new Vector3(0f, 0f, 1f);
+
+		makeRoom(rSize, rPosition).name = "Surface";
+
+		// make the walls
+		foreach( GameObject room in rooms ){
+			construct(room);
+		}
 	}
 
 	[ContextMenu("Reset")] 
@@ -158,13 +179,6 @@ public class LevelMapController : MonoBehaviour {
 			makeRoom(rSize, rPosition).name = "Room_"+i;
 			
 		}
-		
-//		foreach( GameObject room in rooms ){
-//			rSize = room.transform.localScale;
-//			rSize *= 1.005f;
-//			rSize.z = 1f;
-//			room.transform.localScale = rSize;
-//		}
 
 		// make the walls
 		foreach( GameObject room in rooms ){

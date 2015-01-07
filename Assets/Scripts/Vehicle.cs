@@ -31,6 +31,9 @@ public class Vehicle : MonoBehaviour {
 			seat.GetComponent<Bit>().health.isDead = true;
 		}
 
+		/**
+		 * TODO: this VVV
+		 */
 		// kill and eject the dead player with some velocity and rotation
 		if ( bit.health.isDead && seat != null ){
 
