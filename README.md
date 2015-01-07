@@ -1,6 +1,8 @@
 son-of-a-bit
 ============
 
+![Procedural Planet Surface](http://giant.gfycat.com/UnrulyGroundedFantail.gif)
+
 ![Runtime level Map generator](http://i.imgur.com/i7tCih1.png)
 
 ![Procedural Level Generator](http://i.stack.imgur.com/kjJEE.png)
