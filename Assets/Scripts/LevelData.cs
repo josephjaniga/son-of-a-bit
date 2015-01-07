@@ -12,9 +12,6 @@ public class LevelData : MonoBehaviour {
 
 
 
-
-
-
 //	// Use this for initialization
 //	void Start () {
 //	
@@ -24,5 +21,6 @@ public class LevelData : MonoBehaviour {
 //	void Update () {
 //	
 //	}
+
 
 }

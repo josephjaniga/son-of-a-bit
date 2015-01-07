@@ -10,6 +10,8 @@ public class MeshGenerator {
 	private List<Vector3> baseline = new List<Vector3>();
 	private List<bool> youGood = new List<bool>();
 	private bool allGood = false;
+
+	public float randomMagnitude = 1f;
 	
 	// The triangles tell Unity how to build each section of the mesh joining
 	// the vertices
@@ -74,7 +76,7 @@ public class MeshGenerator {
 		h = height;
 	}
 
-	public GameObject generate(){
+	public GameObject generateMesh(){
 
 		newVertices = new List<Vector3>();
 		newTriangles = new List<int>();
@@ -87,20 +89,35 @@ public class MeshGenerator {
 		baseline = newVertices;
 		addVerts(newVertices, w, h);
 		addTris(newTriangles, w, h);
-		mesh.Clear ();
+		mesh.Clear();
 		mesh.vertices = newVertices.ToArray();
 		mesh.triangles = newTriangles.ToArray();
-		mesh.Optimize ();
-		mesh.RecalculateNormals ();
+		mesh.Optimize();
+		mesh.RecalculateBounds();
+		mesh.RecalculateNormals();
 		
 		return go;
 
 	}
 	
 	public void addVerts(List<Vector3> vertsList, int width, int height){
-		for ( int x=-width/2; x < width/2; x++ ){
-			for ( int y=height/2; y > -height/2; y-- ){
-				vertsList.Add( new Vector3(x, y, Random.Range(0f, 1f)-15f ) );
+
+		int startW;
+		int startH;
+		if ( width % 2 != 0 ){
+			startW = -width/2 -1;
+		} else {
+			startW = -width/2;
+		}
+		if ( height % 2 != 0 ){
+			startH = height/2 + 1;
+		} else {
+			startH = height/2;
+		}
+		
+		for ( int x=startW; x < width/2; x++ ){
+			for ( int y=startH; y > -height/2; y-- ){
+				vertsList.Add( new Vector3(x, y, Random.Range(0f, 1f * randomMagnitude) ) );
 			}
 		}
 	}
@@ -170,6 +187,7 @@ public class MeshGenerator {
 		}
 		
 		mesh.vertices = newVertices.ToArray();
+		mesh.Clear();
 		mesh.Optimize();
 		mesh.RecalculateBounds();
 		mesh.RecalculateNormals();

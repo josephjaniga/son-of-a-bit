@@ -154,10 +154,10 @@ public class Main : MonoBehaviour {
 		 */
 		if ( inVehicle ){
 			cameraTo = farCameraSize;
-			cameraFrom = closeCameraSize;
+			cameraFrom = Camera.main.GetComponent<Camera>().orthographicSize;
 		} else {
 			cameraTo = closeCameraSize;
-			cameraFrom = farCameraSize;
+			cameraFrom = Camera.main.GetComponent<Camera>().orthographicSize;
 		}
 
 		if ( inVehicle != lastInVehicle ){

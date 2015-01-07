@@ -15,8 +15,11 @@ public class RepeatBackdrop : MonoBehaviour {
 	public float height = 0;
 
 	public bool useSprites = false;
+	public bool useMesh = false;
 
 	public MeshGenerator gen;
+
+	public Color bgColor = new Color(0.05f, 0f, 0.0625f);
 
 	// Use this for initialization
 	void Start () {
@@ -35,16 +38,17 @@ public class RepeatBackdrop : MonoBehaviour {
 				}
 			}
 
-		} else {
+		} else if ( useMesh ) {
 
 			gen = new MeshGenerator(transform);
 			gen.setMeshScale(1f);
 			gen.setMeshPosition(new Vector3(0f, 0f, 360f));
-			gen.setMeshSize (100,100);
-			gen.setMeshColor(new Color(0.05f, 0f, 0.0625f));
+			gen.setMeshSize (200,200);
+			gen.setMeshColor(bgColor);
+			gen.randomMagnitude = 3f;
 
-			GameObject plane = gen.generate();
-			plane.transform.Rotate( new Vector3(235f, 0f, 0f) );
+			GameObject plane = gen.generateMesh();
+			plane.transform.Rotate( new Vector3(329f, 180f, 180f) );
 			//plane.transform.Rotate( new Vector3(180f, 0f, 0f) );
 			plane.layer = 31; // BG layer
 
