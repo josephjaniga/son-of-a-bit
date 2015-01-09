@@ -195,7 +195,6 @@ public class LevelMapController : MonoBehaviour {
 				heights[i%res, i/res] *= .25f;
 			}
 
-
 			// Mountainous Random Spattering
 			if ( i%res < res *.66f && i%res >= res * .65f ){ // large backgro9und peaks
 				heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Sin( i/res * .08f - .11f )/33 * UnityEngine.Random.Range(.1f, .6f) + Mathf.Cos( i%res + i/res + .3f )/22 * UnityEngine.Random.Range(.3f, .6f);
@@ -215,6 +214,37 @@ public class LevelMapController : MonoBehaviour {
 			// SMOOTHING
 			if ( i > 0 &&  i < res*res && i%2 != 0 ){
 				heights[i%res, i/res] = (heights[i%res, (i+1)/res] + heights[i%res, (i-1)/res] ) /2;
+			}
+
+
+			GameObject temp = null;
+			float size = 2000.0f;
+			float resSpace = size / res;
+			int numTrees = 1;
+
+			// SURFACE OBJECTS
+			if ( i%res > res/2-3 && i%res < res/2+5 ){
+				if ( i%7 == 0 ){
+					numTrees = UnityEngine.Random.Range(3, 7);
+
+					for ( int t=0; t<numTrees; t++ ){
+
+						float x = i/res*resSpace-size/2 + UnityEngine.Random.Range(-3f - numTrees, 3f + numTrees);
+						float z = i%res*resSpace-size/2 + UnityEngine.Random.Range(-3f - numTrees, 3f + numTrees);
+
+						temp = Instantiate(Resources.Load("Prefabs/SurfaceObjects/FirTree1"), new Vector3(x, 55f, z), Quaternion.identity) as GameObject;
+
+						//temp.transform.SetParent(GameObject.Find("Surface").transform); 
+
+						RaycastHit hit;
+
+						if (Physics.Raycast(temp.transform.position, -Vector3.up, out hit, Mathf.Infinity, 30)){
+							temp.transform.position = hit.point;
+							temp.transform.Rotate(new Vector3(270, 0f, 0f));
+						}
+
+					}
+				}
 			}
 
 		}

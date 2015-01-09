@@ -21,6 +21,7 @@ public class Main : MonoBehaviour {
 	public float vehicleBoardingDistance = 1f;
 
 	// level management
+	public bool returnToOrbit = false;
 	public GameObject planetToLand;
 	public PlanetaryBody body;
 
@@ -223,12 +224,31 @@ public class Main : MonoBehaviour {
 	}
 
 	public void levelManagement(){
+
 		if ( planetToLand != null ){
 			// land on planet
-			if ( Input.GetKeyDown(KeyCode.E) ){
+			if ( Input.GetKeyDown(KeyCode.Space) ){
+				// get level data from planet
+				// generate or replace persistance level data storage object
+				// save this solar systems persistant data
+				// load the Local Level Map with new data
 				Application.LoadLevel("LevelMap");
 			}
 		}
+
+		if ( returnToOrbit ){
+			// return to space
+			if ( Input.GetKeyDown(KeyCode.Space) ){
+				// get level data from planet
+				// generate or replace persistance level data storage object
+				// save this solar systems persistant data
+				// load the Local Level Map with new data
+				Application.LoadLevel("SpaceMap");
+			}
+		}
+
+
+
 	}
 
 	public Inventory getActiveInventory(){

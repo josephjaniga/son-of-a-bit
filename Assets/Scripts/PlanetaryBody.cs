@@ -97,11 +97,11 @@ public class PlanetaryBody : MonoBehaviour {
 		// create a body with these properties
 		theBody = null;
 		if ( isOrigin ){
-			theBody = Instantiate(Resources.Load("Other/Planets/IceRockSand_2"), Vector3.zero, Quaternion.identity) as GameObject;
+			theBody = Instantiate(Resources.Load("Prefabs/Planets/IceRockSand_2"), Vector3.zero, Quaternion.identity) as GameObject;
 		} else if ( isMoon ){
-			theBody = Instantiate(Resources.Load("Other/Planets/MoonLike_2"), Vector3.zero, Quaternion.identity) as GameObject;
+			theBody = Instantiate(Resources.Load("Prefabs/Planets/MoonLike_2"), Vector3.zero, Quaternion.identity) as GameObject;
 		} else {
-			theBody = Instantiate(Resources.Load("Other/Planets/EarthLike_2"), Vector3.zero, Quaternion.identity) as GameObject;
+			theBody = Instantiate(Resources.Load("Prefabs/Planets/EarthLike_2"), Vector3.zero, Quaternion.identity) as GameObject;
 		}
 
 		theBody.AddComponent<LandingScript>().pb = this;
@@ -119,24 +119,13 @@ public class PlanetaryBody : MonoBehaviour {
 		}
 
 
-		foreach ( Transform child in theBody.transform ){
-//			child.gameObject.AddComponent<MeshCollider>();
-//			child.gameObject.AddComponent<Rigidbody>();
-//			child.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-//			child.gameObject.GetComponent<Rigidbody>().useGravity = false;
-		}
-		
 		if ( isOrigin ){
-
-			//theBody.renderer.material = Resources.Load<Material>("Sprites/Planet_2") as Material;
-
 			theBody.transform.position = Vector3.zero;
 			theBody.name = "PB"+"*";
 			GameObject orbitContainer = new GameObject();
 			orbitContainer.name = "Orbits";
 			orbitContainer.transform.SetParent(gameObject.transform);
 			sizeOfBody = Random.Range(30f, 40f);
-
 		} else {
 
 			// set distance position & size
@@ -164,17 +153,13 @@ public class PlanetaryBody : MonoBehaviour {
 				}
 				distanceFromParent = Random.Range(sizeOfBody*3f+15f*index, sizeOfBody*11f+15f*index);
 			}
-			
-
+		
 			theBody.transform.position = new Vector3(orbitalParent.transform.position.x, orbitalParent.transform.position.y + distanceFromParent * index, orbitalParent.transform.position.z);
 
 			revolutionSpeed = Random.Range(1f,5f);
 			if ( Random.Range (0f, 1f) < 0.5f ){ // clockwise or counterclockwise
 				revolutionSpeed *= -1f;
 			}
-
-			//transform.RotateAround(orbitalParent.transform.position, orbitalParent.transform.forward, Random.Range(0f, 360f) * startingRotation);
-
 		}
 
 		theBody.transform.localScale = new Vector3( sizeOfBody, sizeOfBody, sizeOfBody );
@@ -289,8 +274,6 @@ public class PlanetaryBody : MonoBehaviour {
 	public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Quaternion angle) {
 		return angle * ( point - pivot ) + pivot;
 	}
-
-
 
 	
 	
