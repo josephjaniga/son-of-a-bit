@@ -146,12 +146,16 @@ public class LevelMapController : MonoBehaviour {
 		float[,] heights = new float[res,res];
 		for ( int i=0; i<res*res; i++ ){
 
+			if ( i%res >= res * .56f){
+				//heights[i%res, i/res] = UnityEngine.Random.Range(.015f, .0275f);
+			}
+
 			// i%res - Y
 			// i/res - X
 
 			// FOREGROUND
 			if ( i%res >res/2-2 && i%res <res/2+2 ){
-				heights[i%res, i/res] = UnityEngine.Random.Range(.0025f, .005f);
+				heights[i%res, i/res] = UnityEngine.Random.Range(.005f, .0075f);
 				heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Sin( i/res )/525 * UnityEngine.Random.Range(.90f, 1.2f);
 				heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Cos( res/i )/525;
 				heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Sin( i/res * .2f + UnityEngine.Random.Range(0f, 1f))/255;
@@ -159,21 +163,46 @@ public class LevelMapController : MonoBehaviour {
 
 			// MIDGROUND rolling hills
 			if ( i%res < res *.55f && i%res >= res * .54f ){ 
-				heights[i%res, i/res] = Mathf.Sin( i/res * .11f - 30f )/75;
+				heights[i%res, i/res] = UnityEngine.Random.Range(.005f, .0075f);
+				heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Sin( i/res * .11f - 30f )/75;
 			}
 			
 			// MIDGROUND rolling hills
 			if ( i%res < res *.53f && i%res >= res * .52f ){ 
-				heights[i%res, i/res] = Mathf.Sin( i/res * .15f )/95;
+				//heights[i%res, i/res] = UnityEngine.Random.Range(.005f, .0075f);
+				heights[i%res, i/res] = heights[i%res, i/res] +  Mathf.Sin( i/res * .15f )/95;
 			}
 
-			// LARGE BG MOUNTAINS
-			if ( i%res < res *.65f && i%res >= res * .56f ){ // large backgro9und peaks
-				heights[i%res, i/res] = Mathf.Sin( i/res * .25f )/175 * UnityEngine.Random.Range(.5f, 5.2f) + Mathf.Cos(i%res + i/res )/125;
+			// LARGE BG MOUNTAINS FRONT
+			if ( i%res < res *.60f && i%res >= res * .56f ){ // large backgro9und peaks
+				float r = UnityEngine.Random.Range(.5f, 5.2f);
+				if ( Mathf.Sin( i/res * .25f )/175 * r + Mathf.Cos(i%res + i/res )/125 > 0f ){
+					heights[i%res, i/res] = UnityEngine.Random.Range(.015f, .027f);
+				} else {
+					heights[i%res, i/res] = 0f;
+				}
+				heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Sin( i/res * .25f )/175 * r + Mathf.Cos(i%res + i/res )/125;
+			}
+
+			// INCLINE UP TO THE MONTAIN
+			if ( i%res < res *.575f && i%res >= res * .57f ){ // large backgro9und peaks
+				heights[i%res, i/res] *= .75f;
+			}
+			if ( i%res < res *.57f && i%res >= res * .565f ){ // large backgro9und peaks
+				heights[i%res, i/res] *= .5f;
+			}
+			if ( i%res < res *.565f && i%res >= res * .56f ){ // large backgro9und peaks
+				heights[i%res, i/res] *= .25f;
+			}
+
+
+			// Mountainous Random Spattering
+			if ( i%res < res *.66f && i%res >= res * .65f ){ // large backgro9und peaks
+				heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Sin( i/res * .08f - .11f )/33 * UnityEngine.Random.Range(.1f, .6f) + Mathf.Cos( i%res + i/res + .3f )/22 * UnityEngine.Random.Range(.3f, .6f);
 			}
 
 			// RANDOM  BUMP TEXTURE
-			heights[i%res, i/res] = heights[i%res, i/res] + UnityEngine.Random.Range(-.1f, .1f)/125;
+			//heights[i%res, i/res] = heights[i%res, i/res] + UnityEngine.Random.Range(-.1f, .1f)/125;
 
 			// FOREGROUND FIX
 			// of the foreground make the furthest back the tallest
@@ -181,6 +210,7 @@ public class LevelMapController : MonoBehaviour {
 				if ( i/res > 0 && heights[i%res, i/res-1] != 0f )
 					heights[i%res, i/res] = heights[i%res, i/res-1] * .99f;
 			}
+
 
 			// SMOOTHING
 			if ( i > 0 &&  i < res*res && i%2 != 0 ){
