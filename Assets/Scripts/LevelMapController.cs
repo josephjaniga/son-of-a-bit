@@ -144,10 +144,10 @@ public class LevelMapController : MonoBehaviour {
 
 		Debug.Log (tData);
 		float[,] heights = new float[res,res];
-		for ( int i=0; i<res*res; i++){
+		for ( int i=0; i<res*res; i++ ){
 
-			// i%res - X
-			// i/res - Y
+			// i%res - Y
+			// i/res - X
 
 			// FOREGROUND
 			if ( i%res >res/2-2 && i%res <res/2+2 ){
@@ -180,6 +180,11 @@ public class LevelMapController : MonoBehaviour {
 			if ( i%res > res/2-2 && i%res <res/2 ){
 				if ( i/res > 0 && heights[i%res, i/res-1] != 0f )
 					heights[i%res, i/res] = heights[i%res, i/res-1] * .99f;
+			}
+
+			// SMOOTHING
+			if ( i > 0 &&  i < res*res && i%2 != 0 ){
+				heights[i%res, i/res] = (heights[i%res, (i+1)/res] + heights[i%res, (i-1)/res] ) /2;
 			}
 
 		}
