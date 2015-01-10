@@ -217,6 +217,8 @@ public class LevelMapController : MonoBehaviour {
 			}
 
 
+			/*
+			// SURFACE OBJECTS NOT OPERATIONAL
 			GameObject temp = null;
 			float size = 2000.0f;
 			float resSpace = size / res;
@@ -246,6 +248,7 @@ public class LevelMapController : MonoBehaviour {
 					}
 				}
 			}
+			*/
 
 		}
 
