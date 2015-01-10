@@ -157,6 +157,10 @@ public class Main : MonoBehaviour {
 		//		player.GetComponent<Weapon>().bullet = (GameObject)Resources.Load("Projectiles/FF_Rocket"); 
 		//	}
 
+		// keypress k - spawn an item
+		if ( Input.GetKeyDown(KeyCode.LeftShift) ){
+			unitInControl.GetComponent<Motion>().speed = 20f;
+		}
 	}
 
 	public void vehicleManagement(){
@@ -239,10 +243,10 @@ public class Main : MonoBehaviour {
 		if ( planetToLand != null ){
 			// land on planet
 			if ( Input.GetKeyDown(KeyCode.Space) ){
-				// get level data from planet
-				// generate or replace persistance level data storage object
-				// save this solar systems persistant data
-				// load the Local Level Map with new data
+				DataProvider dp = GameObject.Find ("DataProvider").GetComponent<DataProvider>();
+				dp.playerSystemLastPosition = planetToLand.transform.position - unitInControl.transform.position;
+				dp.playerSystemInShip = inVehicle;
+				dp.lastPlanetName = planetToLand.name;
 				Application.LoadLevel("LevelMap");
 			}
 		}
@@ -250,16 +254,13 @@ public class Main : MonoBehaviour {
 		if ( returnToOrbit ){
 			// return to space
 			if ( Input.GetKeyDown(KeyCode.Space) ){
-				// get level data from planet
-				// generate or replace persistance level data storage object
-				// save this solar systems persistant data
-				// load the Local Level Map with new data
+				DataProvider dp = GameObject.Find ("DataProvider").GetComponent<DataProvider>();
+				dp.playerLocalLastPosition = unitInControl.transform.position;
+				dp.playerLocalInShip = inVehicle;
 				Application.LoadLevel("SpaceMap");
 			}
 		}
-
-
-
+	
 	}
 
 	public Inventory getActiveInventory(){

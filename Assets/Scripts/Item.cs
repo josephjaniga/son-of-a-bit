@@ -101,7 +101,7 @@ public class Item : MonoBehaviour {
 			
 			value += statValue;
 			
-			itemName 					= WordFinder2((int)Random.Range(4,11));
+			itemName 					= TextTools.WordFinder2((int)Random.Range(4,11));
 			isEquipped					= false;
 			type						= (int)Random.Range((int)ItemType.Generic, (int)ItemType.Technology+1);
 
@@ -225,31 +225,29 @@ public class Item : MonoBehaviour {
 		statText += "</color> \r\n";
 
 	}
-
-
-
+	
 
 	/* Random Name Crap */
-
-	public string WordFinder2(int requestedLength){
-		UnityEngine.Random rnd = new UnityEngine.Random();
-		string[] consonants = { "b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z" };
-		string[] vowels = { "a", "e", "i", "o", "u" };
-		string word = "";
-		if (requestedLength == 1){
-			word = GetRandomLetter(rnd, vowels);
-		} else {
-			for (int i = 0; i < requestedLength; i+=2){
-				word += GetRandomLetter(rnd, consonants) + GetRandomLetter(rnd, vowels);
-			}
-			word = word.Replace("q", "qu").Substring(0, requestedLength); // We may generate a string longer than requested length, but it doesn't matter if cut off the excess.
-		}
-		return char.ToUpper(word[0]) + word.Substring(1);
-	}
-	
-	private static string GetRandomLetter(UnityEngine.Random rnd, string[] letters){
-		return letters[Mathf.RoundToInt(UnityEngine.Random.Range(0, letters.Length - 1))];
-	}
+//
+//	public string WordFinder2(int requestedLength){
+//		UnityEngine.Random rnd = new UnityEngine.Random();
+//		string[] consonants = { "b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z" };
+//		string[] vowels = { "a", "e", "i", "o", "u" };
+//		string word = "";
+//		if (requestedLength == 1){
+//			word = GetRandomLetter(rnd, vowels);
+//		} else {
+//			for (int i = 0; i < requestedLength; i+=2){
+//				word += GetRandomLetter(rnd, consonants) + GetRandomLetter(rnd, vowels);
+//			}
+//			word = word.Replace("q", "qu").Substring(0, requestedLength); // We may generate a string longer than requested length, but it doesn't matter if cut off the excess.
+//		}
+//		return char.ToUpper(word[0]) + word.Substring(1);
+//	}
+//	
+//	private static string GetRandomLetter(UnityEngine.Random rnd, string[] letters){
+//		return letters[Mathf.RoundToInt(UnityEngine.Random.Range(0, letters.Length - 1))];
+//	}
 	
 	
 	

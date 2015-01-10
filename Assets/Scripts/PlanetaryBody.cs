@@ -11,7 +11,7 @@ public class PlanetaryBody : MonoBehaviour {
 	public GameObject orbitalParent = null;
 
 	// planetary body attributes
-	public string name = "LV-426";
+	public string thePlanetName = "";
 	public float distanceFromParent = 0f;
 	public float revolutionSpeed = 0f;
 	public Vector3 rotation = Vector3.zero;
@@ -108,7 +108,7 @@ public class PlanetaryBody : MonoBehaviour {
 
 		theBody.AddComponent<LandingScript>().pb = this;
 
-		theBody.name = name+"*";
+		theBody.name = thePlanetName+"*";
 
 		if ( isMoon ){
 			if(orbitalParent != null) {
@@ -123,7 +123,7 @@ public class PlanetaryBody : MonoBehaviour {
 
 		if ( isOrigin ){
 			theBody.transform.position = Vector3.zero;
-			theBody.name = "PB"+"*";
+			theBody.name = thePlanetName;
 			GameObject orbitContainer = new GameObject();
 			orbitContainer.name = "Orbits";
 			orbitContainer.transform.SetParent(gameObject.transform);
@@ -168,7 +168,7 @@ public class PlanetaryBody : MonoBehaviour {
 
 		if ( !isOrigin ){
 			orbit = new GameObject();
-			orbit.name = name + "(Orbital Path)";
+			orbit.name = thePlanetName + "(Orbital Path)";
 			orbit.transform.position = orbitalParent.transform.position;
 
 			orbit.AddComponent<LineRenderer>();

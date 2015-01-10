@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -28,21 +29,39 @@ public class LevelMapController : MonoBehaviour {
 
 	public Color surfaceColor = Color.white;
 
+	public Main m;
+	public DataProvider dp;
+	public GameObject ship;
+	public GameObject playa;
+
+	public GameObject sct;
+	
 	// Use this for initialization
 	void Start () {
 
-		// put the player in the ship and set the ship as unit in control
-		GameObject ship =  GameObject.Find ("PlayerShip");
-		GameObject playa =  GameObject.Find ("Player");
-		Main m = GameObject.Find ("FatherBit").GetComponent<Main>();
-		playa.GetComponent<Motion>().userControlled = false;
-		ship.GetComponent<Motion>().userControlled = true;
-		m.unitInControl = ship;
-		ship.GetComponent<Vehicle>().seat = playa;
-		m.inVehicle = true;
-		m.v = ship.GetComponent<Vehicle>();
-		playa.SetActive(false);
+		sct = Resources.Load("Prefabs/UI/SCT") as GameObject;
+		sct.GetComponent<SCT>().isEnabled = false;
+		
+		m = GameObject.Find ("FatherBit").GetComponent<Main>();
+		dp = GameObject.Find ("DataProvider").GetComponent<DataProvider>();
+		ship = GameObject.Find ("PlayerShip");
+		playa = GameObject.Find ("Player");
 
+		if ( dp.playerSystemInShip ){
+			// put the player in the ship and set the ship as unit in control
+			playa.GetComponent<Motion>().userControlled = false;
+			ship.GetComponent<Motion>().userControlled = true;
+			m.unitInControl = ship;
+			ship.GetComponent<Vehicle>().seat = playa;
+			m.inVehicle = true;
+			m.v = ship.GetComponent<Vehicle>();
+			playa.SetActive(false);
+			Camera.main.GetComponent<MiniMapCameraFollow>().target = m.unitInControl.transform;
+		}
+
+		if ( dp.playerLocalLastPosition != Vector3.zero  ) {
+			m.unitInControl.transform.position = dp.playerLocalLastPosition;
+		}
 
 		GameObject ldObj = GameObject.Find ("LevelData");
 		if (  ldObj != null ){
@@ -61,6 +80,20 @@ public class LevelMapController : MonoBehaviour {
 		if ( levelType == LevelTypes.Surface ){
 			generateSurface ();
 		}
+
+
+		// clear all the alerts
+		foreach (Transform child in GameObject.Find("Alerts").transform) {
+			GameObject.Destroy(child.gameObject);
+		}
+
+		GameObject alert = Instantiate(sct, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
+		alert.GetComponent<Text>().text = "- Surface of " + dp.lastPlanetName + " -";
+		alert.transform.SetParent(GameObject.Find("Alerts").transform);
+		alert.transform.localPosition = new Vector3(0f, -80f, 0f);
+		alert.GetComponent<Text>().fontSize = 12;
+		alert.GetComponent<SCT>().Timer = 6;
+		alert.GetComponent<SCT>().Timeout = 6;
 
 	}
 

@@ -15,6 +15,13 @@ public class DataProvider : MonoBehaviour {
 	public int systemSeed = -1;
 	public int levelSeed = -1;
 
+	public Vector3 playerSystemLastPosition = Vector3.zero;
+	public bool playerSystemInShip = true;
+	public string lastPlanetName = "";
+
+	public Vector3 playerLocalLastPosition = Vector3.zero;
+	public bool playerLocalInShip = true;
+
 	// Use this for initialization
 	void Start () {
 	
