@@ -128,8 +128,25 @@ public class LevelMapController : MonoBehaviour {
 		makeRoom(rSize, rPosition).name = "Surface";
 		// hide the background
 
-		GameObject.Find ("Surface").transform.localScale = new Vector3(2000f, 150f, 1f);
-		GameObject.Find ("Surface").transform.position = new Vector3(0f, rSize.y/2f, 105f);
+		GameObject surface = GameObject.Find ("Surface");
+		surface.transform.localScale = new Vector3(2000f, 150f, 1f);
+		surface.transform.position = new Vector3(0f, 150f/2, 348f);
+		surface.renderer.material.color = new Color(0f, 1f, 1f, 103f/255f);
+
+		GameObject subTerrain = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		subTerrain.name = "SubTerrain";
+		subTerrain.transform.SetParent(GameObject.Find ("LevelMap").transform);
+		subTerrain.transform.localScale = new Vector3(rSize.x, rSize.y*2, rSize.z);
+		subTerrain.transform.position = new Vector3(rPosition.x, -rSize.y, rPosition.z);
+		subTerrain.renderer.material.color = Color.black;
+
+		GameObject atmosphericPerspective = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		atmosphericPerspective.name = "AtmosphericPerspective";
+		atmosphericPerspective.transform.SetParent(GameObject.Find ("LevelMap").transform);
+		atmosphericPerspective.transform.localScale = new Vector3(2000f, 150f, 1f);
+		atmosphericPerspective.transform.position = new Vector3(0f, 150f/2, 77f);
+		atmosphericPerspective.renderer.material.color = new Color(0f, 0f, 0f, 173f/255f);
+		atmosphericPerspective.renderer.material.shader = Shader.Find ("Transparent/Diffuse");
 
 		GameObject T = Instantiate(Resources.Load("Prefabs/TerrainPrefab"), new Vector3(-1000, 0f, -1000), Quaternion.identity) as GameObject;
 		int res = 513;

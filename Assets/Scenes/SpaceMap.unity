@@ -1678,6 +1678,7 @@ MonoBehaviour:
   system: []
   systemContainer: {fileID: 0}
   maxSystemSize: 0
+  seed: 187
 --- !u!1 &444564975
 GameObject:
   m_ObjectHideFlags: 0
@@ -4016,7 +4017,7 @@ MonoBehaviour:
   width: 0
   height: 0
   useSprites: 0
-  useMesh: 0
+  useMesh: 1
   bgColor: {r: .0500000007, g: 0, b: .0625, a: 1}
 --- !u!4 &1400830810
 Transform:

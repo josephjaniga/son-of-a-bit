@@ -14,19 +14,35 @@ public class SpaceMapController : MonoBehaviour {
 	public int maxSystemSize = 0;
 	private int currentSystemSize = 0;
 
+	public int seed;
+	
 	// Use this for initialization
 	void Start () {
+
+		DataProvider dp = GameObject.Find ("DataProvider").GetComponent<DataProvider>();
+
+		if ( dp.systemSeed == -1 ){
+			seed = Random.Range(0,9999);
+			dp.systemSeed = seed;
+		} else {
+			seed = dp.systemSeed;
+		}
+
+		Debug.Log ("Random Seed: "+ seed);
+		Random.seed = seed;
 
 		systemContainer = new GameObject();
 		systemContainer.name = "System";
 
 		system = new List<GameObject>();
 
-		maxSystemSize = Random.Range (2, 9);
+		maxSystemSize = Random.Range (2, 25);
 
 		origin = new GameObject();
 		origin.name = "Origin";
-		origin.AddComponent<PlanetaryBody>().recalculate();
+		PlanetaryBody origin_pb = origin.AddComponent<PlanetaryBody>();
+		origin_pb.levelSeed = Random.Range(0,9999);
+		origin_pb.recalculate();
 
 		system.Add(origin);
 
@@ -35,10 +51,11 @@ public class SpaceMapController : MonoBehaviour {
 		for ( currentSystemSize = 1; currentSystemSize < maxSystemSize; currentSystemSize++ ){
 
 			GameObject newPlanetaryBody = new GameObject("PB-" + currentSystemSize);
-			newPlanetaryBody.AddComponent<PlanetaryBody>();
-			newPlanetaryBody.GetComponent<PlanetaryBody>().name = newPlanetaryBody.name;
-			newPlanetaryBody.GetComponent<PlanetaryBody>().index = currentSystemSize;
-			newPlanetaryBody.GetComponent<PlanetaryBody>().recalculate(origin);
+			PlanetaryBody pb = newPlanetaryBody.AddComponent<PlanetaryBody>();
+			pb.name = newPlanetaryBody.name;
+			pb.index = currentSystemSize;
+			pb.levelSeed = Random.Range(0,9999);
+			pb.recalculate(origin);
 			newPlanetaryBody.transform.SetParent(systemContainer.transform);
 			system.Add(newPlanetaryBody);
 
@@ -46,11 +63,12 @@ public class SpaceMapController : MonoBehaviour {
 			if ( Random.Range (0f, 1f) < 5f ){ 
 
 				GameObject newMoon = new GameObject("PB-" + currentSystemSize + "-A");
-				newMoon.AddComponent<PlanetaryBody>();
-				newMoon.GetComponent<PlanetaryBody>().isMoon = true;
-				newMoon.GetComponent<PlanetaryBody>().name = newMoon.name;
-				newMoon.GetComponent<PlanetaryBody>().index = newPlanetaryBody.GetComponent<PlanetaryBody>().index;
-				newMoon.GetComponent<PlanetaryBody>().recalculate(newPlanetaryBody);
+				PlanetaryBody moon_pb = newMoon.AddComponent<PlanetaryBody>();
+				moon_pb.isMoon = true;
+				moon_pb.name = newMoon.name;
+				moon_pb.index = newPlanetaryBody.GetComponent<PlanetaryBody>().index;
+				moon_pb.levelSeed = Random.Range(0,9999);
+				moon_pb.recalculate(newPlanetaryBody);
 				newMoon.transform.SetParent(systemContainer.transform);
 				system.Add(newMoon);
 

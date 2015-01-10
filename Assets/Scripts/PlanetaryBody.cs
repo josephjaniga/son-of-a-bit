@@ -35,6 +35,8 @@ public class PlanetaryBody : MonoBehaviour {
 
 	public GameObject sct;
 
+	public int levelSeed = -1;
+
 	// Use this for initialization
 	void Start () {
 

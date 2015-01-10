@@ -43,6 +43,11 @@ public class Main : MonoBehaviour {
 			temp.name = "Items";
 		}
 
+		if ( GameObject.Find("DataProvider") == null ){
+			GameObject temp = Instantiate(Resources.Load("Prefabs/Helpers/DataProvider"), new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
+			temp.name = "DataProvider";
+		}
+
 		inventoryPanel = GameObject.Find("NewInventory");
 		characterPanel = GameObject.Find("CharacterPanel");
 		if ( getActiveEquipment() != null )
