@@ -1630,6 +1630,7 @@ MonoBehaviour:
   vehicleToBoard: {fileID: 0}
   v: {fileID: 0}
   vehicleBoardingDistance: 10
+  returnToOrbit: 0
   planetToLand: {fileID: 0}
   body: {fileID: 0}
   closeCameraSize: 7
@@ -3801,6 +3802,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 271298698}
   Wireframe: 1
+  doneLerping: 0
+  cameraPlayerOffsetTarget: {x: 0, y: 1.75, z: 0}
 --- !u!20 &1335607212
 Camera:
   m_ObjectHideFlags: 0
@@ -4013,6 +4016,8 @@ MonoBehaviour:
   width: 0
   height: 0
   useSprites: 0
+  useMesh: 0
+  bgColor: {r: .0500000007, g: 0, b: .0625, a: 1}
 --- !u!4 &1400830810
 Transform:
   m_ObjectHideFlags: 0
@@ -4876,6 +4881,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 206654194}
   Wireframe: 0
+  doneLerping: 0
+  cameraPlayerOffsetTarget: {x: 0, y: 1.75, z: 0}
 --- !u!1 &1783325545
 GameObject:
   m_ObjectHideFlags: 0
@@ -5324,7 +5331,7 @@ Transform:
   - {fileID: 1100748541}
   - {fileID: 1615310536}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!1 &2020317811
 GameObject:
   m_ObjectHideFlags: 0
@@ -5353,44 +5360,4 @@ Transform:
   - {fileID: 1088226072}
   - {fileID: 185606774}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
---- !u!1 &2055609891
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 2055609892}
-  - 114: {fileID: 2055609893}
-  m_Layer: 0
-  m_Name: Items
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2055609892
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2055609891}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.0593336225, y: -.182409585, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
   m_RootOrder: 6
---- !u!114 &2055609893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2055609891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0839d324a46e145c08d1f3f9d86a1d05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingWeapon: {fileID: 0}

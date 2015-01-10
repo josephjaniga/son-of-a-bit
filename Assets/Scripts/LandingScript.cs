@@ -11,6 +11,7 @@ public class LandingScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+	
 
 		// the text box
 		sct = Resources.Load("Prefabs/UI/SCT") as GameObject;

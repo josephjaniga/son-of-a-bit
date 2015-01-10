@@ -37,6 +37,12 @@ public class Main : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		// check the passable Data
+		if ( GameObject.Find("Items") == null ){
+			GameObject temp = Instantiate(Resources.Load("Prefabs/Helpers/Items"), new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
+			temp.name = "Items";
+		}
+
 		inventoryPanel = GameObject.Find("NewInventory");
 		characterPanel = GameObject.Find("CharacterPanel");
 		if ( getActiveEquipment() != null )

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DeathScreen : MonoBehaviour {
+public class DeathScreenController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

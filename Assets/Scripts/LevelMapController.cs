@@ -131,12 +131,6 @@ public class LevelMapController : MonoBehaviour {
 		GameObject.Find ("Surface").transform.localScale = new Vector3(2000f, 150f, 1f);
 		GameObject.Find ("Surface").transform.position = new Vector3(0f, rSize.y/2f, 105f);
 
-		//makeWall( new Vector3(rSize.x+0.5f, 0.5f, 55f), "SouthWall", rooms[0], (int)CardinalDirection.South );
-		GameObject subTerrain = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		subTerrain.transform.localScale = new Vector3(rSize.x, rSize.y*2, rSize.z);
-		subTerrain.transform.position = new Vector3(rPosition.x, -rSize.y, rPosition.z);
-		subTerrain.renderer.material.color = Color.black;
-
 		GameObject T = Instantiate(Resources.Load("Prefabs/TerrainPrefab"), new Vector3(-1000, 0f, -1000), Quaternion.identity) as GameObject;
 		int res = 513;
 		TerrainData tData = T.GetComponent<Terrain>().terrainData;
