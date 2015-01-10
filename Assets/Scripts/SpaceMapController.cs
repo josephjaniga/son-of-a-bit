@@ -28,8 +28,6 @@ public class SpaceMapController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		systemName = TextTools.WordFinder2((int)Random.Range(3,6));
-
 		sct = Resources.Load("Prefabs/UI/SCT") as GameObject;
 		sct.GetComponent<SCT>().isEnabled = false;
 
@@ -57,10 +55,10 @@ public class SpaceMapController : MonoBehaviour {
 			Camera.main.GetComponent<MiniMapCameraFollow>().target = m.unitInControl.transform;
 		}
 
-
-
 		Debug.Log ("Random Seed: "+ seed);
 		Random.seed = seed;
+
+		systemName = TextTools.WordFinder2((int)Random.Range(3,6));
 
 		systemContainer = new GameObject();
 		systemContainer.name = "System";

@@ -68,7 +68,7 @@ public class LandingScript : MonoBehaviour {
 				
 				// show the message
 				GameObject alert = Instantiate(sct, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
-				alert.GetComponent<Text>().text = "Press [<color=#00DD00>Space</color>]: to return to " + pb.theBody + " orbit";
+				alert.GetComponent<Text>().text = "Press [<color=#00DD00>Space</color>]: to return to orbit";
 				alert.transform.SetParent(GameObject.Find("Alerts").transform);
 				alert.transform.localPosition = new Vector3(0f, -80f, 0f);
 				alert.GetComponent<Text>().fontSize = 12;

@@ -54,6 +54,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   systemSeed: -1
   levelSeed: -1
+  playerSystemLastPosition: {x: 0, y: 0, z: 0}
+  playerSystemInShip: 1
+  lastPlanetName: 
+  playerLocalLastPosition: {x: 0, y: 0, z: 0}
+  playerLocalInShip: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

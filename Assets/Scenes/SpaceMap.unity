@@ -1679,6 +1679,12 @@ MonoBehaviour:
   systemContainer: {fileID: 0}
   maxSystemSize: 0
   seed: 187
+  m: {fileID: 0}
+  dp: {fileID: 0}
+  ship: {fileID: 0}
+  playa: {fileID: 0}
+  sct: {fileID: 0}
+  systemName: 
 --- !u!1 &444564975
 GameObject:
   m_ObjectHideFlags: 0
