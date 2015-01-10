@@ -12,7 +12,7 @@ public class DataProvider : MonoBehaviour {
 	// 	LAST SEEN COORDS
 	// 	LAST SEEN TIME
 
-	public int systemSeed = 1810;
+	public int systemSeed = -1;
 	public int levelSeed = -1;
 
 	// Use this for initialization
