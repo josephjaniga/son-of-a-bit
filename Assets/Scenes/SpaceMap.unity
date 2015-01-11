@@ -1445,7 +1445,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleName: Cube
   cameraSize: 7
-  sct: {fileID: 0}
   seat: {fileID: 206654193}
   bit: {fileID: 0}
 --- !u!114 &271298707
@@ -1683,7 +1682,6 @@ MonoBehaviour:
   dp: {fileID: 0}
   ship: {fileID: 0}
   playa: {fileID: 0}
-  sct: {fileID: 0}
   systemName: 
 --- !u!1 &444564975
 GameObject:
@@ -4817,7 +4815,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1749621065}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -22}
+  m_LocalPosition: {x: 0, y: 0, z: -44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 411576827}
