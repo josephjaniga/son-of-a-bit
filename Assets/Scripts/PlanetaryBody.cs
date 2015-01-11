@@ -34,6 +34,8 @@ public class PlanetaryBody : MonoBehaviour {
 	public GameObject LevelData;
 
 	public int levelSeed = -1;
+	public LevelTypes levelType = LevelTypes.Surface;
+	public List<Material> materials = new List<Material>();
 
 	// Use this for initialization
 	void Start () {
@@ -185,6 +187,10 @@ public class PlanetaryBody : MonoBehaviour {
 
 		if ( isMoon && orbitalParent != null ){
 			orbitalParent.transform.parent.GetComponent<PlanetaryBody>().children.Add(theBody);
+		}
+
+		foreach ( Material m in theBody.renderer.materials ){
+			materials.Add(m);
 		}
 		
 	}

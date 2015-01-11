@@ -6,7 +6,8 @@ using System.Collections.Generic;
 
 public enum LevelTypes {
 	Rooms,
-	Surface
+	Surface,
+	LegacySurface
 };
 
 public enum CardinalDirection {
@@ -34,6 +35,9 @@ public class LevelMapController : MonoBehaviour {
 	public GameObject ship;
 	public GameObject playa;
 
+	public int seed = -1;
+	public List<Material> levelMaterials = new List<Material>();
+
 	// Use this for initialization
 	void Start () {
 		
@@ -41,6 +45,18 @@ public class LevelMapController : MonoBehaviour {
 		dp = GameObject.Find ("DataProvider").GetComponent<DataProvider>();
 		ship = GameObject.Find ("PlayerShip");
 		playa = GameObject.Find ("Player");
+
+		if ( dp.levelSeed == -1 ){
+			seed = UnityEngine.Random.Range(0,9999);
+			dp.systemSeed = seed;
+		} else {
+			seed = dp.systemSeed;
+		}
+
+		levelMaterials = dp.levelMaterials;
+
+		Debug.Log ("Random Seed: "+ seed);
+		UnityEngine.Random.seed = seed;
 
 		if ( dp.playerSystemInShip ){
 			// put the player in the ship and set the ship as unit in control
@@ -72,6 +88,13 @@ public class LevelMapController : MonoBehaviour {
 			generateRooms ();
 		}
 
+		if ( levelType == LevelTypes.LegacySurface ){
+			generateLegacySurface ();
+		}
+
+		/**
+		 * DEPRECATED
+		 */
 		if ( levelType == LevelTypes.Surface ){
 			generateSurface ();
 		}
@@ -135,7 +158,7 @@ public class LevelMapController : MonoBehaviour {
 		rooms[rooms.Count-1].renderer.material.color = new Color(0.3f, 0f, 0f);
 	}
 
-	public void generateSurface(){
+	public void generateLegacySurface(){
 
 		// make the surface and the floor
 		rooms = new List<GameObject>();
@@ -331,7 +354,55 @@ public class LevelMapController : MonoBehaviour {
 		tData.splatPrototypes = SPS; 
 		
 	}
+
 	
+	public void generateSurface(){
+		
+		// make the surface and the floor
+		rooms = new List<GameObject>();
+		numberOfRooms = 1;
+		Vector3 rSize = new Vector3(2000f, 15f, 1f);
+		Vector3 rPosition = new Vector3(0f, rSize.y/2f, 1f);
+		makeRoom(rSize, rPosition).name = "Surface";
+		// hide the background
+		GameObject.Find ("Background").SetActive(false);
+		
+		GameObject surface = GameObject.Find ("Surface");
+		surface.transform.localScale = new Vector3(2000f, 150f, 1f);
+		surface.transform.position = new Vector3(0f, 150f/2, 348f);
+		surface.renderer.material.color = new Color(0f, 1f, 1f, 0f/255f);
+		
+		GameObject subTerrain = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		subTerrain.name = "SubTerrain";
+		subTerrain.transform.SetParent(GameObject.Find ("LevelMap").transform);
+		subTerrain.transform.localScale = new Vector3(rSize.x, rSize.y*2, rSize.z);
+		subTerrain.transform.position = new Vector3(rPosition.x, -rSize.y, 0f);
+		subTerrain.renderer.material = levelMaterials[0];
+
+		for (int i=-1000; i < 1000; i++){
+
+			if ( levelMaterials.Count > 1 ){
+				if ( Mathf.Sin (i) >= 0.9f){
+					GameObject temp = GameObject.CreatePrimitive(PrimitiveType.Cube);
+					temp.transform.position = new Vector3( i, 5f, 0f );
+					temp.renderer.material = levelMaterials[1]; 
+				}
+			}
+
+			if ( levelMaterials.Count > 2 ){
+				if ( Mathf.Sin (i * 1.15f) >= 0.9f){
+					GameObject temp = GameObject.CreatePrimitive(PrimitiveType.Cube);
+					temp.transform.position = new Vector3( i, 4f, 0f );
+					temp.transform.localScale = new Vector3(3f, 3f, 3f);
+					temp.renderer.material = levelMaterials[2]; 
+				}
+			}
+
+		}
+		
+	}
+
+
 	[ContextMenu("Reset")] 
 	public void Reset(){
 

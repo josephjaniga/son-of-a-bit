@@ -7,9 +7,14 @@ public class LandingScript : MonoBehaviour {
 	public PlanetaryBody pb;
 	public bool landing = true;
 
+	public DataProvider dp;
+
+	public Main m;
+
 	// Use this for initialization
 	void Start () {
-
+		m = GameObject.Find("FatherBit").GetComponent<Main>();
+		dp = GameObject.Find("DataProvider").GetComponent<DataProvider>();
 	}
 	
 	// Update is called once per frame
@@ -22,10 +27,22 @@ public class LandingScript : MonoBehaviour {
 
 			if ( landing ){
 				// load this in planet to land
-				GameObject.Find("FatherBit").GetComponent<Main>().planetToLand = pb.theBody;
-				GameObject.Find("FatherBit").GetComponent<Main>().body = pb;
-				GameObject.Find("FatherBit").GetComponent<Main>().returnToOrbit = false;
-				
+
+				if ( m == null ){
+					m = GameObject.Find("FatherBit").GetComponent<Main>();
+				}
+				m.planetToLand = pb.theBody;
+				m.body = pb;
+				m.returnToOrbit = false;
+
+				if ( dp == null ){
+					dp = GameObject.Find("DataProvider").GetComponent<DataProvider>();
+				}
+
+				dp.levelMaterials = pb.materials;
+				dp.levelSeed = pb.levelSeed;
+				dp.levelType = pb.levelType;
+
 				TextTools.clearAlerts();
 				TextTools.createAlert("Press [<color=#00DD00>Space</color>]: to Land on " + name);
 			}

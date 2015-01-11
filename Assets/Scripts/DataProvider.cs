@@ -5,8 +5,6 @@ using System.Collections.Generic;
 
 public class DataProvider : MonoBehaviour {
 
-	//	List<System> systemsData;
-
 	// 	SYSTEM SEED
 	//	PLANET LEVEL SEEDS
 	// 	LAST SEEN COORDS
@@ -14,6 +12,9 @@ public class DataProvider : MonoBehaviour {
 
 	public int systemSeed = -1;
 	public int levelSeed = -1;
+	public LevelTypes levelType = LevelTypes.Rooms;
+
+	public List<Material> levelMaterials = new List<Material>();
 
 	public Vector3 playerSystemLastPosition = Vector3.zero;
 	public bool playerSystemInShip = true;
@@ -31,4 +32,5 @@ public class DataProvider : MonoBehaviour {
 	void Update () {
 	
 	}
+
 }
