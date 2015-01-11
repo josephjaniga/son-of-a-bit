@@ -21,12 +21,11 @@ public class InventoryPanel : MonoBehaviour {
 		if ( GameObject.Find("InventoryPanel") != null ){
 			ip = GameObject.Find("InventoryPanel").transform;
 		}
-
 	}
 
 	// Use this for initialization
 	void Start () {
-	
+
 		player = GameObject.Find("Player");
 		player = GameObject.Find("PlayerShip");
 		if ( player != null){
@@ -36,7 +35,7 @@ public class InventoryPanel : MonoBehaviour {
 		recreateInventoryGui();
 
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -48,17 +47,17 @@ public class InventoryPanel : MonoBehaviour {
 		} else {
 
 			for ( int i = 0; i < playerBit.inventory.itemInventory.Count; i++ ) {
-				
+
 				Item iI = playerBit.inventory.itemInventory[i];
-				
+
 				GameObject go = getItemGameObjectById(iI.itemId);
-				
+
 				if ( iI.isEquipped ){
 					go.GetComponent<Image>().color = new Color(0f, 1f, 0.3f, 1f);
 				} else {
 					go.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
 				}
-				
+
 			}
 
 		}
@@ -89,18 +88,18 @@ public class InventoryPanel : MonoBehaviour {
 	}
 
 	public GameObject getItemGameObjectById(int id){
-		
+
 		GameObject go = null;
-		
+
 		foreach ( Transform child in ip ){
 			Item temp = child.GetComponent<Container>().item;
-			
+
 			if ( temp.itemId == id ){
 				go = child.gameObject;
 				break;
 			}
 		}
-		
+
 		return go;
 	}
 
@@ -120,9 +119,9 @@ public class InventoryPanel : MonoBehaviour {
 			temp.GetComponent<Container>().item = playerBit.inventory.itemInventory[i];
 			temp.name = playerBit.inventory.itemInventory[i].itemName + " - ID:" + playerBit.inventory.itemInventory[i].itemId;
 			temp.transform.FindChild("Text").GetComponent<Text>().text = playerBit.inventory.itemInventory[i].itemName;
-			
+
 			ColorBlock cb = temp.GetComponent<Button>().colors;
-			
+
 			if ( playerBit.inventory.itemInventory[i].isEquipped ){
 				//Equipped Item Colors
 				cb.normalColor = new Color(0f, 1f, 0.3f, 0.5f);
@@ -133,7 +132,7 @@ public class InventoryPanel : MonoBehaviour {
 				cb.highlightedColor = new Color(1f, 1f, 1f, 0.7f);
 				cb.pressedColor = new Color(1f, 1f, 1f, 1f);
 			}
-			
+
 			Item tempItem = temp.GetComponent<Container>().item;
 			temp.GetComponent<Button>().colors = cb;
 			temp.transform.SetParent(ip.transform);

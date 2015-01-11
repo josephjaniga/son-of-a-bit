@@ -20,7 +20,7 @@ public class Item : MonoBehaviour {
 		Epic,
 		Legendary
 	};
-	
+
 	public enum ItemType {
 		Generic,
 		Weapon,
@@ -48,14 +48,14 @@ public class Item : MonoBehaviour {
 	public int statCount = 10;
 
 	public GameObject weaponBullet;
-	
+
 	// Use this for initialization
 	void Start () {
 
 		updateItemStatText();
 
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -86,7 +86,7 @@ public class Item : MonoBehaviour {
 	public void randomize(int Rarity = 0){
 
 		rarity = Rarity;
-		
+
 		int calculon = Rarity+1;
 		int MaxNumStats = Rarity+1;
 
@@ -98,9 +98,9 @@ public class Item : MonoBehaviour {
 			int statRoll = (int)Random.Range(1, statCount+1);
 			int statValue = (int)Random.Range(1, 1+calculon/2.0f);
 			float statPercent = Random.Range(1, 1+calculon) * 0.125f;
-			
+
 			value += statValue;
-			
+
 			itemName 					= TextTools.WordFinder2((int)Random.Range(4,11));
 			isEquipped					= false;
 			type						= (int)Random.Range((int)ItemType.Generic, (int)ItemType.Technology+1);
@@ -150,12 +150,12 @@ public class Item : MonoBehaviour {
 				break;
 			}
 
-			
+
 		}
-		
+
 
 	}
-	
+
 
 	public void askForId(){
 
@@ -171,7 +171,7 @@ public class Item : MonoBehaviour {
 	public void updateItemStatText(){
 
 		statText = "";
-		
+
 		if ( type == (int)ItemType.Weapon ){
 			statText += "Base Damage: " + weaponBullet.GetComponent<Projectile>().projectileDamage + " \r\n";
 			statText += "Base Rate of Fire: " + weaponBullet.GetComponent<Projectile>().ROF + " \r\n";
@@ -181,39 +181,39 @@ public class Item : MonoBehaviour {
 
 
 		statText += "<color=#00FF00> \r\n";
-		
+
 		if ( maxHealthBoost != 0 ){
 			statText += "+" + maxHealthBoost + " Maximum Health \r\n";
 		}
-		
+
 		if ( maxHealthScale != 0f ){
 			statText += "+" + maxHealthScale * 100f + "% Maximum Health \r\n";
 		}
-		
+
 		if ( movementSpeedBoost != 0f ){
 			statText += "+" + movementSpeedBoost * 100f + "% Movement Speed \r\n";
 		}
-		
+
 		if ( rateOfFireScale != 0f ){
 			statText += "+" + rateOfFireScale * 100f + "% Rate Of Fire \r\n";
 		}
-		
+
 		if ( numberOfProjectilesBoost != 0 ){
 			statText += "+" + numberOfProjectilesBoost + " Number Of Projectiles \r\n";
 		}
-		
+
 		if ( projectileDamageBoost != 0 ){
 			statText += "+" + projectileDamageBoost + " Projectile Damage \r\n";
 		}
-		
+
 		if ( projectileDamageScale != 0f ){
 			statText += "+" + projectileDamageScale * 100f + "% Projectile Damage \r\n";
 		}
-		
+
 		if ( critChanceBoost != 0f ){
 			statText += "+" + critChanceBoost * 100f + "% Critical Hit Chance \r\n";
 		}
-		
+
 		if ( critDamageBoost != 0f ){
 			statText += "+" + critDamageBoost * 100f + "% Critical Hit Damage \r\n";
 		}
@@ -225,7 +225,7 @@ public class Item : MonoBehaviour {
 		statText += "</color> \r\n";
 
 	}
-	
+
 
 	/* Random Name Crap */
 //
@@ -244,12 +244,12 @@ public class Item : MonoBehaviour {
 //		}
 //		return char.ToUpper(word[0]) + word.Substring(1);
 //	}
-//	
+//
 //	private static string GetRandomLetter(UnityEngine.Random rnd, string[] letters){
 //		return letters[Mathf.RoundToInt(UnityEngine.Random.Range(0, letters.Length - 1))];
 //	}
-	
-	
-	
-	
+
+
+
+
 }

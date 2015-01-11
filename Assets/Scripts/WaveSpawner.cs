@@ -13,9 +13,9 @@ public class WaveSpawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+
 	}
-	
+
 	// Update is called once per frame
 	void LateUpdate () {
 
@@ -58,28 +58,13 @@ public class WaveSpawner : MonoBehaviour {
 							go.SetActive(true);
 							go.transform.SetParent(faction.transform);
 							go.renderer.material.color = faction.GetComponent<Faction>().factionColor;
-							// TODO why do I have to do this to make this work.. "Awake?"
+							// FIXME why do I have to do this to make this work.. "Awake?"
 							go.GetComponent<AI>().enabled = false;
 							go.GetComponent<AI>().enabled = true;
 						}
 					}
 				}
 			}
-
-//			else {
-//				
-//				for ( int i=0; i<waveNumber; i++ ){
-//					Vector3 t = new Vector3(Random.Range(-3,3), Random.Range(-3,3), 0f);
-//					GameObject go = Instantiate(mobInstance, transform.position + t, Quaternion.identity) as GameObject;
-//					go.transform.SetParent(faction.transform);
-//					go.renderer.material.color = faction.GetComponent<Faction>().factionColor;
-//					// why do i have to do this
-//					go.GetComponent<AI>().enabled = false;
-//					go.GetComponent<AI>().enabled = true;
-//				}
-//
-//			}
-
 
 		}
 

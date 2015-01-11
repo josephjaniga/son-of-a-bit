@@ -13,14 +13,14 @@ public class Vehicle : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+
 		bit = gameObject.GetComponent<Bit>();
-		
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-	
+
 		if ( bit.health != null && bit.health.isDead && seat != null ){
 			seat.GetComponent<Bit>().health.isDead = true;
 		}
@@ -52,5 +52,5 @@ public class Vehicle : MonoBehaviour {
 		TextTools.clearAlerts();
 		TextTools.createAlert("Press [<color=#0000DD>Q</color>]: to Leave this " + vehicleName);
 	}
-	
+
 }

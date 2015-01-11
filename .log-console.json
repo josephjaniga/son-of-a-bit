@@ -1,0 +1,18 @@
+{
+    "logfile": "/Users/Developer/Library/Logs/Unity/Editor.log",
+    "blockSep": "\n",
+    //"logTypePattern": "UnityEngine\\.Debug:Log(.*)\\(Object\\)",
+    //"fileAndLinePattern": "\\(at (.*):(\\d+)\\)",
+    //"logTypePattern": "Assets/Scripts/(.*)\\((\\d+\\,\\d+)\\)\\:",
+    //"fileAndLinePattern": "Assets/Scripts/(.*)\\((\\d+\\,\\d+)\\)\\:",
+    "logTypePattern": [
+        "*a*",
+        "UnityEngine\\.Debug:Log(.*)\\(Object\\)",
+    ],
+    "fileAndLinePattern": "\\(at (.*):(\\d+)\\)",
+    "logTypeDict":{
+        "": "info",
+        "Error": "error",
+        "Warning": "warning"
+    }
+}

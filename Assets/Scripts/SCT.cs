@@ -10,26 +10,26 @@ public class SCT : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-	
+
 		Timer = Timeout;
 		isEnabled = true;
-
+		
 	}
 
 	void Start () {
-		
+
 		Timer = Timeout;
 		isEnabled = true;
-		
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-	
+
 		// set the alpha
 		Color c = gameObject.GetComponent<Text>().color;
 		c.a = Timer/Timeout;
-		gameObject.GetComponent<Text>().color = c; 
+		gameObject.GetComponent<Text>().color = c;
 
 		if ( isEnabled ){
 			Timer -= Time.deltaTime;
