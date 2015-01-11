@@ -33,17 +33,10 @@ public class PlanetaryBody : MonoBehaviour {
 
 	public GameObject LevelData;
 
-	public GameObject sct;
-
 	public int levelSeed = -1;
 
 	// Use this for initialization
 	void Start () {
-
-		// the text box
-		sct = Resources.Load("Prefabs/UI/SCT") as GameObject;
-		sct.GetComponent<SCT>().isEnabled = false;
-
 		startingRotation = Random.Range(-15f, 15f);
 	}
 	

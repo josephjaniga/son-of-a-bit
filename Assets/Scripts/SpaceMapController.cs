@@ -20,16 +20,11 @@ public class SpaceMapController : MonoBehaviour {
 	public DataProvider dp;
 	public GameObject ship;
 	public GameObject playa;
-	
-	public GameObject sct;
 
 	public string systemName = "";
 	
 	// Use this for initialization
 	void Start () {
-
-		sct = Resources.Load("Prefabs/UI/SCT") as GameObject;
-		sct.GetComponent<SCT>().isEnabled = false;
 
 		m = GameObject.Find ("FatherBit").GetComponent<Main>();
 		dp = GameObject.Find ("DataProvider").GetComponent<DataProvider>();
@@ -126,18 +121,8 @@ public class SpaceMapController : MonoBehaviour {
 			m.unitInControl.transform.position = GameObject.Find(dp.lastPlanetName).transform.position - dp.playerSystemLastPosition;
 		}
 
-		// clear all the alerts
-		foreach (Transform child in GameObject.Find("Alerts").transform) {
-			GameObject.Destroy(child.gameObject);
-		}
-		
-		GameObject alert = Instantiate(sct, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
-		alert.GetComponent<Text>().text = "- The " + systemName + " System -";
-		alert.transform.SetParent(GameObject.Find("Alerts").transform);
-		alert.transform.localPosition = new Vector3(0f, -80f, 0f);
-		alert.GetComponent<Text>().fontSize = 12;
-		alert.GetComponent<SCT>().Timer = 6;
-		alert.GetComponent<SCT>().Timeout = 6;
+		TextTools.clearAlerts();
+		TextTools.createAlert("- The " + systemName + " System -");
 		
 	}
 	

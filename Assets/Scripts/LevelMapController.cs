@@ -34,13 +34,8 @@ public class LevelMapController : MonoBehaviour {
 	public GameObject ship;
 	public GameObject playa;
 
-	public GameObject sct;
-	
 	// Use this for initialization
 	void Start () {
-
-		sct = Resources.Load("Prefabs/UI/SCT") as GameObject;
-		sct.GetComponent<SCT>().isEnabled = false;
 		
 		m = GameObject.Find ("FatherBit").GetComponent<Main>();
 		dp = GameObject.Find ("DataProvider").GetComponent<DataProvider>();
@@ -80,20 +75,9 @@ public class LevelMapController : MonoBehaviour {
 		if ( levelType == LevelTypes.Surface ){
 			generateSurface ();
 		}
-
-
-		// clear all the alerts
-		foreach (Transform child in GameObject.Find("Alerts").transform) {
-			GameObject.Destroy(child.gameObject);
-		}
-
-		GameObject alert = Instantiate(sct, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
-		alert.GetComponent<Text>().text = "- Surface of " + dp.lastPlanetName + " -";
-		alert.transform.SetParent(GameObject.Find("Alerts").transform);
-		alert.transform.localPosition = new Vector3(0f, -80f, 0f);
-		alert.GetComponent<Text>().fontSize = 12;
-		alert.GetComponent<SCT>().Timer = 6;
-		alert.GetComponent<SCT>().Timeout = 6;
+	
+		TextTools.clearAlerts();
+		TextTools.createAlert("- Surface of " + dp.lastPlanetName + " -");
 
 	}
 
@@ -186,13 +170,14 @@ public class LevelMapController : MonoBehaviour {
 		TerrainData tData = T.GetComponent<Terrain>().terrainData;
 		tData.heightmapResolution = res;
 
-		Debug.Log (tData);
+		//Debug.Log (tData);
+
 		float[,] heights = new float[res,res];
 		for ( int i=0; i<res*res; i++ ){
 
-			if ( i%res >= res * .56f){
-				//heights[i%res, i/res] = UnityEngine.Random.Range(.015f, .0275f);
-			}
+			//			if ( i%res >= res * .56f){
+			//				//heights[i%res, i/res] = UnityEngine.Random.Range(.015f, .0275f);
+			//			}
 
 			// i%res - Y
 			// i/res - X
