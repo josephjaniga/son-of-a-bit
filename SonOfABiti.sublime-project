@@ -1,0 +1,16 @@
+{
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				"*.meta",
+				".git",
+				"*.csproj",
+				"*.unityproj"
+			],
+			"follow_symlinks": true,
+			"path": "."
+		}
+	]
+}

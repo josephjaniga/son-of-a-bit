@@ -26,6 +26,47 @@ public class SpaceMapController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		generateSystem();
+
+	}
+
+
+	// Update is called once per frame
+	void Update () {
+
+		foreach( GameObject child in system ){
+			PlanetaryBody pb = child.GetComponent<PlanetaryBody>();
+			if ( !pb.isOrigin
+			     && pb.theBody != null
+			     && pb.orbitalParent != null
+			     && pb.orbitalParent.transform.parent.GetComponent<PlanetaryBody>().theBody ){
+
+				float revSpeed = pb.revolutionSpeed;
+				pb.theBody.transform.position = RotatePointAroundPivot(
+					pb.theBody.transform.position,
+					pb.orbitalParent.transform.parent.GetComponent<PlanetaryBody>().theBody.transform.position,
+					Quaternion.Euler(0, 0, revSpeed * Time.deltaTime)
+				);
+			}
+		}
+
+	}
+
+
+	public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Quaternion angle) {
+		return angle * ( point - pivot ) + pivot;
+	}
+
+	[ContextMenu("Reset")] 
+	public void Reset(){
+
+		Destroy(GameObject.Find("System"));
+		generateSystem();
+
+	}
+
+	public void generateSystem(){
+
 		m = GameObject.Find ("FatherBit").GetComponent<Main>();
 		dp = GameObject.Find ("DataProvider").GetComponent<DataProvider>();
 		ship = GameObject.Find ("PlayerShip");
@@ -38,7 +79,7 @@ public class SpaceMapController : MonoBehaviour {
 			seed = dp.systemSeed;
 		}
 
-		if ( dp.playerSystemInShip ){
+		if ( dp.playerSystemInShip && playa != null ){
 			// put the player in the ship and set the ship as unit in control
 			playa.GetComponent<Motion>().userControlled = false;
 			ship.GetComponent<Motion>().userControlled = true;
@@ -123,34 +164,6 @@ public class SpaceMapController : MonoBehaviour {
 
 		TextTools.clearAlerts();
 		TextTools.createAlert("- The " + systemName + " System -");
-
-	}
-
-
-	// Update is called once per frame
-	void Update () {
-
-		foreach( GameObject child in system ){
-			PlanetaryBody pb = child.GetComponent<PlanetaryBody>();
-			if ( !pb.isOrigin
-			     && pb.theBody != null
-			     && pb.orbitalParent != null
-			     && pb.orbitalParent.transform.parent.GetComponent<PlanetaryBody>().theBody ){
-
-				float revSpeed = pb.revolutionSpeed;
-				pb.theBody.transform.position = RotatePointAroundPivot(
-					pb.theBody.transform.position,
-					pb.orbitalParent.transform.parent.GetComponent<PlanetaryBody>().theBody.transform.position,
-					Quaternion.Euler(0, 0, revSpeed * Time.deltaTime)
-				);
-			}
-		}
-
-	}
-
-
-	public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Quaternion angle) {
-		return angle * ( point - pivot ) + pivot;
 	}
 
 

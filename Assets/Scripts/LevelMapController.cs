@@ -19,14 +19,12 @@ public enum CardinalDirection {
 
 public class LevelMapController : MonoBehaviour {
 
-	public LevelData LevelOptions;
-
 	public static List<GameObject> rooms;
-	public LevelTypes levelType = LevelTypes.Rooms;
+	public LevelTypes levelType = LevelTypes.Surface;
 	public bool useGravity = true;
 	public int numberOfRooms;
-	private int minRooms = 11;
-	private int maxRooms = 30;
+	private int minRooms = 1;
+	private int maxRooms = 1;
 
 	public Color surfaceColor = Color.white;
 
@@ -40,22 +38,12 @@ public class LevelMapController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+
 		m = GameObject.Find ("FatherBit").GetComponent<Main>();
 		dp = GameObject.Find ("DataProvider").GetComponent<DataProvider>();
 		ship = GameObject.Find ("PlayerShip");
 		playa = GameObject.Find ("Player");
 
-		if ( dp.levelSeed == -1 ){
-			seed = UnityEngine.Random.Range(0,9999);
-			dp.systemSeed = seed;
-		} else {
-			seed = dp.systemSeed;
-		}
-
-		levelMaterials = dp.levelMaterials;
-
-		Debug.Log ("Random Seed: "+ seed);
 		UnityEngine.Random.seed = seed;
 
 		if ( dp.playerSystemInShip ){
@@ -74,28 +62,20 @@ public class LevelMapController : MonoBehaviour {
 			m.unitInControl.transform.position = dp.playerLocalLastPosition;
 		}
 
-		GameObject ldObj = GameObject.Find ("LevelData");
-		if (  ldObj != null ){
-			LevelOptions = ldObj.GetComponent<LevelData>();
-			if ( LevelOptions != null ){
-				setLevelData(LevelOptions);
-			}
-		}
-
 		GameObject LevelMap = new GameObject("LevelMap");
 
-		if ( levelType == LevelTypes.Rooms ){
+		if ( dp.levelType == LevelTypes.Rooms ){
 			generateRooms ();
 		}
 
-		if ( levelType == LevelTypes.LegacySurface ){
+		if ( dp.levelType == LevelTypes.LegacySurface ){
 			generateLegacySurface ();
 		}
 
 		/**
 		 * DEPRECATED
 		 */
-		if ( levelType == LevelTypes.Surface ){
+		if ( dp.levelType == LevelTypes.Surface ){
 			generateSurface ();
 		}
 	
@@ -109,18 +89,9 @@ public class LevelMapController : MonoBehaviour {
 
 	}
 
-	public void setLevelData(LevelData ld){
-
-		levelType 	= ld.levelType;
-		useGravity 	= ld.useGravity;
-		minRooms 	= ld.minRooms;
-		maxRooms 	= ld.maxRooms;
-
-	}
-
 	public void generateRooms(){
 		rooms = new List<GameObject>();
-		numberOfRooms = UnityEngine.Random.Range(minRooms, maxRooms);
+		numberOfRooms = UnityEngine.Random.Range(dp.minRooms, dp.maxRooms);
 		Vector3 rSize = new Vector3(10f, 10f, 1f);
 		Vector3 rPosition = new Vector3(1f, 1f, 1f);
 		for( int i=0; i<numberOfRooms; i++){
@@ -198,9 +169,9 @@ public class LevelMapController : MonoBehaviour {
 		float[,] heights = new float[res,res];
 		for ( int i=0; i<res*res; i++ ){
 
-			//			if ( i%res >= res * .56f){
-			//				//heights[i%res, i/res] = UnityEngine.Random.Range(.015f, .0275f);
-			//			}
+			// if ( i%res >= res * .56f){
+			//		heights[i%res, i/res] = UnityEngine.Random.Range(.015f, .0275f);
+			// }
 
 			// i%res - Y
 			// i/res - X
@@ -237,13 +208,13 @@ public class LevelMapController : MonoBehaviour {
 			}
 
 			// INCLINE UP TO THE MONTAIN
-			if ( i%res < res *.575f && i%res >= res * .57f ){ // large backgro9und peaks
+			if ( i%res < res *.575f && i%res >= res * .57f ){ // large background peaks
 				heights[i%res, i/res] *= .75f;
 			}
-			if ( i%res < res *.57f && i%res >= res * .565f ){ // large backgro9und peaks
+			if ( i%res < res *.57f && i%res >= res * .565f ){ // large background peaks
 				heights[i%res, i/res] *= .5f;
 			}
-			if ( i%res < res *.565f && i%res >= res * .56f ){ // large backgro9und peaks
+			if ( i%res < res *.565f && i%res >= res * .56f ){ // large background peaks
 				heights[i%res, i/res] *= .25f;
 			}
 
@@ -377,24 +348,24 @@ public class LevelMapController : MonoBehaviour {
 		subTerrain.transform.SetParent(GameObject.Find ("LevelMap").transform);
 		subTerrain.transform.localScale = new Vector3(rSize.x, rSize.y*2, rSize.z);
 		subTerrain.transform.position = new Vector3(rPosition.x, -rSize.y, 0f);
-		subTerrain.renderer.material = levelMaterials[0];
+		subTerrain.renderer.material = dp.levelMaterials[0];
 
 		for (int i=-1000; i < 1000; i++){
 
-			if ( levelMaterials.Count > 1 ){
+			if ( dp.levelMaterials.Count > 1 ){
 				if ( Mathf.Sin (i) >= 0.9f){
 					GameObject temp = GameObject.CreatePrimitive(PrimitiveType.Cube);
 					temp.transform.position = new Vector3( i, 5f, 0f );
-					temp.renderer.material = levelMaterials[1]; 
+					temp.renderer.material = dp.levelMaterials[1]; 
 				}
 			}
 
-			if ( levelMaterials.Count > 2 ){
+			if ( dp.levelMaterials.Count > 2 ){
 				if ( Mathf.Sin (i * 1.15f) >= 0.9f){
 					GameObject temp = GameObject.CreatePrimitive(PrimitiveType.Cube);
 					temp.transform.position = new Vector3( i, 4f, 0f );
 					temp.transform.localScale = new Vector3(3f, 3f, 3f);
-					temp.renderer.material = levelMaterials[2]; 
+					temp.renderer.material = dp.levelMaterials[2]; 
 				}
 			}
 
@@ -410,14 +381,6 @@ public class LevelMapController : MonoBehaviour {
 			Destroy(child.gameObject);
 		}
 
-		GameObject ldObj = GameObject.Find ("LevelData");
-		if (  ldObj != null ){
-			LevelOptions = ldObj.GetComponent<LevelData>();
-			if ( LevelOptions != null ){
-				setLevelData(LevelOptions);
-			}
-		}
-		
 		if ( levelType == LevelTypes.Rooms ){
 			generateRooms ();
 		}

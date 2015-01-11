@@ -4,8 +4,16 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
+public enum PlanetTypes {
+	EarthLike,
+	IcePlanet,
+	Moon,
+	Cube
+};
 
 public class PlanetaryBody : MonoBehaviour {
+
+	public PlanetTypes planetType = PlanetTypes.EarthLike;
 
 	public bool isOrigin = true;
 	public GameObject orbitalParent = null;
@@ -30,8 +38,6 @@ public class PlanetaryBody : MonoBehaviour {
 	public bool isGiant = false;
 
 	public List<GameObject> children;
-
-	public GameObject LevelData;
 
 	public int levelSeed = -1;
 	public LevelTypes levelType = LevelTypes.Surface;
@@ -78,6 +84,9 @@ public class PlanetaryBody : MonoBehaviour {
 	
 	public void recalculate(GameObject inheritedParent = null){
 
+		Random.seed = levelSeed;
+		planetType = GetRandomEnum<PlanetTypes>();
+
 		children = new List<GameObject>();
 		
 		if ( inheritedParent != null ){
@@ -93,13 +102,35 @@ public class PlanetaryBody : MonoBehaviour {
 		
 		// create a body with these properties
 		theBody = null;
-		if ( isOrigin ){
-			theBody = Instantiate(Resources.Load("Prefabs/Planets/IceRockSand_2"), Vector3.zero, Quaternion.identity) as GameObject;
-		} else if ( isMoon ){
-			theBody = Instantiate(Resources.Load("Prefabs/Planets/MoonLike_2"), Vector3.zero, Quaternion.identity) as GameObject;
-		} else {
-			theBody = Instantiate(Resources.Load("Prefabs/Planets/EarthLike_2"), Vector3.zero, Quaternion.identity) as GameObject;
+
+		DataProvider dp = GameObject.Find("DataProvider").GetComponent<DataProvider>();
+
+		switch (planetType){
+			default:
+			case PlanetTypes.Moon:
+				theBody = Instantiate(Resources.Load("Prefabs/Planets/MoonLike_2"), Vector3.zero, Quaternion.identity) as GameObject;
+			break;
+			case PlanetTypes.EarthLike:
+				theBody = Instantiate(Resources.Load("Prefabs/Planets/EarthLike_2"), Vector3.zero, Quaternion.identity) as GameObject;
+			break;
+			case PlanetTypes.IcePlanet:
+				theBody = Instantiate(Resources.Load("Prefabs/Planets/IceRockSand_2"), Vector3.zero, Quaternion.identity) as GameObject;
+			break;
+			case PlanetTypes.Cube:
+				theBody = GameObject.CreatePrimitive(PrimitiveType.Cube);
+				levelType = LevelTypes.Rooms;
+				dp.minRooms = Random.Range(1, 15);
+				dp.maxRooms = dp.minRooms * Random.Range(1, 3);
+			break;
 		}
+
+		// if ( isOrigin ){
+		// 	theBody = Instantiate(Resources.Load("Prefabs/Planets/IceRockSand_2"), Vector3.zero, Quaternion.identity) as GameObject;
+		// } else if ( isMoon ){
+		// 	theBody = Instantiate(Resources.Load("Prefabs/Planets/MoonLike_2"), Vector3.zero, Quaternion.identity) as GameObject;
+		// } else {
+		// 	theBody = Instantiate(Resources.Load("Prefabs/Planets/EarthLike_2"), Vector3.zero, Quaternion.identity) as GameObject;
+		// }
 
 		theBody.AddComponent<LandingScript>().pb = this;
 
@@ -276,6 +307,11 @@ public class PlanetaryBody : MonoBehaviour {
 		return angle * ( point - pivot ) + pivot;
 	}
 
+    static T GetRandomEnum<T>(){
+	    System.Array A = System.Enum.GetValues(typeof(T));
+	    T V = (T)A.GetValue(UnityEngine.Random.Range(0,A.Length));
+	    return V;
+    }
 	
 	
 }

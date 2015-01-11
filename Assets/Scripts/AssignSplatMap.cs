@@ -9,6 +9,7 @@ using System.Linq; // used for Sum of array
 public class AssignSplatMap : MonoBehaviour {
 	
 	void Start () {
+
 		// Get the attached terrain component
 		Terrain terrain = GetComponent<Terrain>();
 		
