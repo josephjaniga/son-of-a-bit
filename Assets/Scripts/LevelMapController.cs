@@ -34,7 +34,10 @@ public class LevelMapController : MonoBehaviour {
 	public GameObject playa;
 
 	public int seed = -1;
-	public List<Material> levelMaterials = new List<Material>();
+
+	public Material primary = null;
+	public Material secondary = null;
+	public Material tertiary = null;
 
 	// Use this for initialization
 	void Start () {
@@ -45,6 +48,18 @@ public class LevelMapController : MonoBehaviour {
 		playa = GameObject.Find ("Player");
 
 		UnityEngine.Random.seed = seed;
+
+		foreach (Material mat in dp.levelMaterials) {
+			if ( mat.name.ToLower().Contains("primary") ) {
+				primary = mat;
+			}
+			if ( mat.name.ToLower().Contains("secondary") ) {
+				secondary = mat;
+			}
+			if ( mat.name.ToLower().Contains("tertiary") ) {
+				tertiary = mat;
+			}
+		}
 
 		if ( dp.playerSystemInShip ){
 			// put the player in the ship and set the ship as unit in control

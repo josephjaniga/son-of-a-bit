@@ -108,16 +108,17 @@ public class PlanetaryBody : MonoBehaviour {
 		switch (planetType){
 			default:
 			case PlanetTypes.Moon:
-				theBody = Instantiate(Resources.Load("Prefabs/Planets/MoonLike_2"), Vector3.zero, Quaternion.identity) as GameObject;
+				theBody = Instantiate(Resources.Load("Prefabs/Planets/MoonLike"), Vector3.zero, Quaternion.identity) as GameObject;
 			break;
 			case PlanetTypes.EarthLike:
-				theBody = Instantiate(Resources.Load("Prefabs/Planets/EarthLike_2"), Vector3.zero, Quaternion.identity) as GameObject;
+				theBody = Instantiate(Resources.Load("Prefabs/Planets/EarthLike"), Vector3.zero, Quaternion.identity) as GameObject;
 			break;
 			case PlanetTypes.IcePlanet:
-				theBody = Instantiate(Resources.Load("Prefabs/Planets/IceRockSand_2"), Vector3.zero, Quaternion.identity) as GameObject;
+				theBody = Instantiate(Resources.Load("Prefabs/Planets/StrangeIce"), Vector3.zero, Quaternion.identity) as GameObject;
 			break;
 			case PlanetTypes.Cube:
 				theBody = GameObject.CreatePrimitive(PrimitiveType.Cube);
+				theBody.renderer.material.color = new Color(1f, 0f, 1f);
 				levelType = LevelTypes.Rooms;
 				dp.minRooms = Random.Range(1, 15);
 				dp.maxRooms = dp.minRooms * Random.Range(1, 3);
