@@ -177,6 +177,10 @@ Prefab:
       propertyPath: shouldLock
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5400000, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 16fce1f1ba9fa4c85acb7a943b55ceba, type: 2}
@@ -1414,7 +1418,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 8
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &271298702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1760,16 +1764,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d9f9831e24334e00b2af824b8b439fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelType: 0
-  useGravity: 1
   numberOfRooms: 1
-  surfaceColor: {r: 1, g: 1, b: 1, a: 1}
   m: {fileID: 0}
   dp: {fileID: 0}
   ship: {fileID: 0}
   playa: {fileID: 0}
   seed: -1
-  levelMaterials: []
+  primary: {fileID: 0}
+  secondary: {fileID: 0}
+  tertiary: {fileID: 0}
+  attributes: []
 --- !u!1 &444564975
 GameObject:
   m_ObjectHideFlags: 0
@@ -4606,8 +4610,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1628310056}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.0299997, y: 4.96999979, z: 0}
+  m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106709}
+  m_LocalPosition: {x: 13.6599998, y: 139.600006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 411576827}
@@ -4824,7 +4828,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1749621065}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -22}
+  m_LocalPosition: {x: 0, y: 0, z: -111}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 411576827}

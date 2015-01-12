@@ -20,13 +20,9 @@ public enum CardinalDirection {
 public class LevelMapController : MonoBehaviour {
 
 	public static List<GameObject> rooms;
-	public LevelTypes levelType = LevelTypes.Surface;
-	public bool useGravity = true;
 	public int numberOfRooms;
 	private int minRooms = 1;
 	private int maxRooms = 1;
-
-	public Color surfaceColor = Color.white;
 
 	public Main m;
 	public DataProvider dp;
@@ -39,6 +35,10 @@ public class LevelMapController : MonoBehaviour {
 	public Material secondary = null;
 	public Material tertiary = null;
 
+	public List<string> attributes = new List<string>();
+
+	List<GameObject> mountains = new List<GameObject>();
+
 	// Use this for initialization
 	void Start () {
 
@@ -47,19 +47,19 @@ public class LevelMapController : MonoBehaviour {
 		ship = GameObject.Find ("PlayerShip");
 		playa = GameObject.Find ("Player");
 
+
+		populateAttributes(dp.planetType);
+
+		if ( dp.levelSeed == -1 ){
+			seed = UnityEngine.Random.Range(0,9999);
+			dp.levelSeed = seed;
+		} else {
+			seed = dp.levelSeed;
+		}
+
 		UnityEngine.Random.seed = seed;
 
-		foreach (Material mat in dp.levelMaterials) {
-			if ( mat.name.ToLower().Contains("primary") ) {
-				primary = mat;
-			}
-			if ( mat.name.ToLower().Contains("secondary") ) {
-				secondary = mat;
-			}
-			if ( mat.name.ToLower().Contains("tertiary") ) {
-				tertiary = mat;
-			}
-		}
+		getMaterials(dp);
 
 		if ( dp.playerSystemInShip ){
 			// put the player in the ship and set the ship as unit in control
@@ -80,22 +80,25 @@ public class LevelMapController : MonoBehaviour {
 		GameObject LevelMap = new GameObject("LevelMap");
 
 		if ( dp.levelType == LevelTypes.Rooms ){
-			generateRooms ();
-		}
-
-		if ( dp.levelType == LevelTypes.LegacySurface ){
-			generateLegacySurface ();
+			// generateRooms ();
+			generateSurface ();
 		}
 
 		/**
 		 * DEPRECATED
 		 */
+		if ( dp.levelType == LevelTypes.LegacySurface ){
+			// generateLegacySurface ();
+			generateSurface ();
+		}
+
 		if ( dp.levelType == LevelTypes.Surface ){
 			generateSurface ();
 		}
 	
 		TextTools.clearAlerts();
 		TextTools.createAlert("- Surface of " + dp.lastPlanetName + " -");
+
 
 	}
 
@@ -183,10 +186,6 @@ public class LevelMapController : MonoBehaviour {
 
 		float[,] heights = new float[res,res];
 		for ( int i=0; i<res*res; i++ ){
-
-			// if ( i%res >= res * .56f){
-			//		heights[i%res, i/res] = UnityEngine.Random.Range(.015f, .0275f);
-			// }
 
 			// i%res - Y
 			// i/res - X
@@ -343,7 +342,7 @@ public class LevelMapController : MonoBehaviour {
 
 	
 	public void generateSurface(){
-		
+
 		// make the surface and the floor
 		rooms = new List<GameObject>();
 		numberOfRooms = 1;
@@ -356,36 +355,85 @@ public class LevelMapController : MonoBehaviour {
 		GameObject surface = GameObject.Find ("Surface");
 		surface.transform.localScale = new Vector3(2000f, 150f, 1f);
 		surface.transform.position = new Vector3(0f, 150f/2, 348f);
-		surface.renderer.material.color = new Color(0f, 1f, 1f, 0f/255f);
+		surface.renderer.material.color = new Color(0f, 1f, 1f, 55f/255f);
 		
 		GameObject subTerrain = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		subTerrain.name = "SubTerrain";
 		subTerrain.transform.SetParent(GameObject.Find ("LevelMap").transform);
-		subTerrain.transform.localScale = new Vector3(rSize.x, rSize.y*2, rSize.z);
+		subTerrain.transform.localScale = new Vector3(rSize.x, rSize.y*2, 26f);
 		subTerrain.transform.position = new Vector3(rPosition.x, -rSize.y, 0f);
-		subTerrain.renderer.material = dp.levelMaterials[0];
+		if ( false ){ // ground
+			subTerrain.renderer.material = primary;
+		} else { // water
+			subTerrain.renderer.material.shader = Shader.Find("Transparent/Diffuse");
+			subTerrain.renderer.material.color = new Color(primary.color.r, primary.color.g-.11f, primary.color.b -.11f, 0.75f);
+			subTerrain.collider.enabled = false;
+		}
+		
+
+
+		mountains = new List<GameObject>();
+		int mountainCounter = 0;
+		// populate list of mountains
+		if ( attributes.Contains("mountainous") ){
+			mountains.Add(Resources.Load("Prefabs/SurfaceObjects/MountainOne") as GameObject);
+			mountains.Add(Resources.Load("Prefabs/SurfaceObjects/MountainTwo") as GameObject);
+			mountains.Add(Resources.Load("Prefabs/SurfaceObjects/MountainThree") as GameObject);
+		}
+
+		GameObject bg = new GameObject("Surface_Background");
+		bg.transform.SetParent(GameObject.Find("Surface").transform);
 
 		for (int i=-1000; i < 1000; i++){
 
-			if ( dp.levelMaterials.Count > 1 ){
-				if ( Mathf.Sin (i) >= 0.9f){
-					GameObject temp = GameObject.CreatePrimitive(PrimitiveType.Cube);
-					temp.transform.position = new Vector3( i, 5f, 0f );
-					temp.renderer.material = dp.levelMaterials[1]; 
+			// Icospheric Sub Surface Texture
+			if ( attributes.Contains("icospheric") ){
+				if ( Mathf.Sin (i*.5f) >= 0.95f){
+					float randomY = UnityEngine.Random.Range(-22f, -25f);
+					GameObject temp = (GameObject)Instantiate( Resources.Load("Prefabs/SurfaceObjects/Icosphere"), new Vector3( i, randomY, 0 ), Quaternion.identity);
+					temp.transform.Rotate ( new Vector3( UnityEngine.Random.Range(0f, 360f), UnityEngine.Random.Range(0f, 360f), UnityEngine.Random.Range(0f, 360f) ) );
+					float scale = UnityEngine.Random.Range(44f, 55f);
+					temp.transform.localScale = new Vector3(scale, scale, scale);
+					temp.renderer.material = secondary; 
+					temp.transform.SetParent(bg.transform);
 				}
 			}
 
-			if ( dp.levelMaterials.Count > 2 ){
-				if ( Mathf.Sin (i * 1.15f) >= 0.9f){
-					GameObject temp = GameObject.CreatePrimitive(PrimitiveType.Cube);
-					temp.transform.position = new Vector3( i, 4f, 0f );
-					temp.transform.localScale = new Vector3(3f, 3f, 3f);
-					temp.renderer.material = dp.levelMaterials[2]; 
+			// Mountainous - Secondary
+			if ( attributes.Contains("mountainous") && mountains.Count > 0 && primary != null ){
+				if ( Mathf.Sin (i) >= 0.9f){
+					GameObject temp = (GameObject)Instantiate(mountains[ mountainCounter % mountains.Count ], new Vector3( i, 0f, 33f ), Quaternion.identity);
+					temp.transform.Rotate ( new Vector3( -90f, UnityEngine.Random.Range(0f, 360f), temp.transform.rotation.z ) );
+					temp.renderer.material = tertiary;
+					float scale = UnityEngine.Random.Range(.25f, 1.5f);
+					temp.transform.localScale = new Vector3(	scale * temp.transform.localScale.x,
+																scale * temp.transform.localScale.y,
+																scale * temp.transform.localScale.z );
+					temp.transform.SetParent(bg.transform);
+					mountainCounter++;
 				}
 			}
+
+
+
+			// Mountainous - Test JUST A TEST
+			if ( attributes.Contains("mountainous") && mountains.Count > 0 && primary != null ){
+				if ( Mathf.Sin (i) >= 0.95f){
+					GameObject temp = (GameObject)Instantiate(mountains[ mountainCounter % mountains.Count ], new Vector3( i, 0f, 55f ), Quaternion.identity);
+					temp.transform.Rotate ( new Vector3( -90f, UnityEngine.Random.Range(0f, 360f), temp.transform.rotation.z ) );
+					temp.renderer.material = tertiary; 
+					float scale = UnityEngine.Random.Range(.5f, 2f);
+					temp.transform.localScale = new Vector3(	scale * temp.transform.localScale.x,
+																scale * temp.transform.localScale.y,
+																scale * temp.transform.localScale.z );
+					temp.transform.SetParent(bg.transform);
+					mountainCounter++;
+				}
+			}
+
+
 
 		}
-		
 	}
 
 
@@ -396,11 +444,11 @@ public class LevelMapController : MonoBehaviour {
 			Destroy(child.gameObject);
 		}
 
-		if ( levelType == LevelTypes.Rooms ){
+		if ( dp.levelType == LevelTypes.Rooms ){
 			generateRooms ();
 		}
 		
-		if ( levelType == LevelTypes.Surface ){
+		if ( dp.levelType == LevelTypes.Surface ){
 			generateSurface ();
 		}
 
@@ -784,8 +832,44 @@ public class LevelMapController : MonoBehaviour {
 			q.name = parentRoom.name + "->" + room.name + "_Door";
 			q.transform.SetParent(GameObject.Find ("LevelMap").transform);
 		}
+	}
 
+	public void getMaterials(DataProvider dp){
+		// check the dataprovider
+		if ( dp == null ){
+			dp = GameObject.Find("DataProvider").GetComponent<DataProvider>();
+		}
+		if ( dp!= null ){	
+			// get the materials
+			foreach (Material mat in dp.levelMaterials) {
+				if ( mat.name.ToLower().Contains("primary") ) {
+					primary = mat;
+				}
+				if ( mat.name.ToLower().Contains("secondary") ) {
+					secondary = mat;
+				}
+				if ( mat.name.ToLower().Contains("tertiary") ) {
+					tertiary = mat;
+				}
+			}
+		}
+	}
 
+	public void populateAttributes(PlanetTypes pt){
+		switch(pt){
+			default:
+			break;
+			case PlanetTypes.EarthLike:
+				attributes.Add("mountainous");
+				attributes.Add("icospheric");
+			break;
+			case PlanetTypes.Cube:
+			break;
+			case PlanetTypes.Moon:
+			break;
+			case PlanetTypes.IcePlanet:
+			break;
+		}
 	}
 
 }

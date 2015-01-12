@@ -105,6 +105,8 @@ public class PlanetaryBody : MonoBehaviour {
 
 		DataProvider dp = GameObject.Find("DataProvider").GetComponent<DataProvider>();
 
+		planetType = PlanetTypes.EarthLike;
+
 		switch (planetType){
 			default:
 			case PlanetTypes.Moon:

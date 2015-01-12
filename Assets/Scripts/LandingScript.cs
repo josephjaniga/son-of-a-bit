@@ -42,6 +42,7 @@ public class LandingScript : MonoBehaviour {
 				dp.levelMaterials = pb.materials;
 				dp.levelSeed = pb.levelSeed;
 				dp.levelType = pb.levelType;
+				dp.planetType = pb.planetType;
 
 				TextTools.clearAlerts();
 				TextTools.createAlert("Press [<color=#00DD00>Space</color>]: to Land on " + name);

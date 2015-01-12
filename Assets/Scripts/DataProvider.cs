@@ -12,6 +12,7 @@ public class DataProvider : MonoBehaviour {
 	public int systemSeed = -1;
 	public int levelSeed = -1;
 	public LevelTypes levelType = LevelTypes.LegacySurface;
+	public PlanetTypes planetType = PlanetTypes.EarthLike;
 
 	public List<Material> levelMaterials = new List<Material>();
 
@@ -21,18 +22,6 @@ public class DataProvider : MonoBehaviour {
 
 	public Vector3 playerLocalLastPosition = Vector3.zero;
 	public bool playerLocalInShip = true;
-
-	// public void setLevelData(DataProvider dp){
-	// 	levelMaterials 				= dp.levelMaterials;
-	// 	useGravity 					= dp.useGravity;
-	// 	minRooms 					= dp.minRooms;
-	// 	maxRooms 					= dp.maxRooms;
-	// 	playerSystemLastPosition 	= dp.playerSystemLastPosition;
-	// 	playerSystemInShip 			= dp.playerSystemInShip;
-	// 	lastPlanetName 				= dp.lastPlanetName;
-	// 	playerLocalLastPosition 	= dp.playerLocalLastPosition;
-	// 	playerLocalInShip 			= dp.playerLocalInShip;
-	// }
 
 /*
 	// Use this for initialization
