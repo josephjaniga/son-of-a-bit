@@ -401,14 +401,15 @@ public class LevelMapController : MonoBehaviour {
 
 			// Mountainous - Secondary
 			if ( attributes.Contains("mountainous") && mountains.Count > 0 && primary != null ){
-				if ( Mathf.Sin (i) >= 0.9f){
-					GameObject temp = (GameObject)Instantiate(mountains[ mountainCounter % mountains.Count ], new Vector3( i, 0f, 33f ), Quaternion.identity);
+				if ( Mathf.Sin (i*.03f) >= .995f){
+					GameObject temp = (GameObject)Instantiate(mountains[ mountainCounter % mountains.Count ], new Vector3( i, -1f, 10f ), Quaternion.identity);
 					temp.transform.Rotate ( new Vector3( -90f, UnityEngine.Random.Range(0f, 360f), temp.transform.rotation.z ) );
 					temp.renderer.material = tertiary;
+					temp.renderer.material.color = colorVariant(tertiary.color, new Color(.2f, .7f, .3f, .25f), .35f); 
 					float scale = UnityEngine.Random.Range(.25f, 1.5f);
 					temp.transform.localScale = new Vector3(	scale * temp.transform.localScale.x,
 																scale * temp.transform.localScale.y,
-																scale * temp.transform.localScale.z );
+																scale * temp.transform.localScale.z/4);
 					temp.transform.SetParent(bg.transform);
 					mountainCounter++;
 				}
@@ -418,11 +419,12 @@ public class LevelMapController : MonoBehaviour {
 
 			// Mountainous - Test JUST A TEST
 			if ( attributes.Contains("mountainous") && mountains.Count > 0 && primary != null ){
-				if ( Mathf.Sin (i) >= 0.95f){
-					GameObject temp = (GameObject)Instantiate(mountains[ mountainCounter % mountains.Count ], new Vector3( i, 0f, 55f ), Quaternion.identity);
+				if ( Mathf.Sin (i * .15f ) >= 0.995f){
+					GameObject temp = (GameObject)Instantiate(mountains[ mountainCounter % mountains.Count ], new Vector3( i, 0f, 275f ), Quaternion.identity);
 					temp.transform.Rotate ( new Vector3( -90f, UnityEngine.Random.Range(0f, 360f), temp.transform.rotation.z ) );
-					temp.renderer.material = tertiary; 
-					float scale = UnityEngine.Random.Range(.5f, 2f);
+					temp.renderer.material = tertiary;
+					temp.renderer.material.color = colorVariant(tertiary.color, new Color(.2f, .7f, .3f, .25f), .35f); 
+					float scale = UnityEngine.Random.Range(.15f, 6f);
 					temp.transform.localScale = new Vector3(	scale * temp.transform.localScale.x,
 																scale * temp.transform.localScale.y,
 																scale * temp.transform.localScale.z );
@@ -870,6 +872,16 @@ public class LevelMapController : MonoBehaviour {
 			case PlanetTypes.IcePlanet:
 			break;
 		}
+	}
+
+	public Color colorVariant(Color c, Color v, float m){
+		Color temp = new Color (
+			(c.r + UnityEngine.Random.Range(v.r*-1f, v.r*1f)) * m,
+			(c.g + UnityEngine.Random.Range(v.g*-1f, v.g*1f)) * m,
+			(c.b + UnityEngine.Random.Range(v.b*-1f, v.b*1f)) * m,
+			(c.a + UnityEngine.Random.Range(v.a*-1f, v.a*1f))
+			);
+		return temp;
 	}
 
 }
