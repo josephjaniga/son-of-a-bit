@@ -7,11 +7,14 @@ public class TextureCreator : MonoBehaviour {
 	[Range(2, 1024)]
 	public int resolution = 256;
 
-	[Range(1, 3)]
-	public int dimensions = 3;
+	[Range(1f, 3f)]
+	public float fastPointSpeed = 2f;
 
-	[Range(0, 9999)]
-	public int seed = 0;
+	[Range(0.01f, 1f)]
+	public float slowPointSpeed = 0.2f;
+
+	[Range(0f, 1f)]
+	public float threshold = 0.5f;
 
 	private Texture2D texture;
 
@@ -51,7 +54,6 @@ public class TextureCreator : MonoBehaviour {
 		Vector3 point01 = transform.TransformPoint(new Vector3(-0.5f, 0.5f));
 		Vector3 point11 = transform.TransformPoint(new Vector3( 0.5f, 0.5f));
 
-		NoiseMethod method = Noise.valueMethods[dimensions - 1];
 		float stepSize = 1f / resolution;
 		for (int y = 0; y < resolution; y++) {
 			Vector3 point0 = Vector3.Lerp(point00, point01, (y + 0.5f) * stepSize);
@@ -60,23 +62,30 @@ public class TextureCreator : MonoBehaviour {
 				Vector3 point = Vector3.Lerp(point0, point1, (x + 0.5f) * stepSize);
 				// texture.SetPixel(x, y, Color.white * Noise.SeededValue2D(point, frequency, seed));
 				//texture.SetPixel(x, y, Color.white * Noise.HorizontalGradient1D(point, 3f, 0f));
-				// if ( valueAtPoint(point, frequency) > 0.5f )
-				// 	texture.SetPixel(x, y, Color.white);
-				// else 
-				// 	texture.SetPixel(x, y, Color.black);
-				texture.SetPixel(x, y, Color.white * valueAtPoint(point, frequency));
+				if ( valueAtPoint(point, frequency) > threshold )
+					texture.SetPixel(x, y, Color.white);
+				else 
+					texture.SetPixel(x, y, Color.black);
+				// texture.SetPixel(x, y, Color.white * valueAtPoint(point, frequency));
 			}
 		}
 		texture.Apply();
 	}
 
 	public float valueAtPoint(Vector3 point, float frequency){
-		point *= frequency;
 		float value = 0f;
+		Vector3 pure = point;
+		Vector3 fastPoint = point * fastPointSpeed;
+		Vector3 slowPoint = point * slowPointSpeed;
+		point *= frequency;
+
 		value = Noise.HorizontalGradient1D(point, 3f, 0f);
-		// skipping noise
-		value += Mathf.PerlinNoise(point.x, point.y);
-		return value & 1;
+		//value += Random.Range(-.25f, .25f);
+		value += (Mathf.PerlinNoise(slowPoint.x, slowPoint.y)-.5f) *.5f;
+		value += (Mathf.PerlinNoise(point.x, point.y)-.5f) *.5f;			
+		value += (Mathf.PerlinNoise(fastPoint.x, fastPoint.y)-.5f) *.5f;
+
+		return value;
 	}
 
 }
