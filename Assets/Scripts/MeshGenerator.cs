@@ -100,6 +100,55 @@ public class MeshGenerator {
 
 	}
 	
+	public GameObject generateMeshFromValues(TextureCreator tc){
+
+		newVertices = new List<Vector3>();
+		newTriangles = new List<int>();
+		animationVertices = newVertices;
+
+		for ( int i=0; i< newVertices.Count; i++){
+			youGood[i] = false;
+		}
+
+		baseline = newVertices;
+		addVertsValues(newVertices, w, h, tc);
+		addTris(newTriangles, w, h);
+		mesh.Clear();
+		mesh.vertices = newVertices.ToArray();
+		mesh.triangles = newTriangles.ToArray();
+		mesh.Optimize();
+		mesh.RecalculateBounds();
+		mesh.RecalculateNormals();
+		
+		return go;
+
+	}
+
+	public void addVertsValues(List<Vector3> vertsList, int width, int height, TextureCreator tc){
+
+		int startW;
+		int startH;
+		if ( width % 2 != 0 ){
+			startW = -width/2 -1;
+		} else {
+			startW = -width/2;
+		}
+		if ( height % 2 != 0 ){
+			startH = height/2 + 1;
+		} else {
+			startH = height/2;
+		}
+
+		for ( int x=startW; x < width/2; x++ ){
+			for ( int y=startH; y > -height/2; y-- ){
+				if ( tc.valueAtPoint(new Vector3(x,y,0f), 1f) > 0.5f ){
+					vertsList.Add( new Vector3(x, y, 0f) );
+				}
+			}
+		}
+
+	}
+
 	public void addVerts(List<Vector3> vertsList, int width, int height){
 
 		int startW;
