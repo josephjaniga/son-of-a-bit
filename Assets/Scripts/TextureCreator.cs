@@ -88,4 +88,6 @@ public class TextureCreator : MonoBehaviour {
 		return value;
 	}
 
+	//public float PerlinNoise
+
 }
