@@ -153,10 +153,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 460402030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalScale: {x: 32, y: 32, z: 1}
   m_Children: []
-  m_Father: {fileID: 501644895}
+  m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!1 &501644890
 GameObject:
@@ -170,7 +170,6 @@ GameObject:
   - 64: {fileID: 501644893}
   - 23: {fileID: 501644892}
   - 114: {fileID: 501644891}
-  - 114: {fileID: 501644896}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
@@ -189,10 +188,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014a70d03535f47de93a71d65a9c149c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolution: 512
+  resolution: 32
   fastPointSpeed: 2
   slowPointSpeed: .200000003
   threshold: .5
+  Voxels: {fileID: 0}
+  _displacement: {x: 9.99999975e-05, y: 9.99999975e-05, z: 9.99999975e-05}
   frequency: 1
 --- !u!23 &501644892
 Renderer:
@@ -242,22 +243,10 @@ Transform:
   m_GameObject: {fileID: 501644890}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 6, y: 4, z: 1}
-  m_Children:
-  - {fileID: 460402035}
+  m_LocalScale: {x: 32, y: 32, z: 1}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
---- !u!114 &501644896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 501644890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b8a91d24c80b4b1a9f2e055c4e4f196, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_RootOrder: 1
 --- !u!1 &2041964754
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,4 +309,47 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
+--- !u!1 &2085414583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2085414585}
+  - 114: {fileID: 2085414584}
+  m_Layer: 0
+  m_Name: VoxelMap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &2085414584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2085414583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb9418d0cc024695928b083ccdb9813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 2
+  voxelResolution: 16
+  chunkResolution: 2
+  voxelGridPrefab: {fileID: 11400000, guid: fd1833acfe45142f99b53a1e4ac91c70, type: 2}
+--- !u!4 &2085414585
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2085414583}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3

@@ -7,7 +7,7 @@ using LibNoise.Generator;
 public class TextureCreator : MonoBehaviour {
 
 	[Range(2, 1024)]
-	public int resolution = 256;
+	public int resolution = 64;
 	[Range(1f, 3f)]
 	public float fastPointSpeed = 2f;
 	[Range(0.01f, 1f)]
@@ -31,8 +31,8 @@ public class TextureCreator : MonoBehaviour {
 	private void Update () {
 		if (transform.hasChanged) {
 			transform.hasChanged = false;
-			//FillTexture();
-			renderMeshWithNoise();
+			FillTexture();
+			MakeVoxels();
 		}
 	}
 
@@ -47,8 +47,8 @@ public class TextureCreator : MonoBehaviour {
 			texture.anisoLevel = 9;
 			GetComponent<MeshRenderer>().material.mainTexture = texture;
 		}
-		//FillTexture();
-		renderMeshWithNoise();
+		FillTexture();
+		MakeVoxels();
 	}
 
 	public float frequency = 1f;
@@ -74,13 +74,10 @@ public class TextureCreator : MonoBehaviour {
 			Vector3 point1 = Vector3.Lerp(point10, point11, (y + 0.5f) * stepSize);
 			for (int x = 0; x < resolution; x++) {
 				Vector3 point = Vector3.Lerp(point0, point1, (x + 0.5f) * stepSize);
-				// texture.SetPixel(x, y, Color.white * Noise.SeededValue2D(point, frequency, seed));
-				//texture.SetPixel(x, y, Color.white * Noise.HorizontalGradient1D(point, 3f, 0f));
 				if ( valueAtPoint(point, frequency) > threshold )
 					texture.SetPixel(x, y, Color.white);
 				else 
 					texture.SetPixel(x, y, Color.black);
-				// texture.SetPixel(x, y, Color.white * valueAtPoint(point, frequency));
 			}
 		}
 		texture.Apply();
@@ -156,6 +153,6 @@ public class TextureCreator : MonoBehaviour {
 		return value;
 	}
 
-	//public float PerlinNoise
+
 
 }
