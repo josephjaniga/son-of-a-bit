@@ -8,7 +8,9 @@ public class Voxel {
 
 	public Vector2 position, xEdgePosition, yEdgePosition;
 
-	public Voxel (int x, int y, float size) {
+	public Vector3 worldPosition;
+
+	public Voxel (int x, int y, float size, Vector3 wp) {
 		position.x = (x + 0.5f) * size;
 		position.y = (y + 0.5f) * size;
 
@@ -16,6 +18,8 @@ public class Voxel {
 		xEdgePosition.x += size * 0.5f;
 		yEdgePosition = position;
 		yEdgePosition.y += size * 0.5f;
+
+		worldPosition = wp;
 	}
 
 	public Voxel () {}

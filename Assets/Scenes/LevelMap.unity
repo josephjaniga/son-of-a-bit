@@ -1673,6 +1673,7 @@ GameObject:
   - 114: {fileID: 411576828}
   - 114: {fileID: 411576829}
   - 114: {fileID: 411576830}
+  - 114: {fileID: 411576831}
   m_Layer: 0
   m_Name: FatherBit
   m_TagString: Untagged
@@ -1774,6 +1775,24 @@ MonoBehaviour:
   secondary: {fileID: 0}
   tertiary: {fileID: 0}
   attributes: []
+--- !u!114 &411576831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 411576826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 014a70d03535f47de93a71d65a9c149c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resolution: 64
+  fastPointSpeed: 2
+  slowPointSpeed: .200000003
+  threshold: .5
+  Voxels: {fileID: 0}
+  _displacement: {x: 9.99999975e-05, y: 9.99999975e-05, z: 9.99999975e-05}
+  frequency: 1
 --- !u!1 &444564975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1904,6 +1923,49 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 472101764}
+--- !u!1 &473724803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 473724805}
+  - 114: {fileID: 473724804}
+  m_Layer: 0
+  m_Name: VoxelMap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &473724804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 473724803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb9418d0cc024695928b083ccdb9813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 128
+  voxelResolution: 128
+  chunkResolution: 1
+  voxelGridPrefab: {fileID: 11400000, guid: fd1833acfe45142f99b53a1e4ac91c70, type: 2}
+--- !u!4 &473724805
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 473724803}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!1 &474346095
 GameObject:
   m_ObjectHideFlags: 0

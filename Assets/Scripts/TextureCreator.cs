@@ -18,25 +18,33 @@ public class TextureCreator : MonoBehaviour {
 
 	public GameObject Voxels;
 
-
 	[SerializeField]
 	Vector3 _displacement = 0.0001f * Vector3.one;
 
 	public Perlin perlin = new Perlin();
 
-
 	public MeshGenerator gen;	
 
+	void Start(){
+		if ( GameObject.Find("Voxels") == null ){
+			Voxels = new GameObject("Voxels");
+		}
+	}
 
 	private void Update () {
 		if (transform.hasChanged) {
 			transform.hasChanged = false;
 			FillTexture();
-			MakeVoxels();
+			//MakeVoxels();
 		}
 	}
 
 	private void OnEnable(){
+
+		if ( GameObject.Find("Voxels") == null ){
+			Voxels = new GameObject("Voxels");
+		}
+
 		perlin.OctaveCount = 4;
 		perlin.Frequency = 0.1f;
 		if (texture == null) {
@@ -48,7 +56,7 @@ public class TextureCreator : MonoBehaviour {
 			GetComponent<MeshRenderer>().material.mainTexture = texture;
 		}
 		FillTexture();
-		MakeVoxels();
+		//MakeVoxels();
 	}
 
 	public float frequency = 1f;
@@ -75,7 +83,7 @@ public class TextureCreator : MonoBehaviour {
 			for (int x = 0; x < resolution; x++) {
 				Vector3 point = Vector3.Lerp(point0, point1, (x + 0.5f) * stepSize);
 				if ( valueAtPoint(point, frequency) > threshold )
-					texture.SetPixel(x, y, Color.white);
+					texture.SetPixel(x, y, Color.green);
 				else 
 					texture.SetPixel(x, y, Color.black);
 			}
@@ -136,19 +144,28 @@ public class TextureCreator : MonoBehaviour {
 
 	}
 
-	public float valueAtPoint(Vector3 point, float frequency){
+	public float valueAtPoint(Vector3 point, float frequency, int octaves = 1){
 		float value = 0f;
 		Vector3 pure = point;
 		Vector3 fastPoint = point * fastPointSpeed;
 		Vector3 slowPoint = point * slowPointSpeed;
 		point *= frequency;
 
+		// BASE SURFACE
 		value = Noise.HorizontalGradient1D(point, 3f, 0f);
+
+		//value += Noise.HorizontalGradient1D(point, -1.5f, -3f) * .25f;
+
 		//value += Random.Range(-.25f, .25f);
 		// value += (Mathf.PerlinNoise(slowPoint.x, slowPoint.y)-.5f) *.5f;
 		// value += (Mathf.PerlinNoise(point.x, point.y)-.5f) *.5f;			
 		// value += (Mathf.PerlinNoise(fastPoint.x, fastPoint.y)-.5f) *.5f;
-		value += ((float)perlin.GetValue(point + _displacement) - 0.5f ) * .5f;
+
+		for (int j=0; j<octaves; j++){
+			value += ((float)perlin.GetValue(point * Mathf.Pow(frequency, -j) + _displacement) - 0.25f ) * .5f;
+		}
+
+		//value += ((float)perlin.GetValue(point + _displacement) - 0.5f ) * .5f;
 
 		return value;
 	}

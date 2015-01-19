@@ -23,6 +23,31 @@ public class VoxelGrid : MonoBehaviour {
 
 	private Voxel dummyX, dummyY, dummyT;
 
+	public static TextureCreator tc;
+
+
+	public float frequency = 1f;
+	public float threshold = 0.5f;
+
+
+	void Start(){
+		if ( tc == null ){
+			tc = GameObject.Find("FatherBit").GetComponent<TextureCreator>();
+		}
+		if ( tc.Voxels == null ){
+			if ( GameObject.Find("Voxels") == null ){
+				tc.Voxels = new GameObject("Voxels");
+			} else {
+				tc.Voxels = GameObject.Find("Voxels");
+			}
+		}
+	}
+
+	void Update () {
+		Refresh();
+		setTerrain(frequency, threshold);
+	}
+
 	public void Initialize (int resolution, float size) {
 		this.resolution = resolution;
 		gridSize = size;
@@ -45,6 +70,7 @@ public class VoxelGrid : MonoBehaviour {
 		vertices = new List<Vector3>();
 		triangles = new List<int>();
 		Refresh();
+		setTerrain(frequency, threshold);
 	}
 
 	private void CreateVoxel (int i, int x, int y) {
@@ -53,7 +79,8 @@ public class VoxelGrid : MonoBehaviour {
 		o.transform.localPosition = new Vector3((x + 0.5f) * voxelSize, (y + 0.5f) * voxelSize, -0.01f);
 		o.transform.localScale = Vector3.one * voxelSize * 0.1f;
 		voxelMaterials[i] = o.GetComponent<MeshRenderer>().material;
-		voxels[i] = new Voxel(x, y, voxelSize);
+		voxels[i] = new Voxel(x, y, voxelSize, o.transform.localPosition);
+		o.SetActive(false);
 	}
 
 	private void Refresh () {
@@ -262,5 +289,23 @@ public class VoxelGrid : MonoBehaviour {
 			}
 		}
 		Refresh();
+	}
+
+	public void setTerrain(float frequency, float threshold){
+		Refresh();
+		Vector3 _gridDisplacement = transform.position;
+		Vector3 _mapDisplacement = GameObject.Find("VoxelMap").transform.position;
+		Vector3 _halfRes = new Vector3(resolution/2, resolution/2, 0f);
+		if ( tc == null ){
+			tc = GameObject.Find("FatherBit").GetComponent<TextureCreator>();
+		}
+
+		for (int i = 0; i < voxels.Length; i++) {
+			if ( tc.valueAtPoint( new Vector3(voxels[i].position.x, voxels[i].position.y, 0f) + _gridDisplacement, frequency) >= threshold ){
+				voxels[i].state = true;
+			} else {
+				voxels[i].state = false;
+			}
+		}
 	}
 }

@@ -57,14 +57,14 @@ public class VoxelMap : MonoBehaviour {
 	}
 
 	private void Update () {
-		if (Input.GetMouseButton(0)) {
-			RaycastHit hitInfo;
-			if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo)) {
-				if (hitInfo.collider.gameObject == gameObject) {
-					EditVoxels(transform.InverseTransformPoint(hitInfo.point));
-				}
-			}
-		}
+		// if (Input.GetMouseButton(0)) {
+		// 	RaycastHit hitInfo;
+		// 	if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo)) {
+		// 		if (hitInfo.collider.gameObject == gameObject) {
+		// 			EditVoxels(transform.InverseTransformPoint(hitInfo.point));
+		// 		}
+		// 	}
+		// }
 	}
 
 	private void EditVoxels (Vector3 point) {
@@ -105,13 +105,13 @@ public class VoxelMap : MonoBehaviour {
 	}
 
 	private void OnGUI () {
-		GUILayout.BeginArea(new Rect(4f, 4f, 150f, 500f));
-		GUILayout.Label("Fill Type");
-		fillTypeIndex = GUILayout.SelectionGrid(fillTypeIndex, fillTypeNames, 2);
-		GUILayout.Label("Radius");
-		radiusIndex = GUILayout.SelectionGrid(radiusIndex, radiusNames, 6);
-		GUILayout.Label("Stencil");
-		stencilIndex = GUILayout.SelectionGrid(stencilIndex, stencilNames, 2);
-		GUILayout.EndArea();
+		// GUILayout.BeginArea(new Rect(4f, 4f, 150f, 500f));
+		// GUILayout.Label("Fill Type");
+		// fillTypeIndex = GUILayout.SelectionGrid(fillTypeIndex, fillTypeNames, 2);
+		// GUILayout.Label("Radius");
+		// radiusIndex = GUILayout.SelectionGrid(radiusIndex, radiusNames, 6);
+		// GUILayout.Label("Stencil");
+		// stencilIndex = GUILayout.SelectionGrid(stencilIndex, stencilNames, 2);
+		// GUILayout.EndArea();
 	}
 }
