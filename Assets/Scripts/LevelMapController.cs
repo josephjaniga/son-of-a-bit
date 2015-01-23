@@ -120,6 +120,7 @@ public class LevelMapController : MonoBehaviour {
 		}
 	}
 
+
 	public void generateRooms(){
 		rooms = new List<GameObject>();
 		numberOfRooms = UnityEngine.Random.Range(dp.minRooms, dp.maxRooms);
