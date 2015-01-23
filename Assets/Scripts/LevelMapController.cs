@@ -89,11 +89,11 @@ public class LevelMapController : MonoBehaviour {
 		 */
 		if ( dp.levelType == LevelTypes.LegacySurface ){
 			// generateLegacySurface ();
-			generateSurface ();
+			generateVoxels ();
 		}
 
 		if ( dp.levelType == LevelTypes.Surface ){
-			generateSurface ();
+			generateVoxels ();
 		}
 	
 		TextTools.clearAlerts();
@@ -107,8 +107,17 @@ public class LevelMapController : MonoBehaviour {
 
 	}
 
-	public void generateNoise(){
-		
+	public void generateVoxels(){
+		Vector3 thePosition = Vector3.zero;
+		for (int x=-100; x<100; x++){
+			for(int y=-215; y < 44; y++){
+				thePosition = new Vector3((float)x, (float)y, 0f);
+				if ( Noise.valueAtPoint(thePosition, 0.1f, 8) > 0.5f ){
+					GameObject temp = GameObject.CreatePrimitive(PrimitiveType.Cube);
+					temp.transform.position = thePosition;
+				}
+			}
+		}
 	}
 
 	public void generateRooms(){

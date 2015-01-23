@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 
+using LibNoise.Generator;
+
 public delegate float NoiseMethod (Vector3 point, float frequency);
 
 public static class Noise {
+
+	public static Perlin perlin = new Perlin();
+
 
 	public static NoiseMethod[] valueMethods = {
 		Value1D,
@@ -99,6 +104,40 @@ public static class Noise {
 		} else {
 			value = 1f - ((iy - bottom) / distance);
 		}
+		return value;
+	}
+
+
+	public static float fastPointSpeed = 2f;
+	public static float slowPointSpeed = 0.2f;
+	public static Vector3 _displacement = 0.0001f * Vector3.one;
+
+	public static float valueAtPoint(Vector3 point, float frequency = 0.1f, int octaves = 1){
+		float value = 0f;
+		Vector3 pure = point;
+		Vector3 fastPoint = point * fastPointSpeed;
+		Vector3 slowPoint = point * slowPointSpeed;
+		point *= frequency;
+
+		perlin.OctaveCount = octaves;
+		perlin.Frequency = frequency;
+
+		// BASE SURFACE
+		value = Noise.HorizontalGradient1D(point, 3f, 0f);
+
+		//value += Noise.HorizontalGradient1D(point, -1.5f, -3f) * .25f;
+
+		//value += Random.Range(-.25f, .25f);
+		// value += (Mathf.PerlinNoise(slowPoint.x, slowPoint.y)-.5f) *.5f;
+		// value += (Mathf.PerlinNoise(point.x, point.y)-.5f) *.5f;			
+		// value += (Mathf.PerlinNoise(fastPoint.x, fastPoint.y)-.5f) *.5f;
+
+		for (int j=0; j<octaves; j++){
+			value += ((float)perlin.GetValue(point * Mathf.Pow(frequency, -j) + _displacement) - 0.25f ) * .5f;
+		}
+
+		//value += ((float)perlin.GetValue(point + _displacement) - 0.5f ) * .5f;
+
 		return value;
 	}
 
