@@ -108,6 +108,7 @@ public class LevelMapController : MonoBehaviour {
 	}
 
 	public void generateVoxels(){
+		// make all voxels withing size
 		Vector3 thePosition = Vector3.zero;
 		for (int x=-100; x<100; x++){
 			for(int y=-215; y < 44; y++){
@@ -118,6 +119,9 @@ public class LevelMapController : MonoBehaviour {
 				}
 			}
 		}
+
+		// enable only whats on camera
+		// voxel pooling
 	}
 
 
