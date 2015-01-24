@@ -47,7 +47,6 @@ public class LevelMapController : MonoBehaviour {
 		ship = GameObject.Find ("PlayerShip");
 		playa = GameObject.Find ("Player");
 
-
 		populateAttributes(dp.planetType);
 
 		if ( dp.levelSeed == -1 ){
@@ -108,20 +107,26 @@ public class LevelMapController : MonoBehaviour {
 	}
 
 	public void generateVoxels(){
+
+		GameObject voxel = Resources.Load("Prefabs/Voxel") as GameObject;
+
+		GameObject voxels = GameObject.Find("Voxels");
+		if ( voxels == null ){
+			voxels = new GameObject("Voxels");
+		}
+
 		// make all voxels withing size
 		Vector3 thePosition = Vector3.zero;
-		for (int x=-100; x<100; x++){
-			for(int y=-215; y < 44; y++){
+		for (int x=-64; x<64; x++){
+			for(int y=-64; y<64; y++){
 				thePosition = new Vector3((float)x, (float)y, 0f);
-				if ( Noise.valueAtPoint(thePosition, 0.1f, 8) > 0.5f ){
-					GameObject temp = GameObject.CreatePrimitive(PrimitiveType.Cube);
-					temp.transform.position = thePosition;
+				if ( Noise.valueAtPoint(thePosition, 0.1f, 2) > 0.5f ){
+					GameObject temp = Instantiate(voxel, thePosition, Quaternion.identity) as GameObject;
+					temp.transform.SetParent(voxels.transform);
 				}
 			}
 		}
 
-		// enable only whats on camera
-		// voxel pooling
 	}
 
 
