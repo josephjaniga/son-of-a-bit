@@ -87,12 +87,13 @@ public class LevelMapController : MonoBehaviour {
 		 * DEPRECATED
 		 */
 		if ( dp.levelType == LevelTypes.LegacySurface ){
-			// generateLegacySurface ();
-			generateVoxels ();
+			generateLegacySurface ();
+			//generateVoxels ();
 		}
 
 		if ( dp.levelType == LevelTypes.Surface ){
-			generateVoxels ();
+			//generateVoxels ();
+			generateLegacySurface ();
 		}
 	
 		TextTools.clearAlerts();
@@ -179,6 +180,7 @@ public class LevelMapController : MonoBehaviour {
 		Vector3 rPosition = new Vector3(0f, rSize.y/2f, 1f);
 		makeRoom(rSize, rPosition).name = "Surface";
 		// hide the background
+		GameObject.Find("Background").SetActive(false);
 
 		GameObject surface = GameObject.Find ("Surface");
 		surface.transform.localScale = new Vector3(2000f, 150f, 1f);
@@ -192,13 +194,13 @@ public class LevelMapController : MonoBehaviour {
 		subTerrain.transform.position = new Vector3(rPosition.x, -rSize.y, rPosition.z);
 		subTerrain.renderer.material.color = Color.black;
 
-		GameObject atmosphericPerspective = GameObject.CreatePrimitive(PrimitiveType.Quad);
-		atmosphericPerspective.name = "AtmosphericPerspective";
-		atmosphericPerspective.transform.SetParent(GameObject.Find ("LevelMap").transform);
-		atmosphericPerspective.transform.localScale = new Vector3(2000f, 150f, 1f);
-		atmosphericPerspective.transform.position = new Vector3(0f, 150f/2, 77f);
-		atmosphericPerspective.renderer.material.color = new Color(0f, 0f, 0f, 173f/255f);
-		atmosphericPerspective.renderer.material.shader = Shader.Find ("Transparent/Diffuse");
+		// GameObject atmosphericPerspective = GameObject.CreatePrimitive(PrimitiveType.Quad);
+		// atmosphericPerspective.name = "AtmosphericPerspective";
+		// atmosphericPerspective.transform.SetParent(GameObject.Find ("LevelMap").transform);
+		// atmosphericPerspective.transform.localScale = new Vector3(2000f, 150f, 1f);
+		// atmosphericPerspective.transform.position = new Vector3(0f, 150f/2, 77f);
+		// atmosphericPerspective.renderer.material.color = new Color(0f, 0f, 0f, 173f/255f);
+		// atmosphericPerspective.renderer.material.shader = Shader.Find ("Transparent/Diffuse");
 
 		GameObject T = Instantiate(Resources.Load("Prefabs/TerrainPrefab"), new Vector3(-1000, 0f, -1000), Quaternion.identity) as GameObject;
 		int res = 513;
@@ -213,68 +215,68 @@ public class LevelMapController : MonoBehaviour {
 			// i%res - Y
 			// i/res - X
 
-			// FOREGROUND
-			if ( i%res >res/2-2 && i%res <res/2+2 ){
-				heights[i%res, i/res] = UnityEngine.Random.Range(.005f, .0075f);
-				heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Sin( i/res )/525 * UnityEngine.Random.Range(.90f, 1.2f);
-				heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Cos( res/i )/525;
-				heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Sin( i/res * .2f + UnityEngine.Random.Range(0f, 1f))/255;
-			}
+			// // FOREGROUND
+			// if ( i%res >res/2-2 && i%res <res/2+2 ){
+			// 	heights[i%res, i/res] = UnityEngine.Random.Range(.005f, .0075f);
+			// 	heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Sin( i/res )/525 * UnityEngine.Random.Range(.90f, 1.2f);
+			// 	heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Cos( res/i )/525;
+			// 	heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Sin( i/res * .2f + UnityEngine.Random.Range(0f, 1f))/255;
+			// }
 
-			// MIDGROUND rolling hills
-			if ( i%res < res *.55f && i%res >= res * .54f ){ 
-				heights[i%res, i/res] = UnityEngine.Random.Range(.005f, .0075f);
-				heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Sin( i/res * .11f - 30f )/75;
-			}
+			// // MIDGROUND rolling hills
+			// if ( i%res < res *.55f && i%res >= res * .54f ){ 
+			// 	heights[i%res, i/res] = UnityEngine.Random.Range(.005f, .0075f);
+			// 	heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Sin( i/res * .11f - 30f )/75;
+			// }
 			
-			// MIDGROUND rolling hills
-			if ( i%res < res *.53f && i%res >= res * .52f ){ 
-				//heights[i%res, i/res] = UnityEngine.Random.Range(.005f, .0075f);
-				heights[i%res, i/res] = heights[i%res, i/res] +  Mathf.Sin( i/res * .15f )/95;
-			}
+			// // MIDGROUND rolling hills
+			// if ( i%res < res *.53f && i%res >= res * .52f ){ 
+			// 	//heights[i%res, i/res] = UnityEngine.Random.Range(.005f, .0075f);
+			// 	heights[i%res, i/res] = heights[i%res, i/res] +  Mathf.Sin( i/res * .15f )/95;
+			// }
 
-			// LARGE BG MOUNTAINS FRONT
-			if ( i%res < res *.60f && i%res >= res * .56f ){ // large backgro9und peaks
-				float r = UnityEngine.Random.Range(.5f, 5.2f);
-				if ( Mathf.Sin( i/res * .25f )/175 * r + Mathf.Cos(i%res + i/res )/125 > 0f ){
-					heights[i%res, i/res] = UnityEngine.Random.Range(.015f, .027f);
-				} else {
-					heights[i%res, i/res] = 0f;
-				}
-				heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Sin( i/res * .25f )/175 * r + Mathf.Cos(i%res + i/res )/125;
-			}
+			// // LARGE BG MOUNTAINS FRONT
+			// if ( i%res < res *.60f && i%res >= res * .56f ){ // large backgro9und peaks
+			// 	float r = UnityEngine.Random.Range(.5f, 5.2f);
+			// 	if ( Mathf.Sin( i/res * .25f )/175 * r + Mathf.Cos(i%res + i/res )/125 > 0f ){
+			// 		heights[i%res, i/res] = UnityEngine.Random.Range(.015f, .027f);
+			// 	} else {
+			// 		heights[i%res, i/res] = 0f;
+			// 	}
+			// 	heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Sin( i/res * .25f )/175 * r + Mathf.Cos(i%res + i/res )/125;
+			// }
 
-			// INCLINE UP TO THE MONTAIN
-			if ( i%res < res *.575f && i%res >= res * .57f ){ // large background peaks
-				heights[i%res, i/res] *= .75f;
-			}
-			if ( i%res < res *.57f && i%res >= res * .565f ){ // large background peaks
-				heights[i%res, i/res] *= .5f;
-			}
-			if ( i%res < res *.565f && i%res >= res * .56f ){ // large background peaks
-				heights[i%res, i/res] *= .25f;
-			}
+			// // INCLINE UP TO THE MONTAIN
+			// if ( i%res < res *.575f && i%res >= res * .57f ){ // large background peaks
+			// 	heights[i%res, i/res] *= .75f;
+			// }
+			// if ( i%res < res *.57f && i%res >= res * .565f ){ // large background peaks
+			// 	heights[i%res, i/res] *= .5f;
+			// }
+			// if ( i%res < res *.565f && i%res >= res * .56f ){ // large background peaks
+			// 	heights[i%res, i/res] *= .25f;
+			// }
 
-			// Mountainous Random Spattering
-			if ( i%res < res *.66f && i%res >= res * .65f ){ // large backgro9und peaks
-				heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Sin( i/res * .08f - .11f )/33 * UnityEngine.Random.Range(.1f, .6f) + Mathf.Cos( i%res + i/res + .3f )/22 * UnityEngine.Random.Range(.3f, .6f);
-			}
+			// // Mountainous Random Spattering
+			// if ( i%res < res *.66f && i%res >= res * .65f ){ // large backgro9und peaks
+			// 	heights[i%res, i/res] = heights[i%res, i/res] + Mathf.Sin( i/res * .08f - .11f )/33 * UnityEngine.Random.Range(.1f, .6f) + Mathf.Cos( i%res + i/res + .3f )/22 * UnityEngine.Random.Range(.3f, .6f);
+			// }
 
-			// RANDOM  BUMP TEXTURE
-			//heights[i%res, i/res] = heights[i%res, i/res] + UnityEngine.Random.Range(-.1f, .1f)/125;
+			// // RANDOM  BUMP TEXTURE
+			// //heights[i%res, i/res] = heights[i%res, i/res] + UnityEngine.Random.Range(-.1f, .1f)/125;
 
-			// FOREGROUND FIX
-			// of the foreground make the furthest back the tallest
-			if ( i%res > res/2-2 && i%res <res/2 ){
-				if ( i/res > 0 && heights[i%res, i/res-1] != 0f )
-					heights[i%res, i/res] = heights[i%res, i/res-1] * .99f;
-			}
+			// // FOREGROUND FIX
+			// // of the foreground make the furthest back the tallest
+			// if ( i%res > res/2-2 && i%res <res/2 ){
+			// 	if ( i/res > 0 && heights[i%res, i/res-1] != 0f )
+			// 		heights[i%res, i/res] = heights[i%res, i/res-1] * .99f;
+			// }
 
 
-			// SMOOTHING
-			if ( i > 0 &&  i < res*res && i%2 != 0 ){
-				heights[i%res, i/res] = (heights[i%res, (i+1)/res] + heights[i%res, (i-1)/res] ) /2;
-			}
+			// // SMOOTHING
+			// if ( i > 0 &&  i < res*res && i%2 != 0 ){
+			// 	heights[i%res, i/res] = (heights[i%res, (i+1)/res] + heights[i%res, (i-1)/res] ) /2;
+			// }
 
 
 			/*
@@ -309,6 +311,17 @@ public class LevelMapController : MonoBehaviour {
 				}
 			}
 			*/
+			
+			if ( i%res == res/2 ){
+				heights[i%res, i/res] = Noise.Value2D(new Vector3(i/res, i%res, 0f), 32f) *.01f;
+			}
+
+			// FOREGROUND FIX
+			// of the foreground make the furthest back the tallest
+			if ( i%res > res/2-2 && i%res <res/2 ){
+				if ( i/res > 0 && heights[i%res, i/res-1] != 0f )
+					heights[i%res, i/res] = heights[i%res, i/res-1] * .99f;
+			}
 
 		}
 
@@ -317,49 +330,49 @@ public class LevelMapController : MonoBehaviour {
 
 		/* Make Procedural Textures and Assign them */
 
-		Texture2D texture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
-		texture.SetPixel(0, 0, new Color(.35f, 0f, 0f));
-		texture.Apply();
+		// Texture2D texture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+		// texture.SetPixel(0, 0, new Color(.35f, 0f, 0f));
+		// texture.Apply();
 
-		Texture2D texture2 = new Texture2D(1, 1, TextureFormat.ARGB32, false);
-		texture2.SetPixel(0, 0, new Color(0f, .35f, 0f) );
-		texture2.Apply();
+		// Texture2D texture2 = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+		// texture2.SetPixel(0, 0, new Color(0f, .35f, 0f) );
+		// texture2.Apply();
 
-		Texture2D texture3 = new Texture2D(1, 1, TextureFormat.ARGB32, false);
-		texture3.SetPixel(0, 0, new Color(0f, 0f, .35f));
-		texture3.Apply();
+		// Texture2D texture3 = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+		// texture3.SetPixel(0, 0, new Color(0f, 0f, .35f));
+		// texture3.Apply();
 
-		Texture2D texture4 = new Texture2D(1, 1, TextureFormat.ARGB32, false);
-		texture4.SetPixel(0, 0, Color.white);
-		texture4.Apply();
+		// Texture2D texture4 = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+		// texture4.SetPixel(0, 0, Color.white);
+		// texture4.Apply();
 
-		SplatPrototype[] SPS = new SplatPrototype[4];
-		SPS[0] = new SplatPrototype();
-		SPS[0].texture = texture;
-		SPS[0].tileOffset = new Vector2(0f, 0f);
-		SPS[0].tileSize = new Vector2(1f, 1f);
-		SPS[0].texture.Apply (true);
+		// SplatPrototype[] SPS = new SplatPrototype[4];
+		// SPS[0] = new SplatPrototype();
+		// SPS[0].texture = texture;
+		// SPS[0].tileOffset = new Vector2(0f, 0f);
+		// SPS[0].tileSize = new Vector2(1f, 1f);
+		// SPS[0].texture.Apply (true);
 
-		SPS[1] = new SplatPrototype();
-		SPS[1].texture = texture2;
-		SPS[1].tileOffset = new Vector2(0f, 0f);
-		SPS[1].tileSize = new Vector2(1f, 1f);
-		SPS[1].texture.Apply (true);
+		// SPS[1] = new SplatPrototype();
+		// SPS[1].texture = texture2;
+		// SPS[1].tileOffset = new Vector2(0f, 0f);
+		// SPS[1].tileSize = new Vector2(1f, 1f);
+		// SPS[1].texture.Apply (true);
 
-		SPS[2] = new SplatPrototype();
-		SPS[2].texture = texture3;
-		SPS[2].tileOffset = new Vector2(0f, 0f);
-		SPS[2].tileSize = new Vector2(1f, 1f);
-		SPS[2].texture.Apply (true);
+		// SPS[2] = new SplatPrototype();
+		// SPS[2].texture = texture3;
+		// SPS[2].tileOffset = new Vector2(0f, 0f);
+		// SPS[2].tileSize = new Vector2(1f, 1f);
+		// SPS[2].texture.Apply (true);
 
-		SPS[3] = new SplatPrototype();
-		SPS[3].texture = texture4;
-		SPS[3].tileOffset = new Vector2(0f, 0f);
-		SPS[3].tileSize = new Vector2(1f, 1f);
-		SPS[3].texture.Apply (true);
+		// SPS[3] = new SplatPrototype();
+		// SPS[3].texture = texture4;
+		// SPS[3].tileOffset = new Vector2(0f, 0f);
+		// SPS[3].tileSize = new Vector2(1f, 1f);
+		// SPS[3].texture.Apply (true);
 
-		//T.AddComponent<AssignSplatMap>();
-		tData.splatPrototypes = SPS; 
+		// //T.AddComponent<AssignSplatMap>();
+		// tData.splatPrototypes = SPS; 
 		
 	}
 
@@ -393,8 +406,6 @@ public class LevelMapController : MonoBehaviour {
 			subTerrain.collider.enabled = false;
 		}
 		
-
-
 		mountains = new List<GameObject>();
 		int mountainCounter = 0;
 		// populate list of mountains
