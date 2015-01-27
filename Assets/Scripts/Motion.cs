@@ -86,7 +86,10 @@ public class Motion : MonoBehaviour {
 					y = leftJoystick.position.y * tempSpeed;
 				}
 				
-				rigidbody.velocity = new Vector3(x, y, 0f);
+				if ( rigidbody != null )
+					rigidbody.velocity = new Vector3(x, y, 0f);
+				else
+					rigidbody2D.velocity = new Vector3(x, y);
 
 			}
 
